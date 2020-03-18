@@ -1,0 +1,14 @@
+.chart-container {
+  width: 20rem !important;
+  height: 23rem !important;
+  margin: auto;
+}
+
+.country-title {
+  text-align: center;
+}
+
+.chart-canvas {
+  /*width: 20rem !important;*/
+  /*height: 20rem !important;*/
+}

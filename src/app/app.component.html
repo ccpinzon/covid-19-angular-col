@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="../assets/css/tablecss.css">
-
+  <title>Covid-19 Colombia</title>
 </head>
 <body>
 
@@ -25,18 +25,13 @@
 </nav>
 
 <div class="container">
-  <hr>
-  <div class="col-sm-12">
-    <img src="../assets/resources/colban.png" class="rounded mx-auto d-block"  [ngStyle]="{height:heightCol, width:widthCol}" alt="25px">
-  </div>
-  <hr>
-
+<!--  <hr>-->
   <div class="row">
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="alert alert-warning"  ALIGN="CENTER" role="alert">
         <u>Casos</u>:  {{this.actualCountry.cases}}
       </div>
-  </div>
+    </div>
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="    alert alert-danger"  ALIGN="CENTER" role="alert">
         <u>Muertes</u>:  {{this.actualCountry.deaths}}
@@ -55,18 +50,30 @@
     </div>
 
   </div>
+<!--  <hr>-->
+  <div class="row">
+    <div class="col-sm-6">
+      <img src="../assets/resources/colban.png" class="rounded mx-auto d-block"  [ngStyle]="{height:heightCol, width:widthCol}" alt="25px">
+<!--      <div style="height: 100%;"-->
+<!--           leaflet-->
+<!--           [leafletOptions]="options" (leafletClick)="onMapClick($event)">-->
+<!--      </div>-->
+    </div>
+    <div class="col-sm-6">
+      <app-chart [chartData]="chartData.currentCountry" *ngIf="renderChart"></app-chart>
+    </div>
+  </div>
   <hr>
+
 
   <h5 ALIGN="CENTER">LATINOAMERICA</h5>
 
-  <hr>
+<!--  <hr>-->
   <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
     <table  id="tableCountry" class="table table-hover">
       <thead class="thead-dark">
       <tr>
-        <th  scope="col" >Paises
-
-        </th>
+        <th  scope="col" >Paises</th>
         <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
         <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
         <th (click)="reorderByCured()" class="text-center" scope="col">Recuperados</th>
@@ -74,7 +81,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let country of latinCountries">
+      <tr *ngFor="let country of latinCountries"
+          class="country-item"
+          (click)="getCountryByName(country.name)"
+          [class.active]="actualCountry && actualCountry.name === country.name">
         <th scope="row">
 <!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
           {{upperFirstLetter(country.name)}}
@@ -94,16 +104,6 @@
 
 
 </div>
-
-
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 
 </body>
 
