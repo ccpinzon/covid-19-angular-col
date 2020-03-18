@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import Chart from 'chart.js';
 
 @Component({
@@ -7,7 +7,7 @@ import Chart from 'chart.js';
   styleUrls: ['./chart.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnInit, OnChanges {
+export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() chartData: {
     name: string,
     country: string,
@@ -70,10 +70,10 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    window.addEventListener('load', () => {
-      // console.log(this.chartData);
-      this.renderChart();
-    });
+  }
+
+  ngAfterViewInit(): void {
+    this.renderChart();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
