@@ -20,11 +20,18 @@ export class CovidApiService {
       catchError(this.handleError)
     );
   }
-  getCountryList(): Observable<CountryModel[]>{
+  getCountryList(): Observable<CountryModel[]> {
     return this.http.get<CountryModel[]>(this.apiUrl).pipe(
       catchError(this.handleError)
     );
   }
+
+  getLatinAmericaList(): Observable<CountryModel[]> {
+    return this.http.get<CountryModel[]>(this.apiUrl + 'latinAmerica').pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(error) {
     let errorMessage = '';
     if ( error.error instanceof ErrorEvent) {

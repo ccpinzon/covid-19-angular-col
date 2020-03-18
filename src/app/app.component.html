@@ -44,7 +44,7 @@
     </div>
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="alert alert-info"  ALIGN="CENTER" role="alert">
-        <u>Sospechosos</u>:  {{this.actualCountry.suspects}}
+        <u>Criticos</u>:  {{this.actualCountry.critic}}
       </div>
 
     </div>
@@ -52,32 +52,32 @@
   </div>
 <!--  <hr>-->
   <div class="row">
-    <div class="col-sm-6">
-      <img src="../assets/resources/colban.png" class="rounded mx-auto d-block"  [ngStyle]="{height:heightCol, width:widthCol}" alt="25px">
+<!--    <div class="col-sm-6">-->
+<!--      <img src="../assets/resources/colban.png" class="rounded mx-auto d-block"  [ngStyle]="{height:heightCol, width:widthCol}" alt="25px">-->
 <!--      <div style="height: 100%;"-->
 <!--           leaflet-->
 <!--           [leafletOptions]="options" (leafletClick)="onMapClick($event)">-->
 <!--      </div>-->
-    </div>
-    <div class="col-sm-6">
+<!--    </div>-->
+    <div class="col-sm-12">
       <app-chart [chartData]="chartData.currentCountry" *ngIf="renderChart"></app-chart>
     </div>
   </div>
   <hr>
 
 
-  <h5 ALIGN="CENTER">LATINOAMERICA</h5>
+  <h5 ALIGN="CENTER">America Latina</h5>
 
 <!--  <hr>-->
   <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
     <table  id="tableCountry" class="table table-hover">
       <thead class="thead-dark">
       <tr>
-        <th  scope="col" >Paises</th>
+        <th  scope="col" >Pais</th>
         <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
         <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
         <th (click)="reorderByCured()" class="text-center" scope="col">Recuperados</th>
-        <th (click)="reorderBySuspected()" class="text-center" scope="col">Sospechosos</th>
+        <th (click)="reorderBySuspected()" class="text-center" scope="col">Criticos</th>
       </tr>
       </thead>
       <tbody>
@@ -87,12 +87,12 @@
           [class.active]="actualCountry && actualCountry.name === country.name">
         <th scope="row">
 <!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
-          {{upperFirstLetter(country.name)}}
+         {{ ( !country.nameEs || country.nameEs === '') ? this.upperFirstLetter(country.name) : country.nameEs}}
         </th>
         <td align="center">{{country.cases}}</td>
         <td align="center">{{country.deaths}}</td>
         <td align="center">{{country.cured}}</td>
-        <td align="center">{{country.suspects}}</td>
+        <td align="center">{{country.critic}}</td>
       </tr>
 
       </tbody>

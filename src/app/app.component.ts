@@ -41,13 +41,13 @@ export class AppComponent {
   }
 
   constructor( private covidApiService: CovidApiService) {
-    this.getCountryList();
+    this.getLatinAmericaList();
     this.getCountryByName('colombia');
     console.log(`Country : ${JSON.stringify(this.actualCountry)}`);
   }
 
-  getCountryList() {
-    this.covidApiService.getCountryList().subscribe(res => {
+  getLatinAmericaList() {
+    this.covidApiService.getLatinAmericaList().subscribe(res => {
       console.log(`getCountryList : ${JSON.stringify(res)}`);
       // order list
       res.sort( (countryA, countryB) =>  countryB.cases - countryA.cases);
@@ -118,17 +118,17 @@ export class AppComponent {
       case 'currentCountry':
         this.chartData.currentCountry = {
           name: type,
-          country: this.upperFirstLetter(data.name),
+          country: ( !data.nameEs || data.nameEs === '') ? this.upperFirstLetter(data.name) : data.nameEs,
           chartData: {
             type: 'doughnut',
             data: {
-              labels: ['Casos', 'Muertes', 'Recuperados', 'Sospechosos'],
+              labels: ['Casos', 'Muertes', 'Recuperados', 'Criticos'],
               datasets: [{
                 data: [
                   AppComponent.getDataInt(data.cases),
                   AppComponent.getDataInt(data.deaths),
                   AppComponent.getDataInt(data.cured),
-                  AppComponent.getDataInt(data.suspects)
+                  AppComponent.getDataInt(data.critic)
                 ],
                 backgroundColor: [
                   'rgba(255, 243, 205, 0.2)',
