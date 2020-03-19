@@ -4,7 +4,7 @@ import Chart from 'chart.js';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css'],
+  styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
@@ -21,6 +21,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     options: {}
   };
   chart;
+  fullWidth = false;
   constructor() { }
 
   getOptions(type) {
@@ -43,7 +44,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   renderChart() {
+    // console.log('rawData:', this.chartData);
     const {name, chartData} = this.chartData;
+    this.fullWidth = chartData.type === 'line';
+    // console.log('fullWidth', this.fullWidth, chartData.type);
     let {options} = this.chartData;
     const ctx: any = document.getElementById(name);
     ctx.getContext('2d');
@@ -65,7 +69,8 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     if (!data || !this.chart) { return; }
     const {chartData} = data;
     this.chart.data.datasets = chartData.data.datasets;
-    // console.log('rendering data>', JSON.stringify(chartData.data.datasets));
+    this.chart.data.labels = chartData.data.labels;
+    // console.log('rendering data>', JSON.stringify(chartData.data.labels));
     this.chart.update();
   }
 

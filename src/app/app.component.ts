@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import {CovidApiService} from './covid-api.service';
+import {CovidApiService} from './services/covid-api.service';
 import {CountryModel} from './models/country.model';
 import {circle, latLng, marker, tileLayer} from 'leaflet';
+import {FormatChartDataService} from './services/format-chart-data.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
@@ -19,10 +21,7 @@ export class AppComponent {
   curedReorder: boolean;
   suspectedReorder: boolean;
   casesReorder: boolean;
-  renderChart = false;
-  chartData = {
-    currentCountry: {}
-  };
+  chartData;
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 10, attribution: '' }),
@@ -40,15 +39,16 @@ export class AppComponent {
     return parseInt(value || 0, 10);
   }
 
-  constructor( private covidApiService: CovidApiService) {
+  constructor(private covidApiService: CovidApiService,
+              private formatChartData: FormatChartDataService) {
     this.getLatinAmericaList();
     this.getCountryByName('colombia');
-    console.log(`Country : ${JSON.stringify(this.actualCountry)}`);
+    // console.log(`Country : ${JSON.stringify(this.actualCountry)}`);
   }
 
   getLatinAmericaList() {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
-      console.log(`getCountryList : ${JSON.stringify(res)}`);
+      // console.log(`getCountryList : ${JSON.stringify(res)}`);
       // order list
       res.sort( (countryA, countryB) =>  countryB.cases - countryA.cases);
       this.casesReorder = true;
@@ -59,9 +59,13 @@ export class AppComponent {
   getCountryByName(countryName: string ) {
     if (countryName) {
         this.covidApiService.getCountry(countryName).subscribe(res => {
-          console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
+          // console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
           this.actualCountry = res;
-          this.getChartData('currentCountry', this.actualCountry);
+          if (this.actualCountry.history && this.actualCountry.history.length > 0) {
+            this.getChartData('history', this.actualCountry);
+          } else {
+            // this.getChartData('currentCountry', this.actualCountry);
+          }
         });
     }
   }
@@ -97,7 +101,7 @@ export class AppComponent {
   }
 
   reorderByCases() {
-    console.log('click cases order ')
+    // console.log('click cases order ')
     if (this.latinCountries && !this.casesReorder ) {
       this.latinCountries.sort( (countryA, countryB) =>  countryB.cases - countryA.cases);
       this.casesReorder = true;
@@ -107,49 +111,10 @@ export class AppComponent {
     }
   }
 
-  private upperFirstLetter(text: string): string {
-    return text.charAt(0).toUpperCase() + text.slice(1, text.length);
-  }
-
   getChartData(type, data) {
-    console.log(data);
+    // console.log(data);
     if (!data) { return; }
-    switch (type) {
-      case 'currentCountry':
-        this.chartData.currentCountry = {
-          name: type,
-          country: ( !data.nameEs || data.nameEs === '') ? this.upperFirstLetter(data.name) : data.nameEs,
-          chartData: {
-            type: 'doughnut',
-            data: {
-              labels: ['Casos', 'Muertes', 'Recuperados', 'Criticos'],
-              datasets: [{
-                data: [
-                  AppComponent.getDataInt(data.cases),
-                  AppComponent.getDataInt(data.deaths),
-                  AppComponent.getDataInt(data.cured),
-                  AppComponent.getDataInt(data.critic)
-                ],
-                backgroundColor: [
-                  'rgba(255, 243, 205, 0.2)',
-                  'rgba(248, 215, 218, 0.2)',
-                  'rgba(212, 237, 218, 0.2)',
-                  'rgba(209, 236, 241, 0.2)'
-                ],
-                borderColor: [
-                  'rgba(255, 243, 205, 1)',
-                  'rgba(248, 215, 218, 1)',
-                  'rgba(212, 237, 218, 1)',
-                  'rgba(209, 236, 241, 1)'
-                ]
-              }]
-            }
-          }
-        };
-        break;
-    }
-
-    this.renderChart = true;
+    this.chartData = this.formatChartData.format(type, data);
   }
 
   onMapClick(event) {

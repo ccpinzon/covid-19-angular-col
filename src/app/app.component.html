@@ -26,25 +26,26 @@
 
 <div class="container">
 <!--  <hr>-->
-  <div class="row">
+  <div class="row info-box-container">
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-warning"  ALIGN="CENTER" role="alert">
-        <u>Casos</u>:  {{this.actualCountry.cases}}
+      <div *ngIf="actualCountry" class="alert alert-warning text-center" role="alert">
+        <span>📊 <span class="d-none d-lg-inline">Casos</span></span>:  {{this.actualCountry.cases}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="    alert alert-danger"  ALIGN="CENTER" role="alert">
-        <u>Muertes</u>:  {{this.actualCountry.deaths}}
+      <div *ngIf="actualCountry" class="alert alert-danger text-center" role="alert">
+        <!-- ☠ -->
+        <span>💀<span class="d-none d-lg-inline">Muertes</span></span>:  {{this.actualCountry.deaths}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-success"  ALIGN="CENTER" role="alert">
-        <u>Recuperados</u>:  {{this.actualCountry.cured}}
+      <div *ngIf="actualCountry" class="alert alert-success text-center" role="alert">
+        <span>💚 <span class="d-none d-lg-inline">Recuperados</span></span>:  {{this.actualCountry.cured}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-info"  ALIGN="CENTER" role="alert">
-        <u>Criticos</u>:  {{this.actualCountry.critic}}
+      <div *ngIf="actualCountry" class="alert alert-critic text-center" role="alert">
+        <span>🤒 <span class="d-none d-lg-inline">Críticos</span></span>:  {{this.actualCountry.critic}}
       </div>
 
     </div>
@@ -60,24 +61,24 @@
 <!--      </div>-->
 <!--    </div>-->
     <div class="col-sm-12">
-      <app-chart [chartData]="chartData.currentCountry" *ngIf="renderChart"></app-chart>
+      <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
     </div>
   </div>
   <hr>
 
 
-  <h5 ALIGN="CENTER">America Latina</h5>
+  <h5 ALIGN="CENTER">América Latina</h5>
 
 <!--  <hr>-->
   <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
     <table  id="tableCountry" class="table table-hover">
       <thead class="thead-dark">
       <tr>
-        <th  scope="col" >Pais</th>
+        <th  scope="col" >País</th>
         <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
         <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
         <th (click)="reorderByCured()" class="text-center" scope="col">Recuperados</th>
-        <th (click)="reorderBySuspected()" class="text-center" scope="col">Criticos</th>
+        <th (click)="reorderBySuspected()" class="text-center" scope="col">Críticos</th>
       </tr>
       </thead>
       <tbody>
@@ -87,7 +88,7 @@
           [class.active]="actualCountry && actualCountry.name === country.name">
         <th scope="row">
 <!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
-         {{ ( !country.nameEs || country.nameEs === '') ? this.upperFirstLetter(country.name) : country.nameEs}}
+         {{country.nameEs}}
         </th>
         <td align="center">{{country.cases}}</td>
         <td align="center">{{country.deaths}}</td>
