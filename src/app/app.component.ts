@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CovidApiService} from './services/covid-api.service';
 import {CountryModel} from './models/country.model';
-import {CountryService} from './services/country.service';
 import {PercentModel} from './models/percent.model';
 import {FormatChartDataService} from './services/format-chart-data.service';
 
@@ -18,23 +17,13 @@ export class AppComponent implements OnInit {
   chartData;
   percentGlobal: PercentModel = {percent: 0, confirmation: false};
   percentLA: PercentModel = {percent: 0, confirmation: false};
-  renderChart = false;
-  widthPercentGlobal = '70%';
 
   constructor(private covidApiService: CovidApiService,
-              private countryService: CountryService,
               private formatChartData: FormatChartDataService) {
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
     this.getPercentLatinAmerica();
-
-    this.countryService.componentMethodCalled$.subscribe(() => {
-      // console.log(' get data from country service');
-      this.actualCountry = this.countryService.selectedCountry;
-      this.chartData = this.countryService.chartData;
-      this.renderChart = this.countryService.renderChart;
-    });
 
   }
 
