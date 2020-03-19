@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CountryModel} from '../models/country.model';
-import {CovidApiService} from '../covid-api.service';
+import {CovidApiService} from '../apis/covid-api.service';
 import {AppComponent} from '../app.component';
 import {circle, latLng, tileLayer} from 'leaflet';
 import {CountryService} from '../services/country.service';

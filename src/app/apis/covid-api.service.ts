@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {CountryModel} from './models/country.model';
+import {CountryModel} from '../models/country.model';
 import {catchError, retry} from 'rxjs/operators';
+import {PercentModel} from '../models/percent.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ export class CovidApiService {
   constructor( private http: HttpClient ) { }
 
   getCountry(countryName: string): Observable<CountryModel> {
-    console.log('call method getCountry')
     return this.http.get<CountryModel>(this.apiUrl + countryName).pipe(
       // retry(1),
       catchError(this.handleError)
@@ -28,6 +28,17 @@ export class CovidApiService {
 
   getLatinAmericaList(): Observable<CountryModel[]> {
     return this.http.get<CountryModel[]>(this.apiUrl + 'latinAmerica').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getPercentGlobal(): Observable<PercentModel> {
+    return this.http.get<PercentModel>(this.apiUrl + 'globalPercentRestored').pipe(
+      catchError(this.handleError)
+    );
+  }
+  getPercentLatinAmerica(): Observable<PercentModel> {
+    return this.http.get<PercentModel>(this.apiUrl + 'latinAmericaPercentRestored').pipe(
       catchError(this.handleError)
     );
   }

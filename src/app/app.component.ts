@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {CovidApiService} from './covid-api.service';
+import {CovidApiService} from './apis/covid-api.service';
 import {CountryModel} from './models/country.model';
 import {circle, latLng, marker, tileLayer} from 'leaflet';
 import {CountryService} from './services/country.service';
+import {PercentModel} from './models/percent.model';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,14 @@ export class AppComponent {
   title = 'covid19-col';
   actualCountry: CountryModel;
   latinCountries: CountryModel[] = [];
+  allCountries: CountryModel[] = []
   chartData = {
     currentCountry: {}
   };
+  percentGlobal: PercentModel;
+  percentLA: PercentModel;
   renderChart = false;
+  widthPercentGlobal = '70%';
 
   static getDataInt(value) {
     return parseInt(value || 0, 10);
@@ -25,6 +30,9 @@ export class AppComponent {
 
   constructor(private covidApiService: CovidApiService, private countryService: CountryService) {
     this.getLatinAmericaList();
+    this.getAllCountries();
+    this.getPercentGlobal();
+    this.getPercentLatinAmerica()
 
     this.countryService.componentMethodCalled$.subscribe(() => {
       console.log(' get data from country service');
@@ -39,6 +47,24 @@ export class AppComponent {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
       res.sort((countryA, countryB) => countryB.cases - countryA.cases);
       this.latinCountries = res;
+    });
+  }
+  getPercentGlobal() {
+    this.covidApiService.getPercentGlobal().subscribe( res => {
+      this.percentGlobal = res;
+    });
+  }
+
+  getPercentLatinAmerica() {
+    this.covidApiService.getPercentLatinAmerica().subscribe( res => {
+      this.percentLA = res;
+    });
+  }
+
+  getAllCountries() {
+    this.covidApiService.getCountryList().subscribe(res => {
+      res.sort((countryA, countryB) => countryB.cases - countryA.cases);
+      this.allCountries = res;
     });
   }
 
