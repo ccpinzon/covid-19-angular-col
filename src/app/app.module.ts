@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ChartModule} from './chart/chart.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TableComponent } from './table/table.component';
+import {CountryService} from './services/country.service';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { TableComponent } from './table/table.component';
     ChartModule,
     LeafletModule.forRoot()
   ],
-  providers: [],
+  providers: [CountryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

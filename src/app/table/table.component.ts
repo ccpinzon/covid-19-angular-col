@@ -3,6 +3,7 @@ import {CountryModel} from '../models/country.model';
 import {CovidApiService} from '../covid-api.service';
 import {AppComponent} from '../app.component';
 import {circle, latLng, tileLayer} from 'leaflet';
+import {CountryService} from '../services/country.service';
 
 @Component({
   selector: 'app-table',
@@ -17,9 +18,6 @@ export class TableComponent implements OnInit {
   casesReorder: boolean;
   actualCountry: CountryModel;
   renderChart = false;
-  chartData = {
-    currentCountry: {}
-  };
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 10, attribution: ''}),
@@ -32,7 +30,7 @@ export class TableComponent implements OnInit {
     center: latLng(4.039617826768437, -72.59765625000001)
   };
 
-  constructor(private covidApiService: CovidApiService ) {
+  constructor(private covidApiService: CovidApiService, private countryService: CountryService ) {
     this.casesReorder = true;
   }
 
@@ -44,6 +42,8 @@ export class TableComponent implements OnInit {
       this.covidApiService.getCountry(countryName).subscribe(res => {
         console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
         this.actualCountry = res;
+        this.countryService.setSelectedCountry(this.actualCountry);
+        this.countryService.callComponentMethod();
         this.getChartData('currentCountry', this.actualCountry);
       });
     }
@@ -94,11 +94,11 @@ export class TableComponent implements OnInit {
 
   getChartData(type, data) {
     console.log(data);
-    console.log(this.chartData);
+    console.log(this.countryService.chartData);
     if (!data) { return; }
     switch (type) {
       case 'currentCountry':
-        this.chartData.currentCountry = {
+        this.countryService.chartData.currentCountry = {
           name: type,
           country: ( !data.nameEs || data.nameEs === '') ? this.upperFirstLetter(data.name) : data.nameEs,
           chartData: {
