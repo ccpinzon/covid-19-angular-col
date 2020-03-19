@@ -6,4 +6,5 @@ export class CountryModel {
   critic: number;
   cured: number;
   deaths: number;
+  history: Array<any>;
 }
