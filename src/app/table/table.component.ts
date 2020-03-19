@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CountryModel} from '../models/country.model';
-import {CovidApiService} from '../apis/covid-api.service';
+import {CovidApiService} from '../services/covid-api.service';
 import {AppComponent} from '../app.component';
 import {circle, latLng, tileLayer} from 'leaflet';
 import {CountryService} from '../services/country.service';
@@ -25,8 +25,7 @@ export class TableComponent implements OnInit {
     this.getCountryByName('colombia');
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {  }
 
    getCountryByName(countryName: string ) {
     if (countryName) {

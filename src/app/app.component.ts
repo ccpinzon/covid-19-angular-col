@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {CovidApiService} from './apis/covid-api.service';
+import {CovidApiService} from './services/covid-api.service';
 import {CountryModel} from './models/country.model';
 import {circle, latLng, marker, tileLayer} from 'leaflet';
 import {CountryService} from './services/country.service';
 import {PercentModel} from './models/percent.model';
+import {FormatChartDataService} from './services/format-chart-data.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,7 @@ export class AppComponent {
   actualCountry: CountryModel;
   latinCountries: CountryModel[] = [];
   allCountries: CountryModel[] = []
-  chartData = {
-    currentCountry: {}
-  };
+  chartData;
   percentGlobal: PercentModel;
   percentLA: PercentModel;
   renderChart = false;
@@ -28,7 +27,9 @@ export class AppComponent {
     return parseInt(value || 0, 10);
   }
 
-  constructor(private covidApiService: CovidApiService, private countryService: CountryService) {
+  constructor(private covidApiService: CovidApiService,
+              private countryService: CountryService,
+              private formatChartData: FormatChartDataService) {
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
