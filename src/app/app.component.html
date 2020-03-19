@@ -16,9 +16,9 @@
 <nav class="navbar navbar-light bg-light" >
   <div class="col-md-12" style="text-align: center">
     <a class="navbar-brand"   href="#">
-      <img src="../assets/resources/Bandera-Col.png" width="30px" height="100%" class="d-inline-block align-top" alt="">
+      🇨🇴
       COVID-19 COLOMBIA
-      <img src="../assets/resources/virus2.jpg" width="30px" height="100%" class="d-inline-block align-top" alt="">
+      🦠
     </a>
   </div>
 
@@ -26,25 +26,26 @@
 
 <div class="container">
 <!--  <hr>-->
-  <div class="row">
+  <div class="row info-box-container">
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-warning"  ALIGN="CENTER" role="alert">
-        <u>Casos</u>:  {{this.actualCountry.cases}}
+      <div *ngIf="actualCountry" class="alert alert-warning text-center" role="alert">
+        <span>😷 <span class="d-none d-lg-inline">Casos</span></span>:  {{this.actualCountry.cases}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="    alert alert-danger"  ALIGN="CENTER" role="alert">
-        <u>Muertes</u>:  {{this.actualCountry.deaths}}
+      <div *ngIf="actualCountry" class="alert alert-danger text-center" role="alert">
+        <!-- ☠ -->
+        <span>❌<span class="d-none d-lg-inline">Muertes</span></span>:  {{this.actualCountry.deaths}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-success"  ALIGN="CENTER" role="alert">
-        <u>Recuperados</u>:  {{this.actualCountry.cured}}
+      <div *ngIf="actualCountry" class="alert alert-success text-center" role="alert">
+        <span>💚 <span class="d-none d-lg-inline">Recuperados</span></span>:  {{this.actualCountry.cured}}
       </div>
     </div>
     <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-info"  ALIGN="CENTER" role="alert">
-        <u>Criticos</u>:  {{this.actualCountry.critic}}
+      <div *ngIf="actualCountry" class="alert alert-critic text-center" role="alert">
+        <span>🤒 <span class="d-none d-lg-inline">Críticos</span></span>:  {{this.actualCountry.critic}}
       </div>
 
     </div>

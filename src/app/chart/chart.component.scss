@@ -1,0 +1,28 @@
+.chart-container {
+  width: 20rem !important;
+  height: 23rem !important;
+  margin: 1rem auto 3rem;
+
+  &.history {
+    width: 100% !important;
+
+    .chart-canvas {
+      height: 100% !important;
+    }
+  }
+}
+
+.country-title {
+  text-align: center;
+}
+
+.chart-canvas {
+  /*width: 20rem !important;*/
+  /*height: 20rem !important;*/
+}
+
+@media (max-width: 991px) {
+  .chart-container {
+    height: 15rem !important;
+  }
+}

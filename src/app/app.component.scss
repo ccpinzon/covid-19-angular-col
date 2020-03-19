@@ -1,0 +1,31 @@
+.country-item {
+  cursor: pointer;
+
+  &.active {
+    background-color: #d0d0d0;
+  }
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  top: 0;
+}
+
+.container {
+  margin-top: 4rem;
+}
+
+.alert-critic {
+  border-color: rgba(255, 165, 0, 0.2);
+  color: rgb(255, 165, 0);
+  background-color: rgba(255, 165, 0, 0.1);
+}
+
+@media (max-width: 991px) {
+  .info-box-container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
