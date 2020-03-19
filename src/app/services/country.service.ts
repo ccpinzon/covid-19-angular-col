@@ -23,7 +23,7 @@ export class CountryService {
     this.selectedCountry = country;
     this.chartData.currentCountry = this.selectedCountry;
     this.renderChart = true;
-    console.log('tv en servicio -> ' + this.selectedCountry);
+    console.log( this.selectedCountry);
   }
 
   callComponentMethod() {

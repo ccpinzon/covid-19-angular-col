@@ -1,0 +1,15 @@
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 400px;
+  overflow-y: scroll;
+} thead th { position: sticky; top: 0; }
+.table-wrapper-scroll-y {
+  display: block;
+}
+.tableFixHead          { overflow: auto; height: 400px; position: relative }
+.tableFixHead thead th { position: sticky; top: 0; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }

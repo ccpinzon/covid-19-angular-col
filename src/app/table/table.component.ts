@@ -18,20 +18,11 @@ export class TableComponent implements OnInit {
   casesReorder: boolean;
   actualCountry: CountryModel;
   renderChart = false;
-  options = {
-    layers: [
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 10, attribution: ''}),
-      // circle([4.039617826768437, -72.59765625000001], { radius: 5000 }),
-    ],
-    overlays: {
-      'Big Circle': circle([4.039617826768437, -72.59765625000001], {radius: 5000})
-    },
-    zoom: 3,
-    center: latLng(4.039617826768437, -72.59765625000001)
-  };
+
 
   constructor(private covidApiService: CovidApiService, private countryService: CountryService ) {
     this.casesReorder = true;
+    this.getCountryByName('colombia');
   }
 
   ngOnInit() {

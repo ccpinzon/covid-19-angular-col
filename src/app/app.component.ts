@@ -25,8 +25,6 @@ export class AppComponent {
 
   constructor(private covidApiService: CovidApiService, private countryService: CountryService) {
     this.getLatinAmericaList();
-    this.getCountryByName('colombia');
-    // console.log(`Country : ${JSON.stringify(this.actualCountry)}`);
 
     this.countryService.componentMethodCalled$.subscribe(() => {
       console.log(' get data from country service');
@@ -39,22 +37,9 @@ export class AppComponent {
 
   getLatinAmericaList() {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
-      // console.log(`getCountryList : ${JSON.stringify(res)}`);
-      // order list
       res.sort((countryA, countryB) => countryB.cases - countryA.cases);
       this.latinCountries = res;
     });
   }
-
-  getCountryByName(countryName: string) {
-    if (countryName) {
-      this.covidApiService.getCountry(countryName).subscribe(res => {
-        console.log(` method getCountryByName :  ${JSON.stringify(res)}`);
-        this.actualCountry = res;
-        // this.getChartData('currentCountry', this.actualCountry);
-      });
-    }
-  }
-
 
 }
