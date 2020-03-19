@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {CountryModel} from '../models/country.model';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError, map, retry, tap} from 'rxjs/operators';
+import {SharedService} from './shared.service';
 import {PercentModel} from '../models/percent.model';
 
 @Injectable({
@@ -12,11 +13,17 @@ export class CovidApiService {
 
   private readonly  apiUrl = 'https://covid-19-col.appspot.com/covid19/';
 
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient,
+              private sharedService: SharedService) { }
 
   getCountry(countryName: string): Observable<CountryModel> {
+    // console.log('call method getCountry');
     return this.http.get<CountryModel>(this.apiUrl + countryName).pipe(
       // retry(1),
+      map(country => {
+        country.nameEs = !country.nameEs ? this.sharedService.upperFirstLetter(country.name) : country.nameEs;
+        return country;
+      }),
       catchError(this.handleError)
     );
   }
@@ -28,10 +35,15 @@ export class CovidApiService {
 
   getLatinAmericaList(): Observable<CountryModel[]> {
     return this.http.get<CountryModel[]>(this.apiUrl + 'latinAmerica').pipe(
+      map(countries => {
+        return countries.map(country => {
+          country.nameEs = !country.nameEs ? this.sharedService.upperFirstLetter(country.name) : country.nameEs;
+          return country;
+        });
+      }),
       catchError(this.handleError)
     );
   }
-
   getPercentGlobal(): Observable<PercentModel> {
     return this.http.get<PercentModel>(this.apiUrl + 'globalPercentRestored').pipe(
       catchError(this.handleError)
