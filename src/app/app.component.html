@@ -69,37 +69,7 @@
   <h5 ALIGN="CENTER">America Latina</h5>
 
 <!--  <hr>-->
-  <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
-    <table  id="tableCountry" class="table table-hover">
-      <thead class="thead-dark">
-      <tr>
-        <th  scope="col" >Pais</th>
-        <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
-        <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
-        <th (click)="reorderByCured()" class="text-center" scope="col">Recuperados</th>
-        <th (click)="reorderBySuspected()" class="text-center" scope="col">Criticos</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let country of latinCountries"
-          class="country-item"
-          (click)="getCountryByName(country.name)"
-          [class.active]="actualCountry && actualCountry.name === country.name">
-        <th scope="row">
-<!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
-         {{ ( !country.nameEs || country.nameEs === '') ? this.upperFirstLetter(country.name) : country.nameEs}}
-        </th>
-        <td align="center">{{country.cases}}</td>
-        <td align="center">{{country.deaths}}</td>
-        <td align="center">{{country.cured}}</td>
-        <td align="center">{{country.critic}}</td>
-      </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
+  <app-table [countries]="this.latinCountries"></app-table>
   <br>
 
 
