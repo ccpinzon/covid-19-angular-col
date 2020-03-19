@@ -27,6 +27,11 @@ export class TableComponent implements OnInit {
       this.currentCountry = country;
       this.country.emit(country.name);
     }
+    this.topFunction();
+  }
+  topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
   reorderByDeaths() {
