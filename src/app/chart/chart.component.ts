@@ -8,6 +8,7 @@ import Chart from 'chart.js';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() modal = false;
   @Input() chartData: {
     name: string,
     country: string,
@@ -45,12 +46,12 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   renderChart() {
-    console.log('rawData:', this.chartData);
+    // console.log('rawData:', this.chartData);
     const {name, chartData} = this.chartData;
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);
     let {options} = this.chartData;
-    const ctx: any = document.getElementById(name);
+    const ctx: any = document.getElementById('canvas-chart');
     ctx.getContext('2d');
     options = {
       ...this.getOptions(chartData.type),
@@ -76,10 +77,25 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
+    const renderMobile = () => {
+      try {
+        if (document.querySelectorAll('.chart-canvas')[0].classList) {
+          this.renderChart();
+        }
+      } catch {
+        renderMobile();
+      }
+    };
+
+    if (this.modal) {
+      renderMobile();
+    }
   }
 
   ngAfterViewInit(): void {
-    this.renderChart();
+    if (this.chartData) {
+      this.renderChart();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

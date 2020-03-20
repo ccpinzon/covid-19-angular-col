@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ChartModule} from './chart/chart.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TableComponent } from './table/table.component';
+import {InfoBoxesModule} from './info-boxes/info-boxes.module';
 
 
 @NgModule({
@@ -14,13 +15,14 @@ import { TableComponent } from './table/table.component';
     AppComponent,
     TableComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ChartModule,
-    LeafletModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ChartModule,
+        LeafletModule.forRoot(),
+        InfoBoxesModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
