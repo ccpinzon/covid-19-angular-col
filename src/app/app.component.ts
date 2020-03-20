@@ -104,9 +104,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('load', () => {
-      this.getCountryByName('colombia');
-    });
+    this.getCountryByName('colombia');
     this.closeModal();
   }
 
