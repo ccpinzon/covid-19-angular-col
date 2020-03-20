@@ -25,12 +25,17 @@
 </nav>
 
 <div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
+    </div>
+  </div>
 <!--  <hr>-->
   <div class="row info-box-container">
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="alert alert-warning text-center" role="alert">
         <h6>
-          <span>😷 <span class="d-none d-lg-inline">Casos</span></span>:  {{this.actualCountry.cases}}
+          <span>😷 <span class="d-none d-lg-inline  d-sm-inline">Casos: </span>{{this.actualCountry.cases}}</span>
         </h6>
       </div>
     </div>
@@ -38,32 +43,28 @@
       <div *ngIf="actualCountry" class="alert alert-danger text-center" role="alert">
         <!-- ☠ -->
         <h6>
-          <span>❌ <span class="d-none d-lg-inline">Muertes</span></span>:  {{this.actualCountry.deaths}}
+          <span>❌ <span class="d-none d-lg-inline d-sm-inline">Muertes: </span>{{this.actualCountry.deaths}}</span>
         </h6>
       </div>
     </div>
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="alert alert-success text-center" role="alert">
         <h6>
-          <span>💚 <span class="d-none d-lg-inline">Recuperados</span></span>:  {{this.actualCountry.cured}}
+          <span>💚 <span class="d-none d-lg-inline  d-sm-inline">Recuperados: </span>{{this.actualCountry.cured}}</span>
         </h6>
       </div>
     </div>
     <div class="col-sm-3">
       <div *ngIf="actualCountry" class="alert alert-critic text-center" role="alert">
         <h6>
-          <span>🤒 <span class="d-none d-lg-inline">Críticos</span></span>:  {{this.actualCountry.critic}}
+          <span>🤒 <span class="d-none d-lg-inline  d-sm-inline">Críticos: </span>{{this.actualCountry.critic}}</span>
         </h6>
       </div>
 
     </div>
 
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
-    </div>
-  </div>
+
   <hr>
 
 
@@ -87,7 +88,6 @@
       <app-table [countries]="this.allCountries" (country)="onCountrySelected($event)"></app-table>
     </div>
   </div>
-
   <hr>
 
 

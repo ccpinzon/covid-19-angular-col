@@ -28,6 +28,7 @@ export class FormatChartDataService {
     return {
       name: type,
       country: data.nameEs,
+      flag: data.flag,
       chartData: {
         type: 'line',
         data: {
@@ -63,6 +64,7 @@ export class FormatChartDataService {
     return {
       name: type,
       country: data.nameEs,
+      flag: data.flag,
       chartData: {
         type: 'doughnut',
         data: {

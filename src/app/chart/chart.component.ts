@@ -11,6 +11,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() chartData: {
     name: string,
     country: string,
+    flag: string,
     chartData: {
       type: string,
       data: {
@@ -44,7 +45,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   renderChart() {
-    // console.log('rawData:', this.chartData);
+    console.log('rawData:', this.chartData);
     const {name, chartData} = this.chartData;
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);

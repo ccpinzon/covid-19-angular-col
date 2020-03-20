@@ -2,6 +2,7 @@
   <table  id="tableCountry" class="table table-hover">
     <thead class="thead-dark">
     <tr>
+      <th></th>
       <th scope="col" >País</th>
       <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
       <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
@@ -14,6 +15,8 @@
         class="country-item"
         (click)="selectedCountry(country)"
         [class.active]="currentCountry && currentCountry.name === country.name">
+
+      <td><h4>{{country.flag}}</h4></td>
       <th scope="row">
         <!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
         {{country.nameEs}}

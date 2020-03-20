@@ -69,6 +69,7 @@ export class AppComponent implements OnInit {
   getChartData(type, data) {
     // console.log(data);
     if (!data) { return; }
+    console.log('char data -> ' + JSON.stringify(data))
     this.chartData = this.formatChartData.format(type, data);
   }
 
