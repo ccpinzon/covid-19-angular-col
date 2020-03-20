@@ -25,47 +25,15 @@
 </nav>
 
 <div class="container">
-  <div class="row">
+  <div class="row d-none d-lg-block" *ngIf="!modalOpened">
     <div class="col-sm-12">
       <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
     </div>
   </div>
 <!--  <hr>-->
-  <div class="row info-box-container">
-    <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-warning text-center" role="alert">
-        <h6>
-          <span>😷 <span class="d-none d-lg-inline  d-sm-inline">Casos: </span>{{this.actualCountry.cases}}</span>
-        </h6>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-danger text-center" role="alert">
-        <!-- ☠ -->
-        <h6>
-          <span>❌ <span class="d-none d-lg-inline d-sm-inline">Muertes: </span>{{this.actualCountry.deaths}}</span>
-        </h6>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-success text-center" role="alert">
-        <h6>
-          <span>💚 <span class="d-none d-lg-inline  d-sm-inline">Recuperados: </span>{{this.actualCountry.cured}}</span>
-        </h6>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div *ngIf="actualCountry" class="alert alert-critic text-center" role="alert">
-        <h6>
-          <span>🤒 <span class="d-none d-lg-inline  d-sm-inline">Críticos: </span>{{this.actualCountry.critic}}</span>
-        </h6>
-      </div>
+  <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>
 
-    </div>
-
-  </div>
-
-  <hr>
+  <hr class="d-none d-lg-block">
 
 
   <div class="row">
@@ -93,6 +61,20 @@
 
 
 
+</div>
+
+
+<div class="chart-modal animated show"
+     [hidden]="!modalOpened"
+     [class.zoomIn]="modalOpened"
+     [class.zoomOut]="!modalOpened">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+  </div>
+  <div class="modal-body">
+    <app-info-boxes [currentCountry]="actualCountry"></app-info-boxes>
+    <app-chart [chartData]="chartData" *ngIf="chartData || modalOpened"></app-chart>
+  </div>
 </div>
 
 </body>

@@ -1,0 +1,33 @@
+<div class="row info-box-container">
+  <div class="col-sm-3">
+    <div *ngIf="currentCountry" class="alert alert-warning text-center" role="alert">
+      <h6>
+        <span>😷 <span class="d-none d-lg-inline  d-sm-inline">Casos: </span>{{this.currentCountry.cases}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div *ngIf="currentCountry" class="alert alert-danger text-center" role="alert">
+      <!-- ☠ -->
+      <h6>
+        <span>❌ <span class="d-none d-lg-inline d-sm-inline">Muertes: </span>{{this.currentCountry.deaths}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div *ngIf="currentCountry" class="alert alert-success text-center" role="alert">
+      <h6>
+        <span>💚 <span class="d-none d-lg-inline  d-sm-inline">Recuperados: </span>{{this.currentCountry.cured}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div *ngIf="currentCountry" class="alert alert-critic text-center" role="alert">
+      <h6>
+        <span>🤒 <span class="d-none d-lg-inline  d-sm-inline">Críticos: </span>{{this.currentCountry.critic}}</span>
+      </h6>
+    </div>
+
+  </div>
+
+</div>

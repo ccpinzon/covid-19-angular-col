@@ -1,11 +1,3 @@
-.country-item {
-  cursor: pointer;
-
-  &.active {
-    background-color: #d0d0d0;
-  }
-}
-
 .navbar {
   position: fixed;
   width: 100%;
@@ -17,15 +9,37 @@
   margin-top: 4rem;
 }
 
-.alert-critic {
-  border-color: rgba(255, 165, 0, 0.2);
-  color: rgb(255, 165, 0);
-  background-color: rgba(255, 165, 0, 0.1);
-}
+.chart-modal {
+  visibility: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+  top: 4rem;
+  z-index: 11;
+  background-color: #fff;
+  width: 100%;
+  border-radius: 0.2rem;
+  border: 1px solid lightgray;
 
-@media (max-width: 991px) {
-  .info-box-container {
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+  &.show {
+    visibility: visible;
+    position: fixed;
+    height: 30rem;
+  }
+
+  .modal-body {
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem 0.5rem;
+    text-align: center;
+  }
+
+  .modal-header {
+    border: none;
+    position: absolute;
+    right: 0.5rem;
+    padding: 0;
+    top: 0.5rem;
+    z-index: 12;
   }
 }
+
+

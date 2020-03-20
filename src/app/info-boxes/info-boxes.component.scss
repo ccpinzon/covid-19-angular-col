@@ -1,0 +1,24 @@
+.alert-critic {
+  border-color: rgba(255, 165, 0, 0.2);
+  color: rgb(255, 165, 0);
+  background-color: rgba(255, 165, 0, 0.1);
+}
+
+.info-box-container {
+  margin-top: 1rem;
+}
+
+h6 {
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .info-box-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .alert {
+    padding: 0.3rem;
+  }
+}
