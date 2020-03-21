@@ -12,6 +12,10 @@ h6 {
   margin: 0;
 }
 
+.progress-bar {
+  background-color: limegreen;
+}
+
 @media (max-width: 991px) {
   .info-box-container {
     display: grid;
@@ -22,3 +26,5 @@ h6 {
     padding: 0.3rem;
   }
 }
+
+

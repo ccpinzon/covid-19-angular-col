@@ -38,19 +38,25 @@
 
 
   <div class="row">
-    <div class="col-sm-6 shadow-sm p-3 mb-5 bg-white rounded">
-      <h5 ALIGN="CENTER">America Latina</h5>
+    <div class="tabs-btn d-lg-none">
+      <h5 class="tab-btn text-center" [class.active]="selectedTab.latam" (click)="selectTab('latam')">America Latina</h5>
+      <h5 class="tab-btn text-center" [class.active]="selectedTab.global" (click)="selectTab('global')">Global</h5>
+    </div>
+
+    <div class="table-container col-sm-6 shadow-sm p-3 mb-5 bg-white rounded" *ngIf="selectedTab.latam">
+      <h5 class="text-center d-none d-lg-block">América Latina</h5>
       Recuperación:
-      <div class="progress" style="height: 30px;">
+      <div class="progress" style="height: 20px;">
         <div class="progress-bar" role="progressbar" [ngStyle]="{'width': this.percentLA.percent + 8 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{this.percentLA.percent + '%'}}</div>
       </div>
       <hr>
       <app-table [countries]="this.latinCountries" (country)="onCountrySelected($event)"></app-table>
     </div>
-    <div class="col-sm-6 shadow-sm p-3 mb-5 bg-white rounded">
-      <h5 ALIGN="CENTER">Global</h5>
+
+    <div class="table-container col-sm-6 shadow-sm p-3 mb-5 bg-white rounded" *ngIf="!isMobile || (isMobile && selectedTab.global)">
+      <h5 class="text-center d-none d-lg-block">Global</h5>
       Recuperación:
-      <div class="progress" style="height: 30px;">
+      <div class="progress" style="height: 20px;">
         <div class="progress-bar" role="progressbar" [ngStyle]="{'width': this.percentGlobal.percent + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{this.percentGlobal.percent + '%'}}</div>
       </div>
       <hr>

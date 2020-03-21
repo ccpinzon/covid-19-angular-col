@@ -42,4 +42,42 @@
   }
 }
 
+.tabs-btn {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+
+  .tab-btn {
+    border: 1px solid lightgrey;
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem 0.3rem 0 0;
+    cursor: pointer;
+    color: white;
+    background-color: lightgrey;
+
+    &.active {
+      color: #fff;
+      background-color: #343a40;
+      border-color: #454d55;
+      box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    }
+  }
+}
+
+.progress-bar {
+  background-color: limegreen;
+}
+
+.table-container {
+  border: 1px solid lightgray;
+  border-radius: 0.2rem !important;
+}
+
+@media (max-width: 991px) {
+  .table-container {
+    margin: 0.3rem 0.5rem;
+  }
+}
+
 

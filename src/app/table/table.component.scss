@@ -4,30 +4,59 @@
   overflow-y: scroll;
 }
 
-thead th { position: sticky; top: 0; }
-
-.table-wrapper-scroll-y {
-  display: block;
+cdk-virtual-scroll-viewport {
+  width: 100% !important;
 }
 
-.tableFixHead {
-  overflow: auto;
-  height: 400px;
-  position: relative;
-
-  thead th {
-    position: sticky; top: 0;
-  }
+.country-list {
+  padding: 0;
+  list-style: none;
 }
-
-/* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
 
 .country-item {
   cursor: pointer;
+  display: grid;
+  font-size: 1rem;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  align-items: center;
+  justify-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 0.5rem;
+
+  .country {
+    font-size: 1rem;
+    justify-self: start;
+  }
 
   &.active {
     background-color: #d0d0d0;
+  }
+
+  &:hover {
+    background-color: #d3d3d3;
+  }
+}
+
+.list-header {
+  display: grid;
+  font-size: 1.1rem;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  padding: 0.5rem 0;
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+@media (max-width: 991px) {
+  .country-item {
+    font-size: 0.9rem;
+
+    .country {
+      font-size: 0.8rem;
+    }
+  }
+  .list-header {
+    font-size: 0.7rem;
   }
 }

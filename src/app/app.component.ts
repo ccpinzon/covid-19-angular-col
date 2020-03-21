@@ -21,6 +21,11 @@ export class AppComponent implements OnInit {
   percentGlobal: PercentModel = {percent: 0, confirmation: false};
   percentLA: PercentModel = {percent: 0, confirmation: false};
   colombia: CountryModel;
+  isMobile;
+  selectedTab = {
+    global: false,
+    latam: true
+  };
 
   constructor(private covidApiService: CovidApiService,
               private formatChartData: FormatChartDataService) {
@@ -91,7 +96,7 @@ export class AppComponent implements OnInit {
 
   closeModal() {
     document.addEventListener('click', (event: any) => {
-      if (window.innerWidth < 991 && this.modalOpened) {
+      if (this.isMobile && this.modalOpened) {
         const modalClass = 'chart-modal';
         if (event.target.classList.contains('close') ||
           (!event.target.classList.contains(modalClass) &&
@@ -104,10 +109,27 @@ export class AppComponent implements OnInit {
     this.modalOpened = false;
   }
 
+  selectTab(opt) {
+    this.selectedTab = {
+      latam: false,
+      global: false
+    };
+
+    switch (opt) {
+      case 'latam':
+        this.selectedTab.latam = true;
+        break;
+      case 'global':
+        this.selectedTab.global = true;
+        break;
+    }
+  }
+
 
   ngOnInit(): void {
     this.getCountryByName('colombia');
     this.closeModal();
+    this.isMobile = window.innerWidth < 991;
   }
 
 }

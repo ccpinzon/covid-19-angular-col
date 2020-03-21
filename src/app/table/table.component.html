@@ -1,34 +1,25 @@
 <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
-  <table  id="tableCountry" class="table table-hover">
-    <thead class="thead-dark">
-    <tr>
-      <th></th>
-      <th scope="col" >País</th>
-      <th (click)="reorderByCases()" class="text-center" scope="col" >Casos</th>
-      <th (click)="reorderByDeaths()" class="text-center" scope="col">Muertes</th>
-      <th (click)="reorderByCured()" class="text-center" scope="col">Recuperados</th>
-      <th (click)="reorderBySuspected()" class="text-center" scope="col">Críticos</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let country of countries"
+  <div class="list-header">
+    <strong class="list-header-item text-center">País</strong>
+    <strong class="list-header-item text-center" (click)="reorderByCases()">Casos</strong>
+    <strong class="list-header-item text-center" (click)="reorderByDeaths()">Muertes</strong>
+    <strong class="list-header-item text-center" (click)="reorderByCured()">Recuperados</strong>
+    <strong class="list-header-item text-center" (click)="reorderBySuspected()">Críticos</strong>
+  </div>
+  <cdk-virtual-scroll-viewport itemSize="50" style="height:100%">
+
+  <ul id="tableCountry" class="country-list">
+    <li *cdkVirtualFor="let country of countries"
         class="country-item"
         (click)="selectedCountry(country)"
         [class.active]="currentCountry && currentCountry.name === country.name">
 
-      <td><h4>{{country.flag}}</h4></td>
-      <th scope="row">
-        <!--          <img width="40px" height="40px" class="d-inline-block align-top" src="https://firebasestorage.googleapis.com/v0/b/covid-19-col.appspot.com/o/21_Angular_logo_logos-512.png?alt=media&token=fe9baa4f-0312-44b3-bcf0-5f34d6effb53" alt="">-->
-        {{country.nameEs}}
-      </th>
-      <td align="center">{{country.cases}}</td>
-      <td align="center">{{country.deaths}}</td>
-      <td align="center">{{country.cured}}</td>
-      <td align="center">{{country.critic}}</td>
-    </tr>
-
-    </tbody>
-
-  </table>
-
+      <h4 class="country">{{country.flag}} {{country.nameEs}}</h4>
+      <span class="cases">{{country.cases}}</span>
+      <span class="deaths">{{country.deaths}}</span>
+      <span class="cured">{{country.cured}}</span>
+      <span class="critic">{{country.critic}}</span>
+    </li>
+  </ul>
+  </cdk-virtual-scroll-viewport>
 </div>
