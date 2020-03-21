@@ -29,9 +29,10 @@
     <div class="col-sm-12">
       <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
     </div>
+    <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>
 </div>
 <!--  <hr>-->
-<!--  <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>-->
+
 
   <hr class="d-none d-lg-block">
 
