@@ -1,4 +1,16 @@
+<div class="row justify-content-md-center">
+  <div *ngIf="currentCountry" class="col-sm-4">
+    Recuperación:
+    <div class="progress" style="height: 30px;">
+      <div class="progress-bar" role="progressbar"
+           [ngStyle]="getStylePercentCurrentCountry()"
+           aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{currentCountry.percentRecovered + '%'}}
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row info-box-container">
+
   <div class="col-sm-3">
     <div *ngIf="currentCountry" class="alert alert-warning text-center" role="alert">
       <h6>
@@ -27,7 +39,7 @@
         <span>🤒 <span class="d-none d-lg-inline  d-sm-inline">Críticos: </span>{{this.currentCountry.critic}}</span>
       </h6>
     </div>
-
   </div>
+
 
 </div>

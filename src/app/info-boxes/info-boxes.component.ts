@@ -13,4 +13,12 @@ export class InfoBoxesComponent implements OnInit {
   ngOnInit() {
   }
 
+  getStylePercentCurrentCountry(): any {
+    if (this.currentCountry.percentRecovered) {
+      const styleData = +this.currentCountry.percentRecovered < 2 ? 9 : this.currentCountry.percentRecovered;
+      const style = {width: styleData + '%'};
+      // console.log(style);
+      return style;
+    }
+  }
 }

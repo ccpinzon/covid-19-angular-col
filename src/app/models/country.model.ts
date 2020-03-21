@@ -7,5 +7,6 @@ export class CountryModel {
   cured: number;
   deaths: number;
   flag?: string;
+  percentRecovered?: string;
   history: Array<any>;
 }
