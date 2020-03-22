@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {CountryModel} from '../models/country.model';
 
 @Component({
@@ -6,19 +6,62 @@ import {CountryModel} from '../models/country.model';
   templateUrl: './info-boxes.component.html',
   styleUrls: ['./info-boxes.component.scss']
 })
-export class InfoBoxesComponent implements OnInit {
+export class InfoBoxesComponent implements OnInit, OnChanges {
   @Input() currentCountry: CountryModel;
+
+
   constructor() { }
+  newCases = 0;
+  currentlySick = 0;
+  rates = {
+    mortality: {value: 0, style: {}},
+    recovery:  {value: 0, style: {}}
+  };
+
+  getNewCases() {
+    this.newCases = 0;
+    const history = [...this.currentCountry.history];
+    // console.log(this.currentCountry.history);
+    if (history && history.length > 0) {
+      const len = history.length;
+      this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+    }
+    // console.log(this.newCases);
+  }
+
+  getRates() {
+    // console.log(this.currentCountry);
+    const recovery = this.currentCountry.percentRecovered ? parseFloat(this.currentCountry.percentRecovered) : 0;
+    const mortality = this.currentCountry.cases > 0 ?
+      parseFloat(((this.currentCountry.deaths / this.currentCountry.cases) * 100).toFixed(2)) : 0;
+    const getStyle = value => ({width: `${value}%`});
+    this.rates = {
+      recovery: {
+        value: recovery,
+        style: getStyle(recovery)
+      },
+      mortality: {
+        value: mortality,
+        style: getStyle(mortality)
+      }
+    };
+    // console.log(this.rates);
+  }
+
+  getCurrentSick() {
+    this.currentlySick = this.currentCountry.cases - this.currentCountry.deaths - this.currentCountry.cured;
+  }
 
   ngOnInit() {
   }
 
-  getStylePercentCurrentCountry(): any {
-    if (this.currentCountry.percentRecovered) {
-      const styleData = +this.currentCountry.percentRecovered < 2 ? 9 : this.currentCountry.percentRecovered;
-      const style = {width: styleData + '%'};
-      // console.log(style);
-      return style;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes &&
+      changes.currentCountry &&
+      changes.currentCountry.currentValue) {
+      this.getNewCases();
+      this.getRates();
+      this.getCurrentSick();
     }
   }
 }
