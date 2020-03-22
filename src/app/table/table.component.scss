@@ -48,6 +48,23 @@ cdk-virtual-scroll-viewport {
   border-color: #454d55;
 }
 
+.search {
+  border: 1px solid #454d55;
+  border-radius: 0.2rem;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  margin: 0.5rem 0;
+  display: grid;
+  grid-template-columns: 95% 5%;
+
+  input {
+    font-size: 1rem;
+    width: 100%;
+    border: none;
+  }
+}
+
 @media (max-width: 991px) {
   .country-item {
     font-size: 0.9rem;

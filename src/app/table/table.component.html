@@ -1,4 +1,8 @@
 <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+  <div class="search">
+    <input type="text" [(ngModel)]="query" (ngModelChange)="searchCountry()" placeholder="Buscar: Ej. Colombia">
+    <img src="assets/icons/search.svg" alt="Search Icon">
+  </div>
   <div class="list-header">
     <strong class="list-header-item text-center">País</strong>
     <strong class="list-header-item text-center" (click)="reorderByCases()">Casos</strong>
@@ -9,7 +13,7 @@
   <cdk-virtual-scroll-viewport itemSize="50" style="height:100%">
 
   <ul id="tableCountry" class="country-list">
-    <li *cdkVirtualFor="let country of countries"
+    <li *cdkVirtualFor="let country of filteredCountries"
         class="country-item"
         (click)="selectedCountry(country)"
         [class.active]="currentCountry && currentCountry.name === country.name">
