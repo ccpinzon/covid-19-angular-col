@@ -12,7 +12,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() chartData: {
     name: string,
     country: string,
-    flag: string,
+    flag?: string,
     chartData: {
       type: string,
       data: {
@@ -20,7 +20,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         dataset: Array<any>
       }
     },
-    options: {}
+    options?: {}
   };
   chart;
   fullWidth = false;

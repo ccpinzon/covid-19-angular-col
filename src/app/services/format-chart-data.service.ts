@@ -43,7 +43,8 @@ export class FormatChartDataService {
               // Changes this dataset to become a line
               borderColor: 'rgba(255, 243, 205, 1)',
               backgroundColor: 'rgba(255, 243, 205, 0.2)',
-              type: 'line'
+              type: 'line',
+              borderWidth: 2
             },
             {
               label: 'Muertes',
@@ -51,7 +52,8 @@ export class FormatChartDataService {
               borderColor: 'rgba(210, 53, 69, 0.6)',
               backgroundColor: 'rgba(210, 53, 69, 0.2)',
               // Changes this dataset to become a line
-              type: 'line'
+              type: 'line',
+              borderWidth: 2
             }
           ],
           labels
@@ -87,7 +89,8 @@ export class FormatChartDataService {
               'rgba(248, 215, 218, 1)',
               'rgba(212, 237, 218, 1)',
               'rgba(209, 236, 241, 1)'
-            ]
+            ],
+            borderWidth: 1
           }]
         }
       }

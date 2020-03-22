@@ -1,0 +1,17 @@
+<article class="container">
+
+  <h1 class="title">{{title}}</h1>
+
+  <section class="faq-section">
+    <ng-container *ngFor="let item of info; let i = index">
+      <h3 class="question">{{i + 1}}. {{item.question}}</h3>
+      <p class="answer">{{item.answer}}</p>
+      <app-chart *ngIf="item.chart" [chartData]="item.chart"></app-chart>
+
+      <ng-container *ngFor="let source of item.sources">
+        <small class="source">Fuente: <a [href]="source.link" target="_blank">{{source.description}}</a></small>
+      </ng-container>
+    </ng-container>
+  </section>
+
+</article>

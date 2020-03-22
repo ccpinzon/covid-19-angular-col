@@ -9,11 +9,13 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TableComponent } from './table/table.component';
 import {InfoBoxesModule} from './info-boxes/info-boxes.module';
 import {TableModule} from './table/table.module';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
