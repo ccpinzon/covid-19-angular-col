@@ -1,12 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CountryModel} from '../models/country.model';
+import {SharedService} from '../services/shared.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() countries: CountryModel[] = [];
   @Output() country = new EventEmitter();
   deathsReorder: boolean;
@@ -14,13 +15,13 @@ export class TableComponent implements OnInit {
   suspectedReorder: boolean;
   casesReorder: boolean;
   currentCountry: CountryModel;
+  filteredCountries: CountryModel[] = [];
+  query = '';
 
 
-  constructor() {
+  constructor(private sharedService: SharedService) {
     this.casesReorder = true;
   }
-
-  ngOnInit() {  }
 
   selectedCountry(country) {
     if (country) {
@@ -35,42 +36,63 @@ export class TableComponent implements OnInit {
   }
 
   reorderByDeaths() {
-    if (this.countries && !this.deathsReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryB.deaths - countryA.deaths);
+    if (this.filteredCountries && !this.deathsReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryB.deaths - countryA.deaths);
       this.deathsReorder = true;
-    } else if (this.countries && this.deathsReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryA.deaths - countryB.deaths);
+    } else if (this.filteredCountries && this.deathsReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryA.deaths - countryB.deaths);
       this.deathsReorder = false;
     }
   }
 
   reorderByCured() {
-    if (this.countries && !this.curedReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryB.cured - countryA.cured);
+    if (this.filteredCountries && !this.curedReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryB.cured - countryA.cured);
       this.curedReorder = true;
-    } else if (this.countries && this.curedReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryA.cured - countryB.cured);
+    } else if (this.filteredCountries && this.curedReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryA.cured - countryB.cured);
       this.curedReorder = false;
     }
   }
 
   reorderBySuspected() {
-    if (this.countries && !this.suspectedReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryB.suspects - countryA.suspects);
+    if (this.filteredCountries && !this.suspectedReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryB.suspects - countryA.suspects);
       this.suspectedReorder = true;
-    } else if (this.countries && this.curedReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryA.suspects - countryB.suspects);
+    } else if (this.filteredCountries && this.curedReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryA.suspects - countryB.suspects);
       this.suspectedReorder = false;
     }
   }
 
   reorderByCases() {
-    if (this.countries && !this.casesReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryB.cases - countryA.cases);
+    if (this.filteredCountries && !this.casesReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryB.cases - countryA.cases);
       this.casesReorder = true;
-    } else if (this.countries && this.casesReorder ) {
-      this.countries.sort( (countryA, countryB) =>  countryA.cases - countryB.cases);
+    } else if (this.filteredCountries && this.casesReorder ) {
+      this.filteredCountries.sort( (countryA, countryB) =>  countryA.cases - countryB.cases);
       this.casesReorder = false;
+    }
+  }
+
+  searchCountry() {
+    if (this.query) {
+      const q = this.sharedService.normalizeString(this.query);
+      this.filteredCountries = this.countries
+        .filter(c => this.sharedService.normalizeString(c.nameEs).indexOf(q) >= 0
+          // || this.sharedService.normalizeString(c.name).indexOf(q) >= 0
+        );
+      return;
+    }
+    this.filteredCountries = [...this.countries];
+  }
+
+  ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes && changes.countries && changes.countries.currentValue) {
+      this.filteredCountries = [...this.countries];
     }
   }
 
