@@ -50,6 +50,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
 
   getCurrentSick() {
     this.currentlySick = this.currentCountry.cases - this.currentCountry.deaths - this.currentCountry.cured;
+    // console.log(this.currentlySick);
   }
 
   ngOnInit() {
