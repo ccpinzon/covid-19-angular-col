@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {SharedService} from './shared.service';
-import {DatePipe} from '@angular/common';
+import { SharedService } from './shared.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class FormatChartDataService {
     // console.log({labels, history});
     return {
       name: type,
-      country: data.nameEs,
+      title: data.nameEs,
       flag: data.flag,
       chartData: {
         type: 'line',
@@ -65,7 +65,7 @@ export class FormatChartDataService {
   private currentCountry(data, type) {
     return {
       name: type,
-      country: data.nameEs,
+      title: data.nameEs,
       flag: data.flag,
       chartData: {
         type: 'doughnut',
@@ -97,12 +97,105 @@ export class FormatChartDataService {
     };
   }
 
+  private ageAndGender(data, type) {
+    return {
+      name: type,
+      title: data.title,
+      chartData: {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'F',
+              data: data.chartData.F,
+              backgroundColor: 'rgba(255, 105, 180, 0.3)',
+              borderColor: 'rgba(255, 105, 180, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'M',
+              data: data.chartData.M,
+              backgroundColor: 'rgba(93, 173, 226, 0.3)',
+              borderColor: 'rgba(93, 173, 226, 1)',
+              borderWidth: 1
+            }
+          ]
+        }
+      }
+    };
+  }
+
+  private attention(data, type) {
+    return {
+      name: type,
+      title: data.title,
+      chartData: {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Casa 🏠',
+              data: data.chartData.Casa,
+              backgroundColor: 'rgba(82, 190, 128, 0.3)',
+              borderColor: 'rgba(82, 190, 128, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Hospital 🏥',
+              data: data.chartData.Hospital,
+              backgroundColor: 'rgba(93, 173, 226, 0.3)',
+              borderColor: 'rgba(93, 173, 226, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Fallecido ❌',
+              data: data.chartData.Fallecido,
+              backgroundColor: 'rgba(231, 76, 60, 0.3)',
+              borderColor: 'rgba(231, 76, 60, 1)',
+              borderWidth: 1
+            }
+          ]
+        }
+      }
+    };
+  }
+
+  private departments(data, type) {
+    return {
+      name: type,
+      title: data.title,
+      chartData: {
+        type: 'horizontalBar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Departamentos',
+              data: data.chartData,
+              backgroundColor: 'rgba(175, 122, 197, 0.3)',
+              borderColor: 'rgba(175, 122, 197, 1)',
+              borderWidth: 1
+            }
+          ]
+        }
+      }
+    };
+  }
+
   format(type, data) {
     switch (type) {
       case 'currentCountry':
         return this.currentCountry(data, type);
       case 'history':
         return this.history(data, type);
+      case 'ageAndGender':
+        return this.ageAndGender(data, type);
+      case 'departments':
+        return this.departments(data, type);
+      case 'attention':
+        return this.attention(data, type);
     }
   }
 

@@ -11,7 +11,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modal = false;
   @Input() chartData: {
     name: string,
-    country: string,
+    title: string,
     flag?: string,
     chartData: {
       type: string,
@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);
     let {options} = this.chartData;
-    const ctx: any = document.getElementById('canvas-chart');
+    const ctx: any = document.getElementById(`canvas-chart-${name}`);
     ctx.getContext('2d');
     options = {
       ...this.getOptions(chartData.type),

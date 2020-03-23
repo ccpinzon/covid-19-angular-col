@@ -5,13 +5,17 @@ import {CountryModel} from '../models/country.model';
 import {catchError, map, retry, tap} from 'rxjs/operators';
 import {SharedService} from './shared.service';
 import {PercentModel} from '../models/percent.model';
+import {ColombiaDataModel} from '../models/colombia-data.model';
+import {DepartmentModel} from '../models/department.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CovidApiService {
 
-  private readonly  apiUrl = 'https://covid-19-col.appspot.com/covid19/';
+  private readonly baseUrl = 'https://covid-19-col.appspot.com/';
+
+  private readonly apiUrl = `${this.baseUrl}covid19/`;
 
   constructor(private http: HttpClient,
               private sharedService: SharedService) { }
@@ -27,6 +31,7 @@ export class CovidApiService {
       catchError(this.handleError)
     );
   }
+
   getCountryList(): Observable<CountryModel[]> {
     return this.http.get<CountryModel[]>(this.apiUrl).pipe(
       catchError(this.handleError)
@@ -44,15 +49,27 @@ export class CovidApiService {
       catchError(this.handleError)
     );
   }
+
   getPercentGlobal(): Observable<PercentModel> {
     return this.http.get<PercentModel>(this.apiUrl + 'globalPercentRestored').pipe(
       catchError(this.handleError)
     );
   }
+
   getPercentLatinAmerica(): Observable<PercentModel> {
     return this.http.get<PercentModel>(this.apiUrl + 'latinAmericaPercentRestored').pipe(
       catchError(this.handleError)
     );
+  }
+
+  getColombiaData(): Observable<ColombiaDataModel[]> {
+    return this.http.get<ColombiaDataModel[]>(`${this.baseUrl}c19colombia`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getDataByDepartment(): Observable<DepartmentModel[]> {
+    return this.http.get<DepartmentModel[]>(`${this.baseUrl}c19colombia/casesByDept`)
+      .pipe(catchError(this.handleError));
   }
 
   handleError(error) {

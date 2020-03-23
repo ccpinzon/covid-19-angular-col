@@ -1,0 +1,66 @@
+<article class="container">
+  <h2 class="title text-center">Información detallada de Colombia</h2>
+
+  <section class="chart-section">
+    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
+  </section>
+
+  <hr>
+
+  <section class="chart-section">
+    <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
+    <div class="list-wrapper">
+      <p class="text-center view-more" (click)="toggle('dep')">
+        <span>{{!toggleTable.dep ? 'Ver' : 'Ocultar'}} Tabla</span>
+        <img [src]="'assets/icons/chevron-' + (!toggleTable.dep ? 'down' : 'up') + '.svg'" alt="Arrow">
+      </p>
+      <div class="list-container animated"
+          *ngIf="showTable.dep"
+          [class.slideOutUp]="!toggleTable.dep"
+          [class.slideInDown]="toggleTable.dep">
+        <p class="list-item header">
+          <span class="name">Departamento</span>
+          <span class="cases">Casos</span>
+        </p>
+        <ul class="list default-list">
+          <li class="list-item" *ngFor="let dep of departmentData">
+            <span class="name">{{dep.dept}}</span>
+            <span class="cases">{{dep.cases}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="chart-section">
+    <app-chart *ngIf="attentionChart" [chartData]="attentionChart"></app-chart>
+
+    <div class="list-wrapper attention">
+      <p class="text-center view-more" (click)="toggle('attention')">
+        <span>{{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
+        <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">
+      </p>
+      <div class="list-container animated"
+          *ngIf="showTable.attention"
+          [class.slideOutUp]="!toggleTable.attention"
+          [class.slideInDown]="toggleTable.attention">
+        <p class="list-item header">
+          <span class="label">Edad</span>
+          <span class="label">Casa 🏠</span>
+          <span class="label">Hospital 🏥</span>
+          <span class="label">Fallecido ❌</span>
+        </p>
+        <ul class="list default-list">
+          <li class="list-item" *ngFor="let label of countryData.labels; let i = index">
+            <span class="label">{{label}}</span>
+            <span class="name">{{countryData.sortedAttentionData.Casa[i]}}</span>
+            <span class="name">{{countryData.sortedAttentionData.Hospital[i]}}</span>
+            <span class="name">{{countryData.sortedAttentionData.Fallecido[i]}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</article>
