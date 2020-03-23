@@ -1,45 +1,68 @@
-<div class="row justify-content-md-center">
-  <div *ngIf="currentCountry" class="col-sm-4">
-    Recuperación:
+<section class="row info-box-container" *ngIf="currentCountry">
+
+  <div class="box-info-item">
+    <div class="alert alert-warning text-center" role="alert">
+      <h6>
+        <span>😷 <span class="d-sm-inline">Casos: </span>{{currentCountry.cases}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div class="alert alert-danger text-center" role="alert">
+      <!-- ☠ -->
+      <h6>
+        <span>❌ <span class="d-sm-inline">Muertes: </span>{{currentCountry.deaths}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div class="alert alert-success text-center" role="alert">
+      <h6>
+        <span>💚 <span class="d-sm-inline">Recuperados: </span>{{currentCountry.cured}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div class="alert alert-critic text-center" role="alert">
+      <h6>
+        <span>🤒 <span class="d-sm-inline">Críticos: </span>{{currentCountry.critic}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div *ngIf="currentlySick" class="alert alert-info text-center" role="alert">
+      <h6>
+        <span>🤧 <span class="d-sm-inline">Enfermos: </span>{{currentlySick}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div *ngIf="newCases" class="alert alert-secondary text-center" role="alert">
+      <h6>
+        <span>➕ <span class="d-sm-inline">Casos nuevos: </span>{{newCases}}</span>
+      </h6>
+    </div>
+  </div>
+
+</section>
+
+<section class="rates-wrapper" *ngIf="currentCountry">
+  <div class="rate-bar">
+    Tasa de Recuperación: <strong>{{rates.recovery.value}}%</strong>
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar"
-           [ngStyle]="getStylePercentCurrentCountry()"
-           aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{currentCountry.percentRecovered + '%'}}
+           [ngStyle]="rates.recovery.style"
+           [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
       </div>
     </div>
   </div>
-</div>
-<div class="row info-box-container">
-
-  <div class="col-sm-3">
-    <div *ngIf="currentCountry" class="alert alert-warning text-center" role="alert">
-      <h6>
-        <span>😷 <span class="d-none d-lg-inline  d-sm-inline">Casos: </span>{{currentCountry.cases}}</span>
-      </h6>
+  <div class="rate-bar">
+    Tasa de Mortalidad: <strong>{{rates.mortality.value}}%</strong>
+    <div class="progress" style="height: 20px;">
+      <div class="progress-bar mortality" role="progressbar"
+           [ngStyle]="rates.mortality.style"
+           [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
+      </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div *ngIf="currentCountry" class="alert alert-danger text-center" role="alert">
-      <!-- ☠ -->
-      <h6>
-        <span>❌ <span class="d-none d-lg-inline d-sm-inline">Muertes: </span>{{currentCountry.deaths}}</span>
-      </h6>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div *ngIf="currentCountry" class="alert alert-success text-center" role="alert">
-      <h6>
-        <span>💚 <span class="d-none d-lg-inline  d-sm-inline">Recuperados: </span>{{currentCountry.cured}}</span>
-      </h6>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div *ngIf="currentCountry" class="alert alert-critic text-center" role="alert">
-      <h6>
-        <span>🤒 <span class="d-none d-lg-inline  d-sm-inline">Críticos: </span>{{currentCountry.critic}}</span>
-      </h6>
-    </div>
-  </div>
-
-
-</div>
+</section>
