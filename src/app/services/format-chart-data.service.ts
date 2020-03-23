@@ -41,8 +41,8 @@ export class FormatChartDataService {
               label: 'Casos totales',
               data: history.cases,
               // Changes this dataset to become a line
-              borderColor: 'rgba(255, 243, 205, 1)',
-              backgroundColor: 'rgba(255, 243, 205, 0.2)',
+              borderColor: 'rgba(255, 165, 0, 1)',
+              backgroundColor: 'rgba(255, 165, 0, 0.2)',
               type: 'line',
               borderWidth: 2
             },
