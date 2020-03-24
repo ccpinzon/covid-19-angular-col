@@ -1,7 +1,9 @@
 <section class="container">
   <div class="row d-none d-lg-block" *ngIf="!modalOpened">
-    <div class="col-sm-12">
-      <app-chart [chartData]="chartData" *ngIf="chartData"></app-chart>
+    <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
+      <app-chart [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
+      <hr class="d-lg-none">
+      <app-chart *ngIf="colombia && departmentsChart" [chartData]="departmentsChart"></app-chart>
     </div>
     <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>
   </div>
@@ -53,6 +55,9 @@
   </div>
   <div class="modal-body">
     <app-chart [chartData]="chartData" *ngIf="chartData || modalOpened"></app-chart>
+    <hr>
+    <app-chart *ngIf="departmentsChart && colombia" [chartData]="departmentsChart"></app-chart>
+    <hr>
     <app-info-boxes [currentCountry]="actualCountry"></app-info-boxes>
   </div>
 </div>

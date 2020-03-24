@@ -5,6 +5,7 @@ import { ColombiaRoutingModule } from './colombia-routing.module';
 import { ColombiaComponent } from './colombia.component';
 import {ChartModule} from '../chart/chart.module';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {InfoBoxesModule} from '../info-boxes/info-boxes.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     CommonModule,
     ColombiaRoutingModule,
     ChartModule,
-    ScrollingModule
+    ScrollingModule,
+    InfoBoxesModule
   ]
 })
 export class ColombiaModule { }

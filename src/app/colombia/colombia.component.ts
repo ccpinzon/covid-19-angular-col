@@ -4,6 +4,7 @@ import {ColombiaDataModel} from '../models/colombia-data.model';
 import {FormatChartDataService} from '../services/format-chart-data.service';
 import {DepartmentModel} from '../models/department.model';
 import {SharedService} from '../services/shared.service';
+import {ColombiaService} from '../services/colombia.service';
 
 @Component({
   selector: 'app-colombia',
@@ -15,8 +16,10 @@ export class ColombiaComponent implements OnInit {
   ageChart;
   departmentsChart;
   attentionChart;
+  colombiaChart;
   departmentData: DepartmentModel[] = [];
   countryData;
+  currentCountry;
   toggleTable = {
     dep: false,
     attention: false
@@ -28,86 +31,8 @@ export class ColombiaComponent implements OnInit {
   showAttentionTable = false;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
+              private colombiaService: ColombiaService,
               private formatChartDataService: FormatChartDataService) { }
-
-  getGenderAndAgeData(data: ColombiaDataModel[]) {
-    // console.time('getGenderAndAgeData');
-    let ageLabels = [];
-    let ageData = {};
-    const getObjArr = arr => {
-      const obj = {};
-      arr.forEach(i => { obj[i] = []; });
-      return obj;
-    };
-    const genderLabels = ['F', 'M'];
-    const attentionLabels = ['Casa', 'Hospital', 'Fallecido'];
-    const getObj = (arr) => {
-      const obj = {};
-      arr.map(d => {
-        obj[d] = 0;
-      });
-      return obj;
-    };
-    const sortedData = getObjArr(genderLabels);
-    const sortedAttentionData = getObjArr(attentionLabels);
-
-    data.forEach(item => {
-      if (ageLabels.indexOf(item.ageRange) < 0) {
-        ageLabels.push(item.ageRange);
-        ageData = {
-          ...ageData,
-          [item.ageRange]: {
-            ...getObj(genderLabels),
-            ...getObj(attentionLabels)
-          }
-        };
-      }
-      const idx = attentionLabels.indexOf(this.sharedService.upperFirstLetter(item.attention));
-      item.attention = attentionLabels[idx];
-      ageData[item.ageRange][item.gender] += 1;
-      ageData[item.ageRange][item.attention] += 1;
-    });
-
-    ageLabels.sort();
-    ageLabels = ageLabels.map(label => {
-      for (const p in sortedData) {
-        if (sortedData.hasOwnProperty(p)) {
-          sortedData[p].push(ageData[label][p]);
-        }
-      }
-      for (const p in sortedAttentionData) {
-        if (sortedAttentionData.hasOwnProperty(p)) {
-          sortedAttentionData[p].push(ageData[label][p]);
-        }
-      }
-      return `${label} años`;
-    });
-
-    // console.log({ageLabels, ageData, sortedData, sortedAttentionData});
-    // console.timeEnd('getGenderAndAgeData');
-    return {
-      labels: ageLabels,
-      sortedData,
-      sortedAttentionData
-    };
-  }
-
-  getDepartmentData(data: DepartmentModel[]) {
-    data.sort((a, b) => b.cases - a.cases);
-    const labels = [];
-    const chartData = [];
-
-    data.forEach(item => {
-      labels.push(item.dept);
-      chartData.push(item.cases);
-    });
-    // console.log({data, labels, chartData});
-
-    return {
-      labels,
-      chartData
-    };
-  }
 
   getChartData(type, data) {
     let chartData;
@@ -132,9 +57,13 @@ export class ColombiaComponent implements OnInit {
       case 'departments':
         chartData = {
           title: 'Casos por departamento',
-          ...this.getDepartmentData(data)
+          ...this.colombiaService.getDepartmentData(data)
         };
         this.departmentsChart = this.formatChartDataService.format(type, chartData);
+        // console.log(this.departmentsChart);
+        break;
+      case 'history':
+        this.colombiaChart = this.formatChartDataService.format(type, data);
         // console.log(this.departmentsChart);
         break;
     }
@@ -144,7 +73,7 @@ export class ColombiaComponent implements OnInit {
     this.covidApiService.getColombiaData()
       .subscribe(data => {
         // console.log(data);
-        this.countryData = this.getGenderAndAgeData(data);
+        this.countryData = this.colombiaService.getGenderAndAgeData(data);
         this.getChartData('ageAndGender', this.countryData);
         this.getChartData('attention', this.countryData);
       });
@@ -159,6 +88,16 @@ export class ColombiaComponent implements OnInit {
       });
   }
 
+  getCountryByName(countryName: string ) {
+    if (countryName) {
+      this.covidApiService.getCountry(countryName).subscribe(res => {
+        // console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
+        this.currentCountry = res;
+        this.getChartData('history', this.currentCountry);
+      });
+    }
+  }
+
   toggle(type) {
     this.toggleTable[type] = !this.toggleTable[type];
     const delay = !this.toggleTable[type] ? 1000 : 0;
@@ -168,6 +107,7 @@ export class ColombiaComponent implements OnInit {
   ngOnInit() {
     this.getColombia();
     this.getDepartments();
+    this.getCountryByName('colombia');
   }
 
 }

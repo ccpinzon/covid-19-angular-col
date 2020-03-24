@@ -2,6 +2,15 @@
   <h2 class="title text-center">Información detallada de Colombia</h2>
 
   <section class="chart-section">
+    <div class="col-sm-12">
+      <app-chart [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+    </div>
+    <app-info-boxes [currentCountry]="currentCountry"></app-info-boxes>
+  </section>
+
+  <hr>
+
+  <section class="chart-section">
     <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
   </section>
 
