@@ -27,6 +27,8 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     if (this.currentCountry.name === 'colombia') {
       console.log(this.router.url)
       this.isColombia = this.router.url !== '/colombia';
+    } else {
+      this.isColombia = false;
     }
     if (history && history.length > 0) {
       const len = history.length;
