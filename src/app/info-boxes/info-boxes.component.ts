@@ -30,7 +30,11 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     }
     if (history && history.length > 0) {
       const len = history.length;
-      this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      // this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      this.newCases = this.currentCountry.cases - history[len - 1].cases ;
+      if ( this.newCases === 0 ) {
+        this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      }
     }
     // console.log(this.newCases);
   }
