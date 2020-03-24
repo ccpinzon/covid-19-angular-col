@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
 export class InfoBoxesComponent implements OnInit, OnChanges {
   @Input() currentCountry: CountryModel;
 
-  isColombia: boolean;
   constructor(private router: Router) { }
   newCases = 0;
   currentlySick = 0;
@@ -23,13 +22,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     this.newCases = 0;
     const history = [...this.currentCountry.history];
     // console.log(this.currentCountry.history);
-    console.log(this.currentCountry);
-    if (this.currentCountry.name === 'colombia') {
-      console.log(this.router.url)
-      this.isColombia = this.router.url !== '/colombia';
-    } else {
-      this.isColombia = false;
-    }
+    // console.log(this.currentCountry);
     if (history && history.length > 0) {
       const len = history.length;
       // this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
