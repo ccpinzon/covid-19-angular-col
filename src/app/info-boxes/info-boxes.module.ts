@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfoBoxesComponent } from './info-boxes.component';
+import {RouterModule} from '@angular/router';
 
 
 
@@ -11,7 +12,8 @@ import { InfoBoxesComponent } from './info-boxes.component';
     InfoBoxesComponent
   ],
     imports: [
-        CommonModule
+        CommonModule,
+        RouterModule
     ]
 })
 export class InfoBoxesModule { }

@@ -45,7 +45,6 @@
   </div>
 
 </section>
-
 <section class="rates-wrapper" *ngIf="currentCountry">
   <div class="rate-bar">
     Tasa de Recuperación: <strong>{{rates.recovery.value}}%</strong>
@@ -66,3 +65,4 @@
     </div>
   </div>
 </section>
+<p class="see-more"><a *ngIf="isColombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>

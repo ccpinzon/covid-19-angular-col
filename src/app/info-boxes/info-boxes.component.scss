@@ -32,6 +32,31 @@ h6 {
   padding: 0.5rem 0;
 }
 
+.see-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  font-variant: all-petite-caps;
+  text-decoration: none;
+
+
+  &-link {
+    color: white;
+    background-color: #343a40;
+    width: 25%;
+    font-weight: 300;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
 .rate-bar {
   font-size: 0.7rem;
   margin: 0 0.5rem;
