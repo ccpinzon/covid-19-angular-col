@@ -1,13 +1,9 @@
 <section class="container">
-  <div class="row d-none d-lg-block" *ngIf="!modalOpened">
-    <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
-      <app-chart [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
-      <hr class="d-lg-none">
-      <app-chart *ngIf="colombia && departmentsChart" [chartData]="departmentsChart"></app-chart>
+  <ng-container *ngIf="!modalOpened">
+    <div class="row d-none d-lg-block">
+      <ng-container *ngTemplateOutlet="countryInfo"></ng-container>
     </div>
-    <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>
-<!--    <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>-->
-  </div>
+  </ng-container>
   <!--  <hr>-->
 
 
@@ -48,6 +44,7 @@
 </section>
 
 <div class="chart-modal animated show"
+     *ngIf="isMobile"
      [hidden]="!modalOpened"
      [class.zoomIn]="modalOpened"
      [class.zoomOut]="!modalOpened">
@@ -55,10 +52,16 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
   </div>
   <div class="modal-body">
-    <app-chart [chartData]="chartData" *ngIf="chartData || modalOpened"></app-chart>
-    <hr>
-    <app-chart *ngIf="departmentsChart && colombia" [chartData]="departmentsChart"></app-chart>
-    <hr>
-    <app-info-boxes [currentCountry]="actualCountry"></app-info-boxes>
+    <ng-container *ngTemplateOutlet="countryInfo"></ng-container>
   </div>
 </div>
+
+<ng-template #countryInfo>
+  <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
+    <app-chart [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
+    <hr class="d-lg-none">
+    <app-chart *ngIf="colombia && departmentsChart" [chartData]="departmentsChart"></app-chart>
+  </div>
+  <app-info-boxes [currentCountry]="actualCountry"></app-info-boxes>
+  <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
+</ng-template>
