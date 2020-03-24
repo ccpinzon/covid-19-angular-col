@@ -6,6 +6,7 @@
       <app-chart *ngIf="colombia && departmentsChart" [chartData]="departmentsChart"></app-chart>
     </div>
     <app-info-boxes *ngIf="!modalOpened" [currentCountry]="modalOpened ? colombia : actualCountry"></app-info-boxes>
+    <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
   </div>
   <!--  <hr>-->
 
