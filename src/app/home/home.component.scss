@@ -1,21 +1,22 @@
 .container {
-  margin-top: 5rem;
+  margin: 5rem auto;
 }
 
 .chart-modal {
   visibility: hidden;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
-  top: 4rem;
-  z-index: 11;
   background-color: #fff;
   width: 100%;
   border-radius: 0.2rem;
   border: 1px solid lightgray;
+  position: fixed;
+  top: 1rem;
+  z-index: 10000;
 
   &.show {
     visibility: visible;
     position: fixed;
-    height: 87vh;
+    height: 96vh;
   }
 
   .modal-body {
@@ -23,6 +24,8 @@
     width: 100%;
     padding: 1.5rem 0.5rem;
     text-align: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .modal-header {
@@ -74,8 +77,21 @@
   width: 100%;
 }
 
+.chart-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  &.full-width {
+    display: block;
+  }
+}
+
 @media (max-width: 991px) {
   .tables-wrapper  {
+    display: block;
+  }
+
+  .chart-container {
     display: block;
   }
 }

@@ -3,6 +3,7 @@ import { CountryModel } from '../models/country.model';
 import { PercentModel } from '../models/percent.model';
 import { CovidApiService } from '../services/covid-api.service';
 import { FormatChartDataService } from '../services/format-chart-data.service';
+import {ColombiaService} from '../services/colombia.service';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,14 @@ export class HomeComponent implements OnInit {
   percentLA: PercentModel = {percent: 0, confirmation: false};
   colombia: CountryModel;
   isMobile;
+  departmentsChart;
   selectedTab = {
     global: false,
     latam: true
   };
 
   constructor(private covidApiService: CovidApiService,
+              private colombiaService: ColombiaService,
               private formatChartData: FormatChartDataService) {}
 
   getLatinAmericaList() {
@@ -57,12 +60,28 @@ export class HomeComponent implements OnInit {
       this.covidApiService.getCountry(countryName).subscribe(res => {
         // console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
         this.actualCountry = res;
-        this.getChartData('history', this.actualCountry);
+        this.departmentsChart =  null;
+        this.colombia =  null;
         if (countryName.toLowerCase().indexOf('colombia') >= 0) {
           this.colombia = res;
+          this.getDepartments();
         }
+        this.getChartData('history', this.actualCountry);
       });
     }
+  }
+
+  getDepartments() {
+    this.covidApiService.getDataByDepartment()
+      .subscribe(data => {
+        // console.log(data);
+        const chartData = {
+          title: 'Casos por departamento',
+          ...this.colombiaService.getDepartmentData(data)
+        };
+        this.departmentsChart = this.formatChartData.format('departments', chartData);
+        this.getChartData('departments', data);
+      });
   }
 
   getChartData(type, data) {
