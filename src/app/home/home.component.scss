@@ -10,7 +10,7 @@
   border-radius: 0.2rem;
   border: 1px solid lightgray;
   position: fixed;
-  top: 1rem;
+  top: 0;
   z-index: 10000;
 
   &.show {
@@ -119,5 +119,11 @@
 
   .chart-container {
     display: block;
+  }
+
+  .see-more {
+    &-link {
+      width: 10rem;
+    }
   }
 }
