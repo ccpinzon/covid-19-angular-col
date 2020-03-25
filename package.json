@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "copy": "cp dist/covic19col/index.html dist/covic19col/200.html",
     "prod": "ng build --prod && npm run copy",
+    "dev": "ng serve && npm run copy",
     "e2e": "ng e2e"
   },
   "private": true,
