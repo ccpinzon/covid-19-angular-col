@@ -77,9 +77,20 @@
   width: 100%;
 }
 
+.history-chart {
+  grid-area: historyChart;
+  width: 100%;
+}
+.dep-chart { grid-area: depChart; }
+.info-boxes { grid-area: infoBoxes; }
+.divider {
+  grid-area: divider;
+  width: 100%;
+}
+
 .chart-container {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-areas: 'historyChart depChart' 'infoBoxes infoBoxes';
 
   &.full-width {
     display: block;
@@ -118,7 +129,7 @@
   }
 
   .chart-container {
-    display: block;
+    grid-template-areas: 'historyChart' 'infoBoxes' 'divider' 'depChart';
   }
 
   .see-more {

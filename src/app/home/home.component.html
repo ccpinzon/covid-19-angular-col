@@ -58,11 +58,10 @@
 
 <ng-template #countryInfo>
   <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
-    <app-chart [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
-    <app-info-boxes *ngIf="modalOpened" [currentCountry]="actualCountry"></app-info-boxes>
-    <hr class="d-lg-none">
-    <app-chart *ngIf="colombia && departmentsChart" [chartData]="departmentsChart"></app-chart>
+    <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
+    <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
+    <hr class="divider d-lg-none">
+    <app-chart class="dep-chart" *ngIf="colombia && departmentsChart" [chartData]="departmentsChart" [maxHeight]="isMobile"></app-chart>
   </div>
-  <app-info-boxes *ngIf="!modalOpened" [currentCountry]="actualCountry"></app-info-boxes>
   <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
 </ng-template>

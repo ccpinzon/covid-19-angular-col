@@ -9,6 +9,7 @@ import Chart from 'chart.js';
 })
 export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modal = false;
+  @Input() maxHeight = false;
   @Input() chartData: {
     name: string,
     title: string,
