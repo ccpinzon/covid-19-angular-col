@@ -28,6 +28,25 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   getOptions(type) {
     switch (type) {
+      case 'horizontalBar':
+        return {
+          responsive: true,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              },
+              gridLines: {
+                display: true
+              },
+            }],
+            xAxes: [{
+              ticks: {
+                stepSize: 20
+              }
+            }],
+          }
+        }
       case 'bar':
         return {
           scales: {

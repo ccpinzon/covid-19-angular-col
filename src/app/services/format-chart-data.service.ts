@@ -43,6 +43,8 @@ export class FormatChartDataService {
               // Changes this dataset to become a line
               borderColor: 'rgba(255, 165, 0, 1)',
               backgroundColor: 'rgba(255, 165, 0, 0.2)',
+              pointRadius: 5,
+              pointHoverRadius: 8,
               type: 'line',
               borderWidth: 2
             },
@@ -53,6 +55,8 @@ export class FormatChartDataService {
               backgroundColor: 'rgba(210, 53, 69, 0.2)',
               // Changes this dataset to become a line
               type: 'line',
+              pointRadius: 5,
+              pointHoverRadius: 8,
               borderWidth: 2
             }
           ],
