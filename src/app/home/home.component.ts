@@ -4,6 +4,7 @@ import { PercentModel } from '../models/percent.model';
 import { CovidApiService } from '../services/covid-api.service';
 import { FormatChartDataService } from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
+import {IpGeolocationService} from '../services/ip-geolocation.service';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
-              private formatChartData: FormatChartDataService) {}
+              private formatChartData: FormatChartDataService,
+              private ipGeolocationService: IpGeolocationService) {}
 
   getLatinAmericaList() {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
@@ -135,14 +137,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  getGeolocationInfo() {
+    this.ipGeolocationService.get()
+      .subscribe(res => {
+        // console.log('GeoInfo:', res);
+        const country = res && res.country_name ? res.country_name.toLowerCase() : 'colombia';
+        this.getCountryByName(country);
+      }, error => {
+        this.getCountryByName('colombia');
+      });
+  }
+
 
   ngOnInit(): void {
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
     this.getPercentLatinAmerica();
-    this.getCountryByName('colombia');
     this.closeModal();
+    this.getGeolocationInfo();
     this.isMobile = window.innerWidth < 991;
   }
 }
