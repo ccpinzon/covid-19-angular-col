@@ -144,8 +144,13 @@ export class HomeComponent implements OnInit {
     this.ipGeolocationService.get()
       .subscribe(res => {
         // console.log('GeoInfo:', res);
-        const country = res && res.country_name ? res.country_name.toLowerCase() : 'colombia';
-        this.getCountryByName(country);
+        if (res) {
+          let country = res.country_name ? res.country_name.toLowerCase() : 'colombia';
+          if (res.country_code === 'US') {
+            country = 'usa';
+          }
+          this.getCountryByName(country);
+        }
       }, error => {
         this.getCountryByName('colombia');
       });
