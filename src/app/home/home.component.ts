@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     latam: true
   };
   lastUpdateDate: string;
+  browser: string;
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
@@ -159,9 +160,9 @@ export class HomeComponent implements OnInit {
     const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
       const pipe = new DatePipe('en-US');
-      const lastDate = res.lastDate;
-      // console.log(lastDate)
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+5000');
+      const lastDate = res.lastDate.split('.')[0].replace(' ', 'T');
+      console.log(lastDate)
+      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+200');
     });
   }
 
@@ -174,7 +175,31 @@ export class HomeComponent implements OnInit {
     this.closeModal();
     this.getGeolocationInfo();
     this.getLastUpdateDate();
+    this.setBrowser();
     this.isMobile = window.innerWidth < 991;
   }
+  private setBrowser() {
+    this.browser = this.getBrowserName();
+    console.log(this.browser);
+  }
 
+  private getBrowserName() {
+    const agent = window.navigator.userAgent.toLowerCase()
+    switch (true) {
+      case agent.indexOf('edge') > -1:
+        return 'edge';
+      case agent.indexOf('opr') > -1 && !!(window as any).opr:
+        return 'opera';
+      case agent.indexOf('chrome') > -1 && !!(window as any).chrome:
+        return 'chrome';
+      case agent.indexOf('trident') > -1:
+        return 'ie';
+      case agent.indexOf('firefox') > -1:
+        return 'firefox';
+      case agent.indexOf('safari') > -1:
+        return 'safari';
+      default:
+        return 'other';
+    }
+  }
 }

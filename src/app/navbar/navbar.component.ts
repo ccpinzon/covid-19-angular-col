@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
     const nameCountry = 'global';
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
       const pipe = new DatePipe('en-US');
-      const lastDate = res.lastDate;
-      // console.log(lastDate)
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+5000');
+      const lastDate = res.lastDate.split('.')[0].replace(' ', 'T');
+      console.log(lastDate)
+      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+200');
     });
   }
   ngOnInit(): void {
