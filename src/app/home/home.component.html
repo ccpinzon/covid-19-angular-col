@@ -59,7 +59,7 @@
 
 <ng-template #countryInfo>
 <!--  <div class="col-sm-4 justify-content-md-center" *ngIf="isMobile">-->
-    <h6 *ngIf="isMobile && actualCountry && lastUpdateDate !== '' ">Actualización: 30/03/2020 10:511 {{lastUpdateDate}}</h6>
+    <h6 *ngIf="isMobile && actualCountry && lastUpdateDate !== '' ">Ultima Actualización: {{lastUpdateDate}}</h6>
 
   <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
     <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
