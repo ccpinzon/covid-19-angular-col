@@ -12,39 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark" >
-  <span class="toggle-responsive-menu d-lg-none animated"
-        [class.close]="!slideOut"
-        (click)="toggleResponsiveMenu()">
-    <hr>
-    <hr>
-    <hr>
-  </span>
-  <a class="navbar-brand" routerLink="/">
-    🇨🇴
-    COVID-19 COLOMBIA
-    🦠
-  </a>
-  <ul class="navbar-list"
-      [class.animated]="isMobile"
-      [class.show]="showResponsiveMenu"
-      [class.slideInLeft]="showResponsiveMenu"
-      [class.slideOutLeft]="slideOut">
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/">Inicio</a>
-    </li>
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/colombia">Colombia</a>
-    </li>
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/informacion">Información</a>
-    </li>
-<!--    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">-->
-<!--      <a class="link" routerLink="/novedades">Novedades</a>-->
-<!--    </li>-->
-  </ul>
-</nav>
-
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
 
 </body>

@@ -10,12 +10,13 @@
   <hr class="d-none d-lg-block">
 
 
+
+
   <div class="row">
     <div class="tabs-btn d-lg-none">
       <h5 class="tab-btn text-center" [class.active]="selectedTab.latam" (click)="selectTab('latam')">America Latina</h5>
       <h5 class="tab-btn text-center" [class.active]="selectedTab.global" (click)="selectTab('global')">Global</h5>
     </div>
-
     <div class="tables-wrapper">
       <div class="table-container shadow-sm p-3 mb-5 bg-white rounded animated flipInY" *ngIf="selectedTab.latam">
         <h5 class="text-center d-none d-lg-block">América Latina</h5>
@@ -55,8 +56,9 @@
   </div>
 </div>
 
+
 <ng-template #countryInfo>
-  <div class="col-sm-4 justify-content-md-center">
+  <div class="fixed-bottom col-sm-4 justify-content-md-center" *ngIf="isMobile">
     <h6 *ngIf="actualCountry && lastUpdateDate !== '' ">Ultima Actualización: {{lastUpdateDate}}</h6>
   </div>
   <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
@@ -67,3 +69,6 @@
   </div>
   <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
 </ng-template>
+
+
+

@@ -10,12 +10,14 @@ import { TableComponent } from './table/table.component';
 import {InfoBoxesModule} from './info-boxes/info-boxes.module';
 import {TableModule} from './table/table.module';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

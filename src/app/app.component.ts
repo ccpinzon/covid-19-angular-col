@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,13 +13,7 @@ export class AppComponent implements OnInit {
   slideOut = true;
   isMobile = false;
 
-  constructor(private router: Router) {
-  }
-
-  toggleResponsiveMenu() {
-    this.slideOut = this.showResponsiveMenu;
-    const delay = this.slideOut ? 1000 : 0;
-    setTimeout(() => { this.showResponsiveMenu = !this.showResponsiveMenu; }, delay);
+  constructor(private router: Router ) {
   }
 
   ngOnInit(): void {
