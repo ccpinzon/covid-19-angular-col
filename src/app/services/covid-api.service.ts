@@ -7,6 +7,7 @@ import {SharedService} from './shared.service';
 import {PercentModel} from '../models/percent.model';
 import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
+import {LastUpdateModel} from '../models/last-update.model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,18 @@ export class CovidApiService {
       .pipe(catchError(this.handleError));
   }
 
+  getLastUpdate(countryName: string): Observable<LastUpdateModel> {
+    return countryName === 'colombia' ? this.getLastUpdateColombia() : this.getLastUpdateAllCountries();
+  }
+  private getLastUpdateAllCountries(): Observable<LastUpdateModel> {
+    return this.http.get<LastUpdateModel>(`${this.baseUrl}covid19/lastUpdate`)
+      .pipe(catchError(this.handleError));
+  }
+  private getLastUpdateColombia() {
+    return this.http.get<LastUpdateModel>(`${this.baseUrl}c19colombia/lastUpdate`)
+      .pipe(catchError(this.handleError));
+  }
+
   handleError(error) {
     let errorMessage = '';
     if ( error.error instanceof ErrorEvent) {
@@ -84,4 +97,7 @@ export class CovidApiService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
+
+
+
 }

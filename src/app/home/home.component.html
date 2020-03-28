@@ -42,7 +42,6 @@
 
 
 </section>
-
 <div class="chart-modal animated show"
      *ngIf="isMobile"
      [hidden]="!modalOpened"
@@ -57,6 +56,9 @@
 </div>
 
 <ng-template #countryInfo>
+  <div class="col-sm-4 justify-content-md-center">
+    <h6 *ngIf="actualCountry && lastUpdateDate !== '' ">Ultima Actualización: {{lastUpdateDate}}</h6>
+  </div>
   <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
     <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
     <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>

@@ -5,6 +5,7 @@ import { CovidApiService } from '../services/covid-api.service';
 import { FormatChartDataService } from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -26,11 +27,13 @@ export class HomeComponent implements OnInit {
     global: false,
     latam: true
   };
+  lastUpdateDate: string;
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
               private formatChartData: FormatChartDataService,
-              private ipGeolocationService: IpGeolocationService) {}
+              private ipGeolocationService: IpGeolocationService) {
+  }
 
   getLatinAmericaList() {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
@@ -147,6 +150,15 @@ export class HomeComponent implements OnInit {
         this.getCountryByName('colombia');
       });
   }
+  getLastUpdateDate() {
+    const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
+    this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
+        const pipe = new DatePipe('en-US');
+        const lastDate = res.lastDate;
+        // console.log(lastDate)
+        this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+5000');
+      });
+  }
 
 
   ngOnInit(): void {
@@ -156,6 +168,8 @@ export class HomeComponent implements OnInit {
     this.getPercentLatinAmerica();
     this.closeModal();
     this.getGeolocationInfo();
+    this.getLastUpdateDate();
     this.isMobile = window.innerWidth < 991;
   }
+
 }
