@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import {DepartmentModel} from '../models/department.model';
+import {CovidApiService} from '../services/covid-api.service';
+
 
 @Component({
   selector: 'app-mapa-colombia',
@@ -7,53 +10,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapaColombiaComponent implements OnInit {
 
-  mainTittle = 'Ubicación del virus en Colombia';
-  geojson = {
+  mainTittle = 'Ubicación de covid-19 en Colombia';
+  departmentData: DepartmentModel[] = [];
+  geoData = {
     type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        properties: {
-          message: 'Foo',
-          iconSize: [60, 60]
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [-74.324462890625, 4.024695711685304]
-        }
-      },
-      {
-        type: 'Feature',
-        properties: {
-          message: 'Bar',
-          iconSize: [50, 50]
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [-74.2158203125, 7.97189158092897]
-        }
-      },
-      {
-        type: 'Feature',
-        properties: {
-          message: 'Baz',
-          iconSize: [40, 40]
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [-74.29223632812499, 6.28151823530889]
-        }
-      }
-    ]
+    features: []
   };
 
-  alert(message: string) {
-    alert(message);
-  }
 
-  constructor() {}
+  showPopUp = false;
+  selectedPoint = null;
+  popUpInfo = '';
+
+  constructor(private covidApiService: CovidApiService) {}
 
   ngOnInit() {
+    this.getDepartments();
+  }
+
+  getDepartments() {
+    this.covidApiService.getDataByDepartment()
+      .subscribe(data => {
+        this.departmentData = data;
+        this.buildGeoJson();
+      });
+  }
+
+  buildGeoJson() {
+    if (this.departmentData.length > 0) {
+      this.departmentData.forEach(department => {
+        const feature = {
+          type: 'Feature',
+          properties: {
+            message: '<strong>' + department.dept + '</strong> <br>' + department.cases + ' casos.',
+            iconSize: [60, 60]
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [department.lat, department.lng]
+          }
+        };
+        this.geoData.features.push(feature);
+      });
+    }
+  }
+
+  showPopUpInfo(feature, show) {
+    // console.log('¿show popup? ', show);
+    if (show) {
+      this.showPopUp = true;
+      this.popUpInfo = feature.properties.message;
+      this.selectedPoint = feature;
+    } else {
+      this.showPopUp = false;
+    }
   }
 
 }

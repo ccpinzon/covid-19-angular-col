@@ -2,16 +2,34 @@
 <br>
 <br>
 <br>
-<h1 align="center">{{mainTittle}}<h1>
-<div class="mapboxgl-canvas-container" align="center">
-  <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]">
+<div style="left: 100px">
+  <h1 align="center">{{mainTittle}}</h1>
+  <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
 
-    <mgl-marker *ngFor="let feature of geojson.features" [feature]="feature">
-      <div style="text-align: center;">
-          <img class="dotImage" src="virus-ico.png">
+    <!-- Marcador del virus -->
+    <mgl-marker *ngFor="let feature of geoData.features" [feature]="feature">
+      <div style="text-align: center;"
+           (mouseenter)="showPopUpInfo(feature, true)"
+           (mouseleave) ="showPopUpInfo(null, false)">
+        <img class="dotImage" src="virus-ico.png">
       </div>
     </mgl-marker>
+
+    <!-- Popup cuando es seleccionado -->
+    <mgl-popup *ngIf="selectedPoint" [feature]="selectedPoint">
+      <span [innerHTML]="selectedPoint.properties?.message"></span>
+    </mgl-popup>
+
+    <!-- Controles del mapa -->
+    <mgl-control mglFullscreen position="top-right"></mgl-control>
+    <mgl-control mglGeocoder position="top-right"></mgl-control>
+    <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)"></mgl-control>
+    <mgl-control mglNavigation position="top-right"></mgl-control>
+    <mgl-control mglScale position="top-right"></mgl-control>
+
   </mgl-map>
 </div>
+
+
 
 
