@@ -159,10 +159,11 @@ export class HomeComponent implements OnInit {
   getLastUpdateDate() {
     const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
+      // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = res.lastDate.split('.')[0].replace(' ', 'T');
-      console.log(lastDate)
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+200');
+      const lastDate = new Date(res.lastDate);
+      // console.log(lastDate);
+      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
     });
   }
 
