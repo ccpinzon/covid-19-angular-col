@@ -281,4 +281,10 @@ body {
   animation-name: slideOutUp;
 }
 
+@media (max-width: 991px) {
+  .container {
+    margin-top: 7rem;
+  }
+}
+
 

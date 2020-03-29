@@ -12,8 +12,8 @@
     🦠
   </a>
   <div class="row" *ngIf="!isMobile">
-    <div class=" text-light justify-content-md-center">
-            <h6>Ultima Actualización: {{lastUpdateDate}}</h6>
+    <div class="text-light justify-content-md-center">
+            <h6 class="m-0">Última Actualización: {{lastUpdateDate}}</h6>
 <!--      <h6 class="text-light">weongiourtgnoirt</h6>-->
     </div>
   </div>
@@ -27,6 +27,9 @@
     </li>
     <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a class="link" routerLink="/colombia">Colombia</a>
+    </li>
+    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="link" routerLink="/autoevaluacion">Autoevaluación</a>
     </li>
     <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a class="link" routerLink="/informacion">Información</a>

@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'colombia',
     loadChildren: () => import('./colombia/colombia.module').then(m => m.ColombiaModule)
+  },
+  {
+    path: 'autoevaluacion',
+    loadChildren: () => import('./self-assessment/self-assessment.module').then(m => m.SelfAssessmentModule)
   }
 ];
 

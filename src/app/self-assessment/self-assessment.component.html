@@ -1,0 +1,136 @@
+<article class="container self-assessment">
+  <h2 class="text-center title">
+    <ng-container *ngIf="showResults">Resultado de su </ng-container>
+    Autoevaluación del Covid-19
+  </h2>
+
+  <section class="test" *ngIf="!showResults; else testResult">
+
+    <form class="test-form" [formGroup]="testForm">
+
+      <div class="question">
+        <h3 class="question-title">1. ¿Está presentando uno o más de estos síntomas? Seleccione los que apliquen</h3>
+        <div class="question-options">
+          <label class="question-option label" [class.checked]="testForm.controls.question1.value">
+            <input class="d-none" formControlName="question1" type="checkbox" name="question1">
+            <span class="question-label">Tos</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question2.value">
+            <input class="d-none" formControlName="question2" type="checkbox" name="question2">
+            <span class="question-label">Escalofríos</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question3.value">
+            <input class="d-none" formControlName="question3" type="checkbox" name="question3">
+            <span class="question-label">Diarrea</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question4.value">
+            <input class="d-none" formControlName="question4" type="checkbox" name="question4">
+            <span class="question-label">Dolor de garganta</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question5.value">
+            <input class="d-none" formControlName="question5" type="checkbox" name="question5">
+            <span class="question-label">Dolor de cuerpo y malestar general</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question6.value">
+            <input class="d-none" formControlName="question6" type="checkbox" name="question6">
+            <span class="question-label">Dolor de cabeza</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question7.value">
+            <input class="d-none" formControlName="question7" type="checkbox" name="question7">
+            <span class="question-label">Perdido el sentido del olfato y/o del gusto</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question8.value">
+            <input class="d-none" formControlName="question8" type="checkbox" name="question8">
+            <span class="question-label">Fiebre (Más de 37.8 °C)</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question9.value">
+            <input class="d-none" formControlName="question9" type="checkbox" name="question9">
+            <span class="question-label">Dificultad para respirar (incluso cuando está inactivo)</span>
+          </label>
+            <label class="question-option label" [class.checked]="testForm.controls.question10.value">
+            <input class="d-none" formControlName="question10" type="checkbox" name="question10">
+            <span class="question-label">Fatiga (Deterioro de movimientos y pérdida de ganas de hacer cosas)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3 class="question-title">2. ¿Ha viajado en los últimos 14 días?</h3>
+        <div class="question-options">
+          <label class="question-option label" [class.checked]="testForm.controls.question11.value">
+          <input class="d-none" formControlName="question11" type="radio" value="true" name="question11">
+          <span class="question-label">Sí</span>
+        </label>
+          <label class="question-option label" [class.checked]="!testForm.controls.question11.value">
+          <input class="d-none" id="question11-1" formControlName="question11" type="radio" name="question11">
+          <span class="question-label">No</span>
+        </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3 class="question-title">3. ¿Ha viajado o estado e un área afectada por COVID-19?</h3>
+        <div class="question-options">
+          <label class="question-option label" [class.checked]="testForm.controls.question12.value">
+          <input class="d-none" formControlName="question12" type="radio" value="true" name="question12">
+          <span class="question-label">Sí</span>
+        </label>
+          <label class="question-option label" [class.checked]="!testForm.controls.question12.value">
+          <input class="d-none" formControlName="question12" type="radio" name="question12">
+          <span class="question-label">No</span>
+        </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3 class="question-title">4. ¿Ha estado en contácto directo o cuidando a algún paciente positivo a COVID-19?</h3>
+        <div class="question-options">
+          <label class="question-option label" [class.checked]="testForm.controls.question13.value">
+          <input class="d-none" formControlName="question13" type="radio" value="true" name="question13">
+          <span class="question-label">Sí</span>
+        </label>
+          <label class="question-option label" [class.checked]="!testForm.controls.question13.value">
+          <input class="d-none" formControlName="question13" type="radio" name="question13">
+          <span class="question-label">No</span>
+        </label>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="button-wrapper">
+      <button class="btn btn-dark" (click)="getTestResult()">Obtener resultados</button>
+    </div>
+
+  </section>
+
+  <ng-template #testResult>
+    <section class="result">
+
+      <div class="button-wrapper link">
+        <a class="" (click)="reTakeTest()">&lt;  Volver a tomar la autoevaluación</a>
+      </div>
+
+      <div class="result-observation">
+        <p [class]="'observation-item ' + result.level">{{result.text}}</p>
+
+        <ng-container *ngIf="result.recommendations.length > 0" class="recommendations-wrapper">
+          <p class="list-title"><strong>Recomendaciones:</strong></p>
+          <ul class="recommendations-list">
+            <li class="recommendation" *ngFor="let r of result.recommendations">{{r}}</li>
+          </ul>
+        </ng-container>
+
+        <p class="pd" *ngIf="result.pd">*{{result.pd}}</p>
+      </div>
+
+      <p class="reference">
+        <small>Basado en las guías de la </small>
+        <a class="link"
+           href="https://www.doh.gov.ph/2019-ncov/interim-guidelines"
+           target="_blank">DOH</a>
+      </p>
+    </section>
+  </ng-template>
+
+</article>

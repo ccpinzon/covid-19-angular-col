@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
       const pipe = new DatePipe('en-US');
       const lastDate = res.lastDate.split('.')[0].replace(' ', 'T');
-      console.log(lastDate)
+     //  console.log(lastDate)
       this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+200');
     });
   }
@@ -180,7 +180,7 @@ export class HomeComponent implements OnInit {
   }
   private setBrowser() {
     this.browser = this.getBrowserName();
-    console.log(this.browser);
+    // console.log(this.browser);
   }
 
   private getBrowserName() {

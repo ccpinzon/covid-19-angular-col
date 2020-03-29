@@ -14,6 +14,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
   newCases = 0;
   casesPerMillionPeople = 0;
   currentlySick = 0;
+  populationInfected = 0;
   rates = {
     mortality: {value: 0, style: {}},
     recovery:  {value: 0, style: {}}
@@ -60,14 +61,22 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
   }
 
   getCasesPerMillionPeople() {
-    console.log(this.currentCountry);
     this.casesPerMillionPeople = 0;
     if (this.currentCountry.population > 0) {
       this.casesPerMillionPeople = parseFloat(
         (this.currentCountry.cases / (this.currentCountry.population / 1000000)).toFixed(2)
       );
     }
-    console.log(this.casesPerMillionPeople);
+  }
+
+  getPercentageOfInfectedPopulation() {
+    this.populationInfected = 0;
+    if (this.currentCountry.population > 0) {
+      this.populationInfected = parseFloat(
+        (this.currentCountry.cases * 100 / this.currentCountry.population).toFixed(4)
+      );
+    }
+    // console.log(this.populationInfected);
   }
 
   ngOnInit() {
@@ -81,6 +90,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
       this.getRates();
       this.getCurrentSick();
       this.getCasesPerMillionPeople();
+      // this.getPercentageOfInfectedPopulation();
     }
   }
 }
