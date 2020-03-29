@@ -14,8 +14,7 @@ import {LastUpdateModel} from '../models/last-update.model';
 })
 export class CovidApiService {
 
-  // private readonly baseUrl = 'https://covid-19-col.appspot.com/';
-  private readonly baseUrl = 'https://tz-dot-covid-19-col.appspot.com/';
+  private readonly baseUrl = 'https://covid-19-col.appspot.com/';
 
   private readonly apiUrl = `${this.baseUrl}covid19/`;
 
