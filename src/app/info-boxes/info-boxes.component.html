@@ -37,9 +37,16 @@
     </div>
   </div>
   <div class="box-info-item">
-    <div class="alert alert-secondary text-center" role="alert">
+    <div class="alert alert-primary text-center" role="alert">
       <h6>
         <span>➕ <span class="d-sm-inline">Casos nuevos: </span>{{newCases}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item" *ngIf="casesPerMillionPeople">
+    <div class="alert alert-secondary text-center" role="alert">
+      <h6>
+        <span><span class="d-sm-inline">Casos por 1M de habitantes: </span>{{casesPerMillionPeople}}</span>
       </h6>
     </div>
   </div>

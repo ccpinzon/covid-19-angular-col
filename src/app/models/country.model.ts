@@ -9,4 +9,5 @@ export class CountryModel {
   flag?: string;
   percentRecovered?: string;
   history: Array<any>;
+  population: number;
 }

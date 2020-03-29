@@ -12,6 +12,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
 
   constructor(private router: Router) { }
   newCases = 0;
+  casesPerMillionPeople = 0;
   currentlySick = 0;
   rates = {
     mortality: {value: 0, style: {}},
@@ -58,6 +59,17 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     // console.log(this.currentlySick);
   }
 
+  getCasesPerMillionPeople() {
+    console.log(this.currentCountry);
+    this.casesPerMillionPeople = 0;
+    if (this.currentCountry.population > 0) {
+      this.casesPerMillionPeople = parseFloat(
+        (this.currentCountry.cases / (this.currentCountry.population / 1000000)).toFixed(2)
+      );
+    }
+    console.log(this.casesPerMillionPeople);
+  }
+
   ngOnInit() {
   }
 
@@ -68,6 +80,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
       this.getNewCases();
       this.getRates();
       this.getCurrentSick();
+      this.getCasesPerMillionPeople();
     }
   }
 }
