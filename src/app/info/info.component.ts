@@ -35,7 +35,7 @@ export class InfoComponent implements OnInit {
         'tengan fiebre, tos y dificultad para respirar deben buscar atención médica.',
       chart: {
         name: 'covid-19-symptoms',
-        country: 'Síntomas del Covid-19',
+        title: 'Síntomas del Covid-19',
         chartData: {
           type: 'bar',
           data: {

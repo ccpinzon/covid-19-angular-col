@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {CovidApiService} from './covid-api.service';
 
 @Injectable({
   providedIn: 'root'

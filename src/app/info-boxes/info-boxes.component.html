@@ -30,14 +30,14 @@
     </div>
   </div>
   <div class="box-info-item">
-    <div *ngIf="currentlySick" class="alert alert-info text-center" role="alert">
+    <div class="alert alert-info text-center" role="alert">
       <h6>
         <span>🤧 <span class="d-sm-inline">Enfermos: </span>{{currentlySick}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item">
-    <div *ngIf="newCases" class="alert alert-secondary text-center" role="alert">
+    <div class="alert alert-secondary text-center" role="alert">
       <h6>
         <span>➕ <span class="d-sm-inline">Casos nuevos: </span>{{newCases}}</span>
       </h6>
@@ -45,10 +45,9 @@
   </div>
 
 </section>
-
 <section class="rates-wrapper" *ngIf="currentCountry">
   <div class="rate-bar">
-    Tasa de Recuperación: <strong>{{rates.recovery.value}}%</strong>
+    <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value}}%</strong>
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar"
            [ngStyle]="rates.recovery.style"
@@ -57,7 +56,7 @@
     </div>
   </div>
   <div class="rate-bar">
-    Tasa de Mortalidad: <strong>{{rates.mortality.value}}%</strong>
+    <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
     <div class="progress" style="height: 20px;">
       <div class="progress-bar mortality" role="progressbar"
            [ngStyle]="rates.mortality.style"

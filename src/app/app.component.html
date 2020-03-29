@@ -4,52 +4,17 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-
   <link rel="shortcut icon" href="../assets/resources/virus2.jpg" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="../assets/css/tablecss.css">
-
-  <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
-
   <title> 🇨🇴Colombia🦠</title>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark" >
-  <span class="toggle-responsive-menu d-lg-none animated"
-        [class.close]="!slideOut"
-        (click)="toggleResponsiveMenu()">
-    <hr>
-    <hr>
-    <hr>
-  </span>
-  <a class="navbar-brand" routerLink="/">
-    🇨🇴
-    COVID-19 COLOMBIA
-    🦠
-  </a>
-  <ul class="navbar-list"
-      [class.animated]="isMobile"
-      [class.show]="showResponsiveMenu"
-      [class.slideInLeft]="showResponsiveMenu"
-      [class.slideOutLeft]="slideOut">
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/">Inicio</a>
-    </li>
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/informacion">Información</a>
-    </li>
-    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/mapa-colombia">Mapa Colombia</a>
-    </li>
-  </ul>
-</nav>
-
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
+
 </body>
 
 </html>

@@ -1,14 +1,17 @@
 .chart-container {
-  width: 20rem !important;
+  width: 100% !important;
   height: 23rem !important;
   margin: 1rem auto 3rem;
 
   &.history {
-    width: 100% !important;
 
     .chart-canvas {
       height: 100% !important;
     }
+  }
+
+  &.max-height {
+    height: 70ex !important;
   }
 }
 

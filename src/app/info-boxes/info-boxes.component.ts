@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {CountryModel} from '../models/country.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-info-boxes',
@@ -9,8 +10,7 @@ import {CountryModel} from '../models/country.model';
 export class InfoBoxesComponent implements OnInit, OnChanges {
   @Input() currentCountry: CountryModel;
 
-
-  constructor() { }
+  constructor(private router: Router) { }
   newCases = 0;
   currentlySick = 0;
   rates = {
@@ -22,9 +22,14 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     this.newCases = 0;
     const history = [...this.currentCountry.history];
     // console.log(this.currentCountry.history);
+    // console.log(this.currentCountry);
     if (history && history.length > 0) {
       const len = history.length;
-      this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      // this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      this.newCases = this.currentCountry.cases - history[len - 1].cases ;
+      if ( this.newCases === 0 ) {
+        this.newCases = history.splice(len - 2, 2).reduce((a, b) => b.cases - a.cases);
+      }
     }
     // console.log(this.newCases);
   }
@@ -50,6 +55,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
 
   getCurrentSick() {
     this.currentlySick = this.currentCountry.cases - this.currentCountry.deaths - this.currentCountry.cured;
+    // console.log(this.currentlySick);
   }
 
   ngOnInit() {

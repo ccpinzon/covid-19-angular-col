@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
   },
   {
+    path: 'colombia',
+    loadChildren: () => import('./colombia/colombia.module').then(m => m.ColombiaModule)
+  },
+  {
     path: 'mapa-colombia',
     loadChildren: () => import('./mapa-colombia/mapa-colombia.module').then(m => m.MapaColombiaModule)
   }

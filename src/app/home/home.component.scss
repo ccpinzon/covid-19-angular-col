@@ -1,28 +1,31 @@
 .container {
-  margin-top: 5rem;
+  margin: 5rem auto;
 }
 
 .chart-modal {
   visibility: hidden;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
-  top: 4rem;
-  z-index: 11;
   background-color: #fff;
   width: 100%;
   border-radius: 0.2rem;
   border: 1px solid lightgray;
+  position: fixed;
+  top: 0;
+  z-index: 10000;
 
   &.show {
     visibility: visible;
     position: fixed;
-    height: 80vh;
+    height: 101vh;
   }
 
   .modal-body {
-    height: 100%;
+    height: 95%;
     width: 100%;
     padding: 1.5rem 0.5rem;
     text-align: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .modal-header {
@@ -74,8 +77,64 @@
   width: 100%;
 }
 
+.history-chart {
+  grid-area: historyChart;
+  width: 100%;
+}
+.dep-chart { grid-area: depChart; }
+.info-boxes { grid-area: infoBoxes; }
+.divider {
+  grid-area: divider;
+  width: 100%;
+}
+
+.chart-container {
+  display: grid;
+  grid-template-areas: 'historyChart depChart' 'infoBoxes infoBoxes';
+
+  &.full-width {
+    display: block;
+  }
+}
+
+.see-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  font-variant: all-petite-caps;
+  text-decoration: none;
+
+
+  &-link {
+    color: white;
+    background-color: #343a40;
+    width: 25%;
+    font-weight: 300;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 @media (max-width: 991px) {
   .tables-wrapper  {
     display: block;
+  }
+
+  .chart-container {
+    grid-template-areas: 'historyChart' 'infoBoxes' 'divider' 'depChart';
+  }
+
+  .see-more {
+    &-link {
+      width: 10rem;
+    }
   }
 }
