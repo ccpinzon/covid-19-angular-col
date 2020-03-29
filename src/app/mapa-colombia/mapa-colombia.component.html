@@ -1,0 +1,17 @@
+<br>
+<br>
+<br>
+<br>
+<h1 align="center">{{mainTittle}}<h1>
+<div class="mapboxgl-canvas-container" align="center">
+  <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]">
+
+    <mgl-marker *ngFor="let feature of geojson.features" [feature]="feature">
+      <div style="text-align: center;">
+          <img class="dotImage" src="virus-ico.png">
+      </div>
+    </mgl-marker>
+  </mgl-map>
+</div>
+
+
