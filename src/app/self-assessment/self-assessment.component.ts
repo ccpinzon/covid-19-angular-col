@@ -79,7 +79,7 @@ export class SelfAssessmentComponent implements OnInit {
     this.testForm = this.fb.group(group);
     // console.log(this.questionsAnswers);
     // console.log(this.testForm);
-    // this.testForm.valueChanges.subscribe(values => { console.log('Values:', values); });
+    this.testForm.valueChanges.subscribe(values => { console.log('Values:', values); });
   }
 
   onCheckBoxChange(option) {
@@ -89,7 +89,7 @@ export class SelfAssessmentComponent implements OnInit {
 
     if (idx === -1) {
       this.checkBoxes.push(option.name);
-      obj[option.name] = true;
+      // obj[option.name] = true;
     } else {
       this.checkBoxes.splice(idx, 1);
       obj[option.name] = false;
