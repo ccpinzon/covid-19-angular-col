@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import {FormGroup, FormBuilder, FormControl, Validator, Validators} from '@angular/forms';
+import {CovidApiService} from '../services/covid-api.service';
 
 interface Result {
   text: string;
   level: string;
   pd: string;
+  score: number;
+  ageRange: string;
+  gender: string;
   recommendations: string[];
 }
 
@@ -17,73 +21,106 @@ export class SelfAssessmentComponent implements OnInit {
 
   testForm: FormGroup;
   showResults = false;
-  questionsAnswers = {
-    question1: 1,
-    question2: 1,
-    question3: 1,
-    question4: 1,
-    question5: 1,
-    question6: 1,
-    question7: 1,
-    question8: 2,
-    question9: 2,
-    question10: 2,
-    question11: 3,
-    question12: 3,
-    question13: 3,
-  };
+  questions;
+  checkBoxes = [];
+  questionsAnswers = {};
   result: Result;
+  ageQuestion;
+  genderQuestion;
 
   static getResult(): Result {
     return {
       text: '',
       level: '',
       pd: '',
-      recommendations: []
+      score: 0,
+      recommendations: [],
+      ageRange: '',
+      gender: ''
     };
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private covidApiService: CovidApiService) { }
 
-  init() {
-    this.testForm = this.fb.group({
-      question1: new FormControl(false, []),
-      question2: new FormControl(false, []),
-      question3: new FormControl(false, []),
-      question4: new FormControl(false, []),
-      question5: new FormControl(false, []),
-      question6: new FormControl(false, []),
-      question7: new FormControl(false, []),
-      question8: new FormControl(false, []),
-      question9: new FormControl(false, []),
-      question10: new FormControl(false, []),
-      question11: new FormControl(false, []),
-      question12: new FormControl(false, []),
-      question13: new FormControl(false, []),
+  getQuestions() {
+    this.covidApiService.getSelfAssessmentQuestions()
+      .subscribe(questions => {
+        // console.log('QUESTIONS:', questions);
+        this.questions = questions;
+        this.buildForm(questions);
+      });
+  }
+
+  buildForm(questions) {
+    const group = {};
+    const options = questions.flatMap(q => {
+      if (q.age) {
+        this.ageQuestion = q;
+      }
+
+      if (q.gender) {
+        this.genderQuestion = q;
+      }
+
+      return q.options;
     });
+    // console.log(options);
+    options.forEach(option => {
+      const validator = []; // option.required ? [Validators.required] : [];
+      if (!group[option.name]) {
+        this.questionsAnswers[option.name] = option.score;
+        const value = option.type === 'checkbox' ? false : typeof option.value === 'string' ? option.value : option.score.toString();
+        group[option.name] = new FormControl(value, validator);
+      }
+    });
+
+    // console.log(group);
+    this.testForm = this.fb.group(group);
+    // console.log(this.questionsAnswers);
+    // console.log(this.testForm);
     // this.testForm.valueChanges.subscribe(values => { console.log('Values:', values); });
   }
 
+  onCheckBoxChange(option) {
+    if (option.type !== 'checkbox') { return; }
+    const idx = this.checkBoxes.indexOf(option.name);
+    const obj = {};
+
+    if (idx === -1) {
+      this.checkBoxes.push(option.name);
+      obj[option.name] = true;
+    } else {
+      this.checkBoxes.splice(idx, 1);
+      obj[option.name] = false;
+    }
+    this.testForm.patchValue(obj);
+  }
+
   getTestResult() {
-    let result = 0;
+    let score = 0;
     const values = this.testForm.value;
     for (const q in values) {
       if (values.hasOwnProperty(q)) {
-        if (values[q]) {
-          result += this.questionsAnswers[q];
+        const val = values[q]; // !isNaN(values[q]) ? parseInt(values[q], 10) : 0;
+        if (val && val !== '0') {
+          score += this.questionsAnswers[q];
         }
       }
     }
 
-    let observation = {...SelfAssessmentComponent.getResult()};
-    // if (result <= 2) {
+    let observation = {
+      ...SelfAssessmentComponent.getResult(),
+      score
+    };
+    // if (score <= 2) {
     //   observation = {
     //     ...observation,
     //     text: 'Baja probabilidad de COVID-19.',
     //     level: 'info'
     //   };
     // } else
-    if (result <= 5) {
+    if (score <= 5) {
       observation = {
         ...observation,
         text: '⚠️ Practique el distanciamiento social. Hidrátese, conserve medidas de higiene, observe y reevalúe en 2 días.',
@@ -96,7 +133,7 @@ export class SelfAssessmentComponent implements OnInit {
           'Mantenga una distancia de al menos 2 metros con otras personas cuando salga'
         ]
       };
-    } else if (result > 5 && result <= 11) {
+    } else if (score > 5 && score <= 11) {
       observation = {
         ...observation,
         text: '⚠️ Practique el auto aislamiento y llame a su médico de confianza o proveedor de salud.',
@@ -122,18 +159,43 @@ export class SelfAssessmentComponent implements OnInit {
       };
     }
 
-    console.log('Result:', result, observation);
-    this.showResults = true;
+    const getValue = (question, val) => {
+      // console.log({question, val});
+      const name = question.options[0].name;
+      const value = val[name];
+      return question.options.filter(o => o.value === value)[0].value;
+    };
+
+    observation = {
+      ...observation,
+      ageRange: getValue(this.ageQuestion, this.testForm.value),
+      gender: getValue(this.genderQuestion, this.testForm.value)
+    };
+
+
+    // console.log('Result:', observation);
     this.result = observation;
+    this.saveResults({...observation});
+  }
+
+  saveResults(data: Result) {
+    delete data.pd;
+    delete data.recommendations;
+    delete data.text;
+    this.covidApiService.saveSelfAssessmentResults(data)
+      .subscribe(res => {
+        // console.log('Posted results', res);
+        this.showResults = true;
+      });
   }
 
   reTakeTest() {
     this.showResults = false;
-    this.init();
+    this.buildForm(this.questions);
   }
 
   ngOnInit() {
-    this.init();
+    this.getQuestions();
   }
 
 }

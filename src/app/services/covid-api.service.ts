@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {CountryModel} from '../models/country.model';
-import {catchError, map, retry, tap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {SharedService} from './shared.service';
 import {PercentModel} from '../models/percent.model';
 import {ColombiaDataModel} from '../models/colombia-data.model';
@@ -15,7 +15,6 @@ import {LastUpdateModel} from '../models/last-update.model';
 export class CovidApiService {
 
   private readonly baseUrl = 'https://covid-19-col.appspot.com/';
-
   private readonly apiUrl = `${this.baseUrl}covid19/`;
 
   constructor(private http: HttpClient,
@@ -76,12 +75,24 @@ export class CovidApiService {
   getLastUpdate(countryName: string): Observable<LastUpdateModel> {
     return countryName === 'colombia' ? this.getLastUpdateColombia() : this.getLastUpdateAllCountries();
   }
+
   private getLastUpdateAllCountries(): Observable<LastUpdateModel> {
     return this.http.get<LastUpdateModel>(`${this.baseUrl}covid19/lastUpdate`)
       .pipe(catchError(this.handleError));
   }
+
   private getLastUpdateColombia() {
     return this.http.get<LastUpdateModel>(`${this.baseUrl}c19colombia/lastUpdate`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getSelfAssessmentQuestions(): Observable<any> {
+    return this.http.get(`${this.baseUrl}self-assessment/question`)
+      .pipe(catchError(this.handleError));
+  }
+
+  saveSelfAssessmentResults(result): Observable<any> {
+    return this.http.post(`${this.baseUrl}self-assessment/result`, result)
       .pipe(catchError(this.handleError));
   }
 
@@ -94,7 +105,7 @@ export class CovidApiService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
