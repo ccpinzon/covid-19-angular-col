@@ -6,6 +6,7 @@ import { FormatChartDataService } from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
 import {DatePipe} from '@angular/common';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
   colombia: CountryModel;
   isMobile;
   departmentsChart;
+  citiesData: CityCasesModel [];
+  citiesChart;
   selectedTab = {
     global: false,
     latam: true
@@ -71,6 +74,7 @@ export class HomeComponent implements OnInit {
         if (countryName.toLowerCase().indexOf('colombia') >= 0) {
           this.colombia = res;
           this.getDepartments();
+          this.getCities();
         }
         this.getChartData('history', this.actualCountry);
       });
@@ -87,6 +91,19 @@ export class HomeComponent implements OnInit {
         };
         this.departmentsChart = this.formatChartData.format('departments', chartData);
         this.getChartData('departments', data);
+      });
+  }
+
+  getCities() {
+    this.covidApiService.getDataByCity()
+      .subscribe(data => {
+        // console.log(data);
+        this.citiesData = data;
+        const chartCitiesData = {
+          title: 'Casos por ciudad',
+          ...this.colombiaService.getCityData(data)
+        };
+        this.citiesChart = this.formatChartData.format('cities', chartCitiesData);
       });
   }
 

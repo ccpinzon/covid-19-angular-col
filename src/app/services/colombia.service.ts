@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ColombiaDataModel} from '../models/colombia-data.model';
 import {SharedService} from './shared.service';
 import {DepartmentModel} from '../models/department.model';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,22 @@ export class ColombiaService {
       chartData.push(item.cases);
     });
     // console.log({data, labels, chartData});
+
+    return {
+      labels,
+      chartData
+    };
+  }
+
+  getCityData(dataCities: CityCasesModel[]) {
+    dataCities.sort( (cityA, cityB ) => cityB.cases - cityA.cases );
+    console.log(dataCities);
+    const labels = [];
+    const chartData = [];
+    dataCities.forEach( cityInfo => {
+      labels.push(cityInfo.city);
+      chartData.push(cityInfo.cases);
+    } );
 
     return {
       labels,

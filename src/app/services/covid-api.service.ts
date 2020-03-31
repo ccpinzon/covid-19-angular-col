@@ -8,6 +8,7 @@ import {PercentModel} from '../models/percent.model';
 import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,11 @@ export class CovidApiService {
 
   getDataByDepartment(): Observable<DepartmentModel[]> {
     return this.http.get<DepartmentModel[]>(`${this.baseUrl}c19colombia/casesByDept`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getDataByCity(): Observable<CityCasesModel[]> {
+    return this.http.get<CityCasesModel[]>(`${this.baseUrl}c19colombia/casesByCity`)
       .pipe(catchError(this.handleError));
   }
 

@@ -188,6 +188,29 @@ export class FormatChartDataService {
     };
   }
 
+  private cities(data, type) {
+    return {
+      name: type,
+      title: data.title,
+      chartData: {
+        type: 'horizontalBar',
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Casos',
+              data: data.chartData,
+              backgroundColor: 'rgba(175, 122, 197, 0.3)',
+              borderColor: 'rgba(175, 122, 197, 1)',
+              borderWidth: 1
+            }
+          ]
+        }
+      }
+    };
+  }
+
+
   format(type, data) {
     switch (type) {
       case 'currentCountry':
@@ -198,6 +221,8 @@ export class FormatChartDataService {
         return this.ageAndGender(data, type);
       case 'departments':
         return this.departments(data, type);
+      case 'cities':
+        return this.cities(data, type);
       case 'attention':
         return this.attention(data, type);
     }
