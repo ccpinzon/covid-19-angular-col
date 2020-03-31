@@ -72,7 +72,7 @@ export class ColombiaComponent implements OnInit {
   getColombia() {
     this.covidApiService.getColombiaData()
       .subscribe(data => {
-        // console.log(data);
+
         this.countryData = this.colombiaService.getGenderAndAgeData(data);
         this.getChartData('ageAndGender', this.countryData);
         this.getChartData('attention', this.countryData);

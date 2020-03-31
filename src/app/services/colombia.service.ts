@@ -12,11 +12,13 @@ export class ColombiaService {
 
   getGenderAndAgeData(data: ColombiaDataModel[]) {
     // console.time('getGenderAndAgeData');
+    // console.log(`DATA -> ${JSON.stringify(data)}`);
     let ageLabels = [];
     let ageData = {};
     const getObjArr = arr => {
       const obj = {};
       arr.forEach(i => { obj[i] = []; });
+      // console.log(obj);
       return obj;
     };
     const genderLabels = ['F', 'M'];
@@ -30,8 +32,10 @@ export class ColombiaService {
     };
     const sortedData = getObjArr(genderLabels);
     const sortedAttentionData = getObjArr(attentionLabels);
-
+    // console.log(getObj(attentionLabels));
     data.forEach(item => {
+      // console.log(item)
+      if (item.attention.includes('casa')) { item.attention = 'Casa'; }
       if (ageLabels.indexOf(item.ageRange) < 0) {
         ageLabels.push(item.ageRange);
         ageData = {
@@ -43,6 +47,7 @@ export class ColombiaService {
         };
       }
       const idx = attentionLabels.indexOf(this.sharedService.upperFirstLetter(item.attention));
+      // console.log(attentionLabels)
       item.attention = attentionLabels[idx];
       ageData[item.ageRange][item.gender] += 1;
       ageData[item.ageRange][item.attention] += 1;
