@@ -78,36 +78,45 @@
   </div>-->
 
   <div class="col-sm-12" [class.full-width]="!colombia && !citiesChart">
-    <div class="row container">
-      <div class="col-sm-6">
+    <div class="row">
+      <div [ngClass]="chartClass" >
         <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && citiesChart"></app-chart>
       </div>
-
-      <div class="col-sm-6" >
-        <h4 class="mx-auto"> Casos por Ciudad</h4>
-        <hr>
+      <app-info-boxes *ngIf="modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
+      <div *ngIf="colombia"  [ngClass]="tableCityStatus ? 'col-sm-4' : 'col-sm-6'" >
+        <div class="btn-group float-right">
+          <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>
+          <button type="button" (click)="enableCityChart()" [ngClass]="(chartCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Grafico</button>
+        </div>
+        <h4 class="text-center">Casos por ciudad</h4>
         <br>
-        <table class="table">
-          <thead class="thead-dark">
-          <tr>
-            <th scope="col">Ciudad</th>
-            <th scope="col"># Casos</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let cityElm of citiesData">
-            <th scope="row">{{cityElm.city}}</th>
-            <td>{{cityElm.cases}}</td>
-          </tr>
-          </tbody>
-        </table>
+
+        <div *ngIf="tableCityStatus" class="scroll-table-in-y">
+          <table class="table tableFixHead text-table-place" style="height: 50px">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">Ciudad</th>
+              <th scope="col"># Casos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let cityElm of citiesData">
+              <th  scope="row">{{cityElm.city}}</th>
+              <td>{{cityElm.cases}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <app-chart class="dep-chart" *ngIf="chartCityStatus && colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
+
       </div>
     </div>
     <hr class="divider d-lg-none">
-    <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
+    <app-info-boxes *ngIf="!modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
 
 
-<!--    <app-chart class="dep-chart" *ngIf="colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>-->
+
   </div>
 
 

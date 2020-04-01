@@ -97,6 +97,14 @@
   }
 }
 
+.scroll-table-in-y{
+  position: relative;
+  height: 350px;
+  overflow-y: scroll;
+}
+.tableFixHead          { overflow: auto; height: 400px; position: relative }
+.tableFixHead thead th { position: sticky; top: 0; }
+
 .see-more {
   display: flex;
   align-items: center;
@@ -121,6 +129,9 @@
       text-decoration: none;
     }
   }
+}
+.text-table-place {
+  font-size: 0.8rem;
 }
 
 @media (max-width: 991px) {

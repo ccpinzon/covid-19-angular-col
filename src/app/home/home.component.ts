@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit {
   };
   lastUpdateDate: string;
   browser: string;
+  tableCityStatus = true;
+  chartCityStatus: boolean;
+  chartClass: string;
+
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
@@ -76,6 +80,7 @@ export class HomeComponent implements OnInit {
           this.getDepartments();
           this.getCities();
         }
+        this.chartClass = (this.colombia) ? 'col-sm-8' : 'col-sm-12';
         this.getChartData('history', this.actualCountry);
       });
     }
@@ -100,7 +105,7 @@ export class HomeComponent implements OnInit {
         // console.log(data);
         this.citiesData = data;
         const chartCitiesData = {
-          title: 'Casos por ciudad',
+          // title: 'Casos por ciudad',
           ...this.colombiaService.getCityData(data)
         };
         this.citiesChart = this.formatChartData.format('cities', chartCitiesData);
@@ -125,6 +130,10 @@ export class HomeComponent implements OnInit {
 
   onCountrySelected(country) {
     this.getCountryByName(country);
+    if (!this.colombia) {
+      // console.log('selecciono pais diferente a oclombia');
+      this.chartClass = 'col-sm-12';
+    }
   }
 
   closeModal() {
@@ -202,7 +211,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getBrowserName() {
-    const agent = window.navigator.userAgent.toLowerCase()
+    const agent = window.navigator.userAgent.toLowerCase();
     switch (true) {
       case agent.indexOf('edge') > -1:
         return 'edge';
@@ -219,5 +228,17 @@ export class HomeComponent implements OnInit {
       default:
         return 'other';
     }
+  }
+
+  enableCityTable() {
+    this.tableCityStatus = true;
+    this.chartCityStatus = false;
+    this.chartClass = this.colombia ? 'col-sm-8' : 'col-sm-12';
+ }
+
+  enableCityChart() {
+    this.tableCityStatus = false;
+    this.chartCityStatus = true;
+    this.chartClass = this.colombia ? 'col-sm-6' : 'col-sm-12';
   }
 }

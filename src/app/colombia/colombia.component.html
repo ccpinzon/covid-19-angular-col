@@ -17,7 +17,10 @@
   <hr>
 
   <section class="chart-section">
+
     <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
+<!--    <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>-->
+<!--    <app-chart *ngIf="chartCityStatus && colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>-->
     <div class="list-wrapper">
       <p class="text-center view-more" (click)="toggle('dep')">
         <span>{{!toggleTable.dep ? 'Ver' : 'Ocultar'}} Tabla</span>
