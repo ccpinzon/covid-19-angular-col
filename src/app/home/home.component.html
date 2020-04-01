@@ -88,7 +88,7 @@
           <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>
           <button type="button" (click)="enableCityChart()" [ngClass]="(chartCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Grafico</button>
         </div>
-        <h4 class="text-center">Casos por ciudad</h4>
+        <h4 *ngIf="tableCityStatus" class="text-center">Casos por ciudad</h4>
         <br>
 
         <div *ngIf="tableCityStatus" class="scroll-table-in-y">

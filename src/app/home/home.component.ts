@@ -101,15 +101,22 @@ export class HomeComponent implements OnInit {
 
   getCities() {
     this.covidApiService.getDataByCity()
-      .subscribe(data => {
+      .subscribe(cityInfoList => {
         // console.log(data);
-        this.citiesData = data;
+        this.citiesData = this.getTopCities(cityInfoList);
         const chartCitiesData = {
-          // title: 'Casos por ciudad',
-          ...this.colombiaService.getCityData(data)
+          title: 'Top 10 Ciudades',
+          ...this.colombiaService.getCityData(cityInfoList)
         };
         this.citiesChart = this.formatChartData.format('cities', chartCitiesData);
       });
+  }
+
+  private getTopCities(cityInfoList: CityCasesModel[]) {
+    cityInfoList.forEach(cityInfo => {
+      cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.actualCountry.cases;
+    });
+    return cityInfoList;
   }
 
   getChartData(type, data) {

@@ -125,7 +125,7 @@ export class ColombiaComponent implements OnInit {
   ngOnInit() {
     this.getColombia();
     this.getDepartments();
-    this.getCities();
+    // this.getCities();
     this.getCountryByName('colombia');
   }
 

@@ -3,4 +3,5 @@ export class CityCasesModel {
   lng: number;
   city: string;
   cases: number;
+  percentCases: number;
 }

@@ -198,7 +198,7 @@ export class FormatChartDataService {
           labels: data.labels,
           datasets: [
             {
-              label: 'Casos',
+              label: 'Casos %',
               data: data.chartData,
               backgroundColor: 'rgba(175, 122, 197, 0.3)',
               borderColor: 'rgba(175, 122, 197, 1)',

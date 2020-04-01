@@ -97,12 +97,14 @@ export class ColombiaService {
 
   getCityData(dataCities: CityCasesModel[]) {
     dataCities.sort( (cityA, cityB ) => cityB.cases - cityA.cases );
-    console.log(dataCities);
+    // console.log(dataCities);
     const labels = [];
     const chartData = [];
-    dataCities.forEach( cityInfo => {
+    const cutData = dataCities.slice(0, 10);
+    cutData.forEach( cityInfo => {
+      // console.log(cityInfo)
       labels.push(cityInfo.city);
-      chartData.push(cityInfo.cases);
+      chartData.push(cityInfo.percentCases.toFixed(1));
     } );
 
     return {
