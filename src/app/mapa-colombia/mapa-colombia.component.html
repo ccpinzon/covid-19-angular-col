@@ -1,17 +1,14 @@
-<br>
-<br>
-<br>
-<br>
-<div style="left: 100px">
+<div class="container">
   <h1 align="center">{{mainTittle}}</h1>
-  <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
+  <mgl-map [style]="'mapbox://styles/mapbox/light-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
 
     <!-- Marcador del virus -->
     <mgl-marker *ngFor="let feature of geoData.features" [feature]="feature">
       <div style="text-align: center;"
+           (click)="showPopUpInfo(feature, true)"
            (mouseenter)="showPopUpInfo(feature, true)"
            (mouseleave) ="showPopUpInfo(null, false)">
-        <img class="dotImage" src="virus-ico.png">
+        <img class="dotImage" src="assets/icons/coronavirus.png">
       </div>
     </mgl-marker>
 
@@ -21,11 +18,11 @@
     </mgl-popup>
 
     <!-- Controles del mapa -->
-    <mgl-control mglFullscreen position="top-right"></mgl-control>
-    <mgl-control mglGeocoder position="top-right"></mgl-control>
-    <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)"></mgl-control>
+<!--    <mgl-control mglFullscreen position="top-right"></mgl-control>-->
+<!--    <mgl-control mglGeocoder position="top-right"></mgl-control>-->
+<!--    <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)"></mgl-control>-->
     <mgl-control mglNavigation position="top-right"></mgl-control>
-    <mgl-control mglScale position="top-right"></mgl-control>
+<!--    <mgl-control mglScale position="top-right"></mgl-control>-->
 
   </mgl-map>
 </div>
