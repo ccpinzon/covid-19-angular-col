@@ -5,6 +5,7 @@ import {FormatChartDataService} from '../services/format-chart-data.service';
 import {DepartmentModel} from '../models/department.model';
 import {SharedService} from '../services/shared.service';
 import {ColombiaService} from '../services/colombia.service';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Component({
   selector: 'app-colombia',
@@ -15,9 +16,11 @@ export class ColombiaComponent implements OnInit {
 
   ageChart;
   departmentsChart;
+  citiesChart;
   attentionChart;
   colombiaChart;
   departmentData: DepartmentModel[] = [];
+  citiesData: CityCasesModel[] = [];
   countryData;
   currentCountry;
   toggleTable = {
@@ -28,7 +31,6 @@ export class ColombiaComponent implements OnInit {
     dep: false,
     attention: false
   };
-  showAttentionTable = false;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
               private colombiaService: ColombiaService,
@@ -62,6 +64,14 @@ export class ColombiaComponent implements OnInit {
         this.departmentsChart = this.formatChartDataService.format(type, chartData);
         // console.log(this.departmentsChart);
         break;
+      case 'cities':
+        chartData = {
+          title: 'Casos por ciudad',
+          ...this.colombiaService.getCityData(data)
+        };
+        this.citiesChart = this.formatChartDataService.format(type, chartData);
+        // console.log(this.departmentsChart);
+        break;
       case 'history':
         this.colombiaChart = this.formatChartDataService.format(type, data);
         // console.log(this.departmentsChart);
@@ -88,6 +98,14 @@ export class ColombiaComponent implements OnInit {
       });
   }
 
+  getCities() {
+    this.covidApiService.getDataByCity()
+      .subscribe( dataCity => {
+        this.citiesData = dataCity;
+        this.getChartData('cities', dataCity);
+      });
+  }
+
   getCountryByName(countryName: string ) {
     if (countryName) {
       this.covidApiService.getCountry(countryName).subscribe(res => {
@@ -107,7 +125,9 @@ export class ColombiaComponent implements OnInit {
   ngOnInit() {
     this.getColombia();
     this.getDepartments();
+    this.getCities();
     this.getCountryByName('colombia');
   }
+
 
 }
