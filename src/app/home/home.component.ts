@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryModel } from '../models/country.model';
-import { PercentModel } from '../models/percent.model';
+import {PercentagesModel, PercentModel} from '../models/percent.model';
 import { CovidApiService } from '../services/covid-api.service';
 import { FormatChartDataService } from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   tableCityStatus = true;
   chartCityStatus: boolean;
   chartClass: string;
+  percentages: PercentagesModel;
 
 
   constructor(private covidApiService: CovidApiService,
@@ -200,12 +201,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getPercentages() {
+    this.covidApiService.getPercentages()
+      .subscribe(percentages => {
+        this.percentages = percentages;
+        console.log(this.percentages);
+      });
+  }
+
 
   ngOnInit(): void {
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
     this.getPercentLatinAmerica();
+    this.getPercentages();
     this.closeModal();
     this.getGeolocationInfo();
     this.getLastUpdateDate();

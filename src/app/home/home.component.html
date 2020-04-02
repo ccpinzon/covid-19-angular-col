@@ -20,22 +20,12 @@
     <div class="tables-wrapper">
       <div class="table-container shadow-sm p-3 mb-5 bg-white rounded animated flipInY" *ngIf="selectedTab.latam">
         <h5 class="text-center d-none d-lg-block">América Latina</h5>
-        Recuperación:
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentLA.percent + 8 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{percentLA.percent + '%'}}</div>
-        </div>
-        <hr>
-        <app-table [countries]="latinCountries" (country)="onCountrySelected($event)"></app-table>
+        <app-table [countries]="latinCountries" [percentage]="percentages?.la" (country)="onCountrySelected($event)"></app-table>
       </div>
 
       <div class="table-container shadow-sm p-3 mb-5 bg-white rounded animated flipInY" *ngIf="!isMobile || (isMobile && selectedTab.global)">
         <h5 class="text-center d-none d-lg-block">Global</h5>
-        Recuperación:
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar" role="progressbar" [ngStyle]="{'width': percentGlobal.percent + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{percentGlobal.percent + '%'}}</div>
-        </div>
-        <hr>
-        <app-table [countries]="allCountries" (country)="onCountrySelected($event)"></app-table>
+        <app-table [countries]="allCountries" [percentage]="percentages?.global" (country)="onCountrySelected($event)"></app-table>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {CountryModel} from '../models/country.model';
 import {catchError, map} from 'rxjs/operators';
 import {SharedService} from './shared.service';
-import {PercentModel} from '../models/percent.model';
+import {PercentagesModel, PercentModel} from '../models/percent.model';
 import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
@@ -99,6 +99,11 @@ export class CovidApiService {
 
   saveSelfAssessmentResults(result): Observable<any> {
     return this.http.post(`${this.baseUrl}self-assessment/result`, result)
+      .pipe(catchError(this.handleError));
+  }
+
+  getPercentages(): Observable<PercentagesModel> {
+    return this.http.get<PercentagesModel>(`${this.baseUrl}covid19/percentages`)
       .pipe(catchError(this.handleError));
   }
 

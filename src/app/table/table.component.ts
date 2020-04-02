@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CountryModel} from '../models/country.model';
 import {SharedService} from '../services/shared.service';
+import {Percentage} from '../models/percent.model';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +10,7 @@ import {SharedService} from '../services/shared.service';
 })
 export class TableComponent implements OnInit, OnChanges {
   @Input() countries: CountryModel[] = [];
+  @Input() percentage: Percentage;
   @Output() country = new EventEmitter();
   deathsReorder: boolean;
   curedReorder: boolean;
