@@ -12,6 +12,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
 
   constructor(private router: Router) { }
   newCases = 0;
+  newDeaths = 0;
   casesPerMillionPeople = 0;
   currentlySick = 0;
   populationInfected = 0;
@@ -19,6 +20,18 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     mortality: {value: 0, style: {}},
     recovery:  {value: 0, style: {}}
   };
+
+  getNewDeaths() {
+    this.newDeaths = 0;
+    const history = [...this.currentCountry.history];
+    if (history && history.length > 0 ){
+      const len = history.length;
+      this.newDeaths =  this.currentCountry.deaths - history[len - 1].deaths ;
+      if (this.newDeaths === 0) {
+        this.newDeaths = history.splice(len - 2, 2).reduce((a, b) => b.deaths - a.deaths);
+      }
+    }
+  }
 
   getNewCases() {
     this.newCases = 0;
@@ -87,6 +100,7 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
       changes.currentCountry &&
       changes.currentCountry.currentValue) {
       this.getNewCases();
+      this.getNewDeaths();
       this.getRates();
       this.getCurrentSick();
       this.getCasesPerMillionPeople();
