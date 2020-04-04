@@ -9,12 +9,31 @@ import {CityCasesModel} from '../models/city-cases.model';
 })
 export class ColombiaService {
 
+  static getRanges() {
+    const range = (start = 0, length = 10) => {
+      return [...Array(length).keys()].map(k => (k + start).toString());
+    };
+    const ranges = {};
+
+    for (let i = 0; i < 10; i++) {
+      const v = range(i * 10);
+      const label = `${v[0]} a ${v[v.length - 1]}`;
+      ranges[label] = v;
+    }
+
+    // console.log(ranges);
+    // console.log([...Object.keys(ranges)]);
+    return ranges;
+  }
+
   constructor(private sharedService: SharedService) { }
 
   getGenderAndAgeData(data: ColombiaDataModel[]) {
+    ColombiaService.getRanges();
     // console.time('getGenderAndAgeData');
     // console.log(`DATA -> ${JSON.stringify(data)}`);
-    let ageLabels = [];
+    const ageRanges = ColombiaService.getRanges();
+    let ageLabels = [...Object.keys(ageRanges)];
     let ageData = {};
     const getObjArr = arr => {
       const obj = {};
@@ -36,25 +55,32 @@ export class ColombiaService {
     // console.log(getObj(attentionLabels));
     data.forEach(item => {
       // console.log(item)
-      if (item.attention.includes('casa')) { item.attention = 'Casa'; }
-      if (ageLabels.indexOf(item.ageRange) < 0) {
-        ageLabels.push(item.ageRange);
-        ageData = {
-          ...ageData,
-          [item.ageRange]: {
-            ...getObj(genderLabels),
-            ...getObj(attentionLabels)
-          }
-        };
-      }
+      if (item.attention.toLowerCase().includes('casa')) { item.attention = 'Casa'; }
       const idx = attentionLabels.indexOf(this.sharedService.upperFirstLetter(item.attention));
       // console.log(attentionLabels)
       item.attention = attentionLabels[idx];
-      ageData[item.ageRange][item.gender] += 1;
-      ageData[item.ageRange][item.attention] += 1;
+
+
+      for (const range in ageRanges) {
+        if (ageRanges.hasOwnProperty(range)) {
+          if (ageRanges[range].indexOf(item.ageRange.toString()) >= 0) {
+            if (!ageData[range]) {
+              ageData = {
+                ...ageData,
+                [range]: {
+                  ...getObj(genderLabels),
+                  ...getObj(attentionLabels)
+                }
+              };
+            }
+            ageData[range][item.gender] += 1;
+            ageData[range][item.attention] += 1;
+          }
+        }
+      }
     });
 
-    ageLabels.sort();
+    // ageLabels.sort();
     ageLabels = ageLabels.map(label => {
       for (const p in sortedData) {
         if (sortedData.hasOwnProperty(p)) {

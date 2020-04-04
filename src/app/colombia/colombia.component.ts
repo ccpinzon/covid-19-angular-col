@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {CovidApiService} from '../services/covid-api.service';
-import {ColombiaDataModel} from '../models/colombia-data.model';
 import {FormatChartDataService} from '../services/format-chart-data.service';
 import {DepartmentModel} from '../models/department.model';
 import {SharedService} from '../services/shared.service';
