@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {CovidApiService} from '../services/covid-api.service';
+import { NgNavigatorShareService } from 'ng-navigator-share';
 
 @Component({
   selector: 'app-navbar',
@@ -13,12 +14,32 @@ export class NavbarComponent implements OnInit {
   slideOut = true;
   isMobile = false;
   lastUpdateDate: string;
-  constructor(private router: Router, private covidApiService: CovidApiService) { }
+  private ngNavigatorShareService: NgNavigatorShareService;
+  constructor(private router: Router,
+              private covidApiService: CovidApiService,
+              ngNavigatorShareService: NgNavigatorShareService) {
+    this.ngNavigatorShareService = ngNavigatorShareService;
+  }
+
+  share() {
+    this.ngNavigatorShareService.share({
+      title: 'Covid 19 Colombia',
+      text: 'Mantente al tanto de lo último del Covid-19',
+      url: location.href
+    }).then( (response) => {
+      console.log(response);
+    })
+      .catch( (error) => {
+        console.log(error);
+      });
+  }
+
   toggleResponsiveMenu() {
     this.slideOut = this.showResponsiveMenu;
     const delay = this.slideOut ? 1000 : 0;
     setTimeout(() => { this.showResponsiveMenu = !this.showResponsiveMenu; }, delay);
   }
+
   getLastUpdateDate() {
     const nameCountry = 'global';
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
@@ -29,6 +50,7 @@ export class NavbarComponent implements OnInit {
       this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
     });
   }
+
   ngOnInit(): void {
     this.isMobile = window.innerWidth < 991;
     this.router.events.subscribe(event => {

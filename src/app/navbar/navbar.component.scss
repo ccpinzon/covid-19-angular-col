@@ -72,10 +72,22 @@
   }
 }
 
+.last-update {
+  margin-bottom: 0;
+  font-variant: all-petite-caps;
+}
+
+.share-button {
+  img {
+    width: 30px;
+  }
+}
+
 @media (max-width: 991px){
 
   .navbar {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 7% 78% 15%;;
   }
 
   .navbar-brand {
@@ -107,9 +119,4 @@
     font-size: 1rem;
     font-weight: bold;
   }
-}
-
-.last-update {
-  margin-bottom: 0;
-  font-variant: all-petite-caps;
 }

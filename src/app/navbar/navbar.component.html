@@ -11,12 +11,16 @@
     COVID-19 COLOMBIA
     🦠
   </a>
-  <div class="row" *ngIf="!isMobile">
+  <div class="row" *ngIf="!isMobile; else shareBtn">
     <div class="text-light justify-content-md-center">
       <h6 class="last-update">Última Actualización: {{lastUpdateDate}}</h6>
-<!--      <h6 class="text-light">weongiourtgnoirt</h6>-->
     </div>
   </div>
+  <ng-template #shareBtn>
+    <div (click)="share()" class="share-button">
+      <img src="assets/icons/share-icon.svg" alt="Share Button">
+    </div>
+  </ng-template>
   <ul class="navbar-list"
       [class.animated]="isMobile"
       [class.show]="showResponsiveMenu"
