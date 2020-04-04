@@ -78,8 +78,10 @@
 }
 
 .share-button {
+  display: flex;
+  justify-content: flex-end;
   img {
-    width: 30px;
+    width: 25px;
   }
 }
 
