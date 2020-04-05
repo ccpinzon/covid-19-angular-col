@@ -167,6 +167,13 @@ export class FormatChartDataService {
   }
 
   private departments(data, type) {
+    const bgColors = [
+      ...this.sharedService.degradeRgb('241, 148, 138', 3),
+      ...this.sharedService.degradeRgb('93, 173, 226', 3),
+      ...this.sharedService.degradeRgb('187, 143, 206', 3),
+      ...this.sharedService.degradeRgb('163, 228, 215', 3),
+      ...this.sharedService.degradeRgb('166, 172, 175', 3)
+    ];
     return {
       name: type,
       title: data.title,
@@ -178,8 +185,8 @@ export class FormatChartDataService {
             {
               label: 'Casos',
               data: data.chartData,
-              backgroundColor: 'rgba(175, 122, 197, 0.3)',
-              borderColor: 'rgba(175, 122, 197, 1)',
+              backgroundColor: bgColors,
+              borderColor: 'rgba(255, 255, 255, 1)',
               borderWidth: 1
             }
           ]
@@ -210,6 +217,44 @@ export class FormatChartDataService {
     };
   }
 
+  private percentageDepartments(data, type) {
+    const bgColors = [
+      ...this.sharedService.degradeRgb('241, 148, 138', 5),
+      ...this.sharedService.degradeRgb('93, 173, 226', 3),
+      ...this.sharedService.degradeRgb('187, 143, 206', 3),
+      ...this.sharedService.degradeRgb('163, 228, 215', 4),
+      ...this.sharedService.degradeRgb('166, 172, 175', 4, true)
+    ];
+    // console.log(bgColors);
+    return {
+      name: type,
+      title: data.title,
+      chartData: {
+        type: 'pie',
+        data: {
+          labels: data.percentages.labels,
+          datasets: [{
+            data: data.percentages.data,
+            backgroundColor: bgColors,
+            borderColor: [
+              'rgb(255, 255, 255)',
+            ],
+            borderWidth: 1.5
+          }]
+        }
+      },
+      options: {
+        legend: {
+          display: false,
+          position: 'bottom'
+        },
+        tooltips: {
+          enabled: true
+        }
+      }
+    };
+  }
+
 
   format(type, data) {
     switch (type) {
@@ -225,6 +270,8 @@ export class FormatChartDataService {
         return this.cities(data, type);
       case 'attention':
         return this.attention(data, type);
+      case 'percentageDepartments':
+        return this.percentageDepartments(data, type);
     }
   }
 

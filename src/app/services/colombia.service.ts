@@ -108,16 +108,46 @@ export class ColombiaService {
     data.sort((a, b) => b.cases - a.cases);
     const labels = [];
     const chartData = [];
+    let total = 0;
 
     data.forEach(item => {
       labels.push(item.dept);
       chartData.push(item.cases);
+      total += item.cases;
     });
-    // console.log({data, labels, chartData});
+
+    const percentages = chartData.map(c => parseFloat((c * 100 / total).toFixed(1)));
+
+    const getPercentageData = values => {
+      const p = [];
+      const l = [];
+      const others = {
+        p: 0,
+        l: 'Otros'
+      };
+      values.forEach((value, i) => {
+        if (value > 1.5) {
+          p.push(value);
+          l.push(`${labels[i]} (${percentages[i]}%)`);
+        } else {
+          others.p += value;
+        }
+      });
+
+      p.push(parseFloat(others.p.toFixed(1)));
+      l.push(others.l);
+
+      return {
+        data: p,
+        labels: l
+      };
+    };
+    // console.log({data, labels, chartData, percentages});
 
     return {
       labels,
-      chartData
+      chartData,
+      percentages: getPercentageData(percentages)
     };
   }
 

@@ -71,6 +71,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);
     let {options} = this.chartData;
+    // console.log(options);
     const ctx: any = document.getElementById(`canvas-chart-${name}`);
     ctx.getContext('2d');
     options = {

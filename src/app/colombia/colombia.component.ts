@@ -18,6 +18,7 @@ export class ColombiaComponent implements OnInit {
   citiesChart;
   attentionChart;
   colombiaChart;
+  percentageDepartmentsChart;
   departmentData: DepartmentModel[] = [];
   citiesData: CityCasesModel[] = [];
   countryData;
@@ -61,6 +62,12 @@ export class ColombiaComponent implements OnInit {
           ...this.colombiaService.getDepartmentData(data)
         };
         this.departmentsChart = this.formatChartDataService.format(type, chartData);
+
+        chartData = {
+          title: '% de casos por departamento',
+          ...this.colombiaService.getDepartmentData(data)
+        };
+        this.percentageDepartmentsChart = this.formatChartDataService.format('percentageDepartments', chartData);
         // console.log(this.departmentsChart);
         break;
       case 'cities':
