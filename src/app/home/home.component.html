@@ -122,7 +122,32 @@
       <span class="cases">{{cityElm.cases}}</span>
     </li>
   </ul>-->
-  <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-6">
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/colombia" >
+            Más información de Colombia 🇨🇴
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 "  *ngIf="isMobile && modalOpened">
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" (click)="modalOpened = false">Más Países 🌎</button>
+        </div>
+    </div>
+
+<!--  <div class="row justify-content-s-center">-->
+<!--    <div class="col-sm-4">-->
+<!--&lt;!&ndash;      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>&ndash;&gt;-->
+<!--      <button type="button" class="btn btn-dark btn-lg see-more" routerLink="/colombia" >Ver más</button>-->
+<!--    </div>-->
+<!--    <div class="col-sm-auto">-->
+<!--      Variable width content-->
+<!--    </div>-->
+<!--    <div class="col-sm-4">-->
+<!--&lt;!&ndash;      <button type="button" class="btn btn-dark btn-lg" routerLink="/colombia" >Ver más</button>&ndash;&gt;-->
+<!--      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>-->
+<!--    </div>-->
+<!--  </div>-->
+
 </ng-template>
 
 
