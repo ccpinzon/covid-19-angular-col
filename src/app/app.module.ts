@@ -11,6 +11,7 @@ import {InfoBoxesModule} from './info-boxes/info-boxes.module';
 import {TableModule} from './table/table.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {FooterModule} from './footer/footer.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ChartModule,
     LeafletModule.forRoot(),
     InfoBoxesModule,
-    TableModule
+    TableModule,
+    FooterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
