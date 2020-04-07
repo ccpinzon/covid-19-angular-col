@@ -159,8 +159,9 @@ export class ColombiaService {
     const cutData = dataCities.slice(0, 10);
     cutData.forEach( cityInfo => {
       // console.log(cityInfo)
-      labels.push(cityInfo.city);
-      chartData.push(cityInfo.percentCases.toFixed(1));
+      const percent = cityInfo.percentCases.toFixed(1);
+      labels.push(`${cityInfo.city} (${percent}%)`);
+      chartData.push(percent);
     } );
 
     return {

@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   chartCityStatus: boolean;
   chartClass: string;
   percentages: PercentagesModel;
-
+  weekSelected = 3;
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
@@ -82,6 +82,20 @@ export class HomeComponent implements OnInit {
           this.getCities();
         }
         this.chartClass = (this.colombia) ? 'col-sm-8' : 'col-sm-12';
+        const lenHistory = this.actualCountry.history.length;
+        switch (this.weekSelected) {
+          case 1:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 8, lenHistory);
+            break;
+          case 2:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 15, lenHistory);
+            break;
+          case 3:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 20, lenHistory);
+            break;
+        }
+        // console.log('chart data this.actualCountry');
+        // console.log(this.actualCountry);
         this.getChartData('history', this.actualCountry);
       });
     }
@@ -209,19 +223,6 @@ export class HomeComponent implements OnInit {
       });
   }
 
-
-  ngOnInit(): void {
-    this.getLatinAmericaList();
-    this.getAllCountries();
-    this.getPercentGlobal();
-    this.getPercentLatinAmerica();
-    this.getPercentages();
-    this.closeModal();
-    this.getGeolocationInfo();
-    this.getLastUpdateDate();
-    this.setBrowser();
-    this.isMobile = window.innerWidth < 991;
-  }
   private setBrowser() {
     this.browser = this.getBrowserName();
     // console.log(this.browser);
@@ -257,5 +258,27 @@ export class HomeComponent implements OnInit {
     this.tableCityStatus = false;
     this.chartCityStatus = true;
     this.chartClass = this.colombia ? 'col-sm-6' : 'col-sm-12';
+  }
+
+  selectWeek(weekNumber: number) {
+    // console.log('oneWeekChart');
+    this.weekSelected = weekNumber;
+    if (this.actualCountry) {
+      this.getCountryByName(this.actualCountry.name);
+    }
+    // this.actualCountry.history.slice(0, 2);
+  }
+
+  ngOnInit(): void {
+    this.getLatinAmericaList();
+    this.getAllCountries();
+    this.getPercentGlobal();
+    this.getPercentLatinAmerica();
+    this.getPercentages();
+    this.closeModal();
+    this.getGeolocationInfo();
+    this.getLastUpdateDate();
+    this.setBrowser();
+    this.isMobile = window.innerWidth < 991;
   }
 }

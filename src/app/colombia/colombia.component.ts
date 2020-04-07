@@ -31,6 +31,7 @@ export class ColombiaComponent implements OnInit {
     dep: false,
     attention: false
   };
+  weekSelected = 3;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
               private colombiaService: ColombiaService,
@@ -117,6 +118,18 @@ export class ColombiaComponent implements OnInit {
       this.covidApiService.getCountry(countryName).subscribe(res => {
         // console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
         this.currentCountry = res;
+        const lenHistory = this.currentCountry.history.length;
+        switch (this.weekSelected) {
+          case 1:
+            this.currentCountry.history = this.currentCountry.history.slice(lenHistory - 8, lenHistory);
+            break;
+          case 2:
+            this.currentCountry.history = this.currentCountry.history.slice(lenHistory - 15, lenHistory);
+            break;
+          case 3:
+            this.currentCountry.history = this.currentCountry.history.slice(lenHistory - 20, lenHistory);
+            break;
+        }
         this.getChartData('history', this.currentCountry);
       });
     }
@@ -136,4 +149,13 @@ export class ColombiaComponent implements OnInit {
   }
 
 
+
+  selectWeek(weekNumber: number) {
+    // console.log('oneWeekChart');
+    this.weekSelected = weekNumber;
+    if (this.currentCountry) {
+      this.getCountryByName(this.currentCountry.name);
+    }
+    // this.actualCountry.history.slice(0, 2);
+  }
 }

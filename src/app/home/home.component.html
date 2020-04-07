@@ -68,8 +68,23 @@
   </div>-->
 
   <div class="col-sm-12" [class.full-width]="!colombia && !citiesChart">
+
+
     <div class="row">
       <div [ngClass]="chartClass" >
+        <div class="row justify-content-md-end">
+          <div class="col-12" [ngClass]="(!colombia) ? 'col-md-4': 'col-md-4'">
+            <h4 class="country-title" *ngIf="chartData">{{chartData.flag}}{{chartData.title}}</h4>
+          </div>
+          <div class="col-12"[ngClass]="(!colombia) ? 'col-md-3': 'col-md-5'" >
+            <div class="btn-group">
+              <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
+              <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
+              <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
+            </div>
+          </div>
+        </div>
+
         <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && citiesChart"></app-chart>
       </div>
       <app-info-boxes *ngIf="modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
@@ -122,7 +137,32 @@
       <span class="cases">{{cityElm.cases}}</span>
     </li>
   </ul>-->
-  <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-6">
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/colombia" >
+            Más información de Colombia 🇨🇴
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 "  *ngIf="isMobile && modalOpened">
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" (click)="modalOpened = false">Más Países 🌎</button>
+        </div>
+    </div>
+
+<!--  <div class="row justify-content-s-center">-->
+<!--    <div class="col-sm-4">-->
+<!--&lt;!&ndash;      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>&ndash;&gt;-->
+<!--      <button type="button" class="btn btn-dark btn-lg see-more" routerLink="/colombia" >Ver más</button>-->
+<!--    </div>-->
+<!--    <div class="col-sm-auto">-->
+<!--      Variable width content-->
+<!--    </div>-->
+<!--    <div class="col-sm-4">-->
+<!--&lt;!&ndash;      <button type="button" class="btn btn-dark btn-lg" routerLink="/colombia" >Ver más</button>&ndash;&gt;-->
+<!--      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>-->
+<!--    </div>-->
+<!--  </div>-->
+
 </ng-template>
 
 
