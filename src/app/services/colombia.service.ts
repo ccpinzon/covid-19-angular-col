@@ -145,7 +145,7 @@ export class ColombiaService {
     // console.log({data, labels, chartData, percentages});
 
     return {
-      labels: labels.map((l,i) => `${l} (${chartData[i]})`),
+      labels: labels.map((l, i) => `${l} (${chartData[i]})`),
       chartData,
       percentages: getPercentageData(percentages)
     };

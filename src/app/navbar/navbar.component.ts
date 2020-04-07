@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit {
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
       // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = new Date(res.lastDate);
+      const lastDate = new Date(res.lastDate.split(' ').join('T'));
       // console.log(lastDate);
       this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
     });

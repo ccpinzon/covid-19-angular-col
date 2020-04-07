@@ -195,7 +195,7 @@ export class HomeComponent implements OnInit {
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
       // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = new Date(res.lastDate);
+      const lastDate = new Date(res.lastDate.split(' ').join('T'));
       // console.log(lastDate);
       this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
     });
@@ -205,7 +205,7 @@ export class HomeComponent implements OnInit {
     this.covidApiService.getPercentages()
       .subscribe(percentages => {
         this.percentages = percentages;
-        console.log(this.percentages);
+        // console.log(this.percentages);
       });
   }
 

@@ -23,11 +23,11 @@ export class TablePercentagesComponent implements OnInit, OnChanges {
         this.percentageList.push({title: this.titles[p], percentage: this.percentage[p], class: p});
       }
     }
-    console.log(this.percentageList);
+    // console.log(this.percentageList);
   }
 
   ngOnInit() {
-    console.log(this.percentage);
+    // console.log(this.percentage);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
