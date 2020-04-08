@@ -19,6 +19,19 @@ export class FormatChartDataService {
     };
   }
 
+  static getCasesDataLog(history) {
+    const cases = history.cases;
+    const casesLogList = []
+    cases.forEach( caseAux => {
+      // const ram = Math.random();
+      // console.log(ram);
+      // console.log(Math.ceil(ram * 10.0) * Math.pow(10, Math.ceil(ram * 5)));
+      // console.log(`case -> ${caseAux} , case log -> ${Math.log(caseAux)}`);
+      casesLogList.push(Math.log(caseAux));
+    });
+    return { casesLog: casesLogList, cases: history.cases };
+  }
+
   constructor(private sharedService: SharedService) { }
 
   private history(data, type) {
@@ -65,6 +78,65 @@ export class FormatChartDataService {
       }
     };
   }
+
+  private logarithmic(data, type) {
+    const labels = FormatChartDataService.getDateLabels(data.history);
+    const history = FormatChartDataService.getCasesData(data.history);
+    console.log({labels, history});
+    const casesLog = FormatChartDataService.getCasesDataLog(history)
+    return {
+      name: type,
+      title: data.nameEs,
+      flag: data.flag,
+      chartData: {
+        type: 'line',
+        data: {
+          datasets: [
+            // {
+            //   label: 'Bar Dataset',
+            //   data: history.cases
+            // },
+            {
+              label: 'Casos totales',
+              data: casesLog.casesLog,
+              // Changes this dataset to become a line
+              borderColor: 'rgba(255, 165, 0, 1)',
+              backgroundColor: 'rgba(255, 165, 0, 0.2)',
+              pointRadius: 5,
+              pointHoverRadius: 8,
+              type: 'line',
+              borderWidth: 2
+            }
+            /*,
+            {
+              label: 'Muertes',
+              data: history.deaths,
+              borderColor: 'rgba(210, 53, 69, 0.6)',
+              backgroundColor: 'rgba(210, 53, 69, 0.2)',
+              // Changes this dataset to become a line
+              type: 'line',
+              pointRadius: 5,
+              pointHoverRadius: 8,
+              borderWidth: 2
+            }*/
+          ],
+          labels
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              type: 'logarithmic',
+              ticks: {
+                min: 100,
+                max: 2000
+              }
+            }]
+          }
+        }
+      }
+    };
+  }
+
 
   private currentCountry(data, type) {
     return {
@@ -262,6 +334,8 @@ export class FormatChartDataService {
         return this.currentCountry(data, type);
       case 'history':
         return this.history(data, type);
+      case 'logarithmic':
+        return this.logarithmic(data, type);
       case 'ageAndGender':
         return this.ageAndGender(data, type);
       case 'departments':

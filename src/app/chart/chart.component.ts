@@ -80,9 +80,19 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     };
     const data = {
       ...chartData,
-      options
+      options: {
+        scales: {
+          yAxes: [{
+            type: 'logarithmic',
+            ticks: {
+              min: 150,
+              max: 2100
+            }
+          }]
+        }
+      }
     };
-    // console.log('rendering data>', JSON.stringify(data));
+    console.log('rendering data>', JSON.stringify(data));
 
     this.chart = new Chart(ctx, data);
     // console.log('rendering>', chart);

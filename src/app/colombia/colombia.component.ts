@@ -18,6 +18,7 @@ export class ColombiaComponent implements OnInit {
   citiesChart;
   attentionChart;
   colombiaChart;
+  colombiaChartLog;
   percentageDepartmentsChart;
   departmentData: DepartmentModel[] = [];
   citiesData: CityCasesModel[] = [];
@@ -83,6 +84,10 @@ export class ColombiaComponent implements OnInit {
         this.colombiaChart = this.formatChartDataService.format(type, data);
         // console.log(this.departmentsChart);
         break;
+      case 'logarithmic':
+        this.colombiaChartLog = this.formatChartDataService.format(type, data);
+        console.log(this.colombiaChartLog);
+        break;
     }
   }
 
@@ -131,6 +136,7 @@ export class ColombiaComponent implements OnInit {
             break;
         }
         this.getChartData('history', this.currentCountry);
+        this.getChartData('logarithmic', this.currentCountry);
       });
     }
   }
