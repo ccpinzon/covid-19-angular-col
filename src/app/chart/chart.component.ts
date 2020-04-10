@@ -1,4 +1,12 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import Chart from 'chart.js';
 
 @Component({
@@ -18,17 +26,43 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       type: string,
       data: {
         label: string,
-        dataset: Array<any>
+        datasets: Array<any>
       }
     },
-    options?: {}
+    options: {}
   };
   chart;
   fullWidth = false;
-  constructor() { }
+  typeChartLogEnable: boolean;
+  constructor() {
+    // this.enableTypeChart('lineal');
+  }
 
-  getOptions(type) {
+  getOptions(type ,chartData) {
     switch (type) {
+      case 'line':
+        break;
+      case 'logarithmic':
+        const lenData = chartData.data.datasets[0].data[0].length - 1
+        const min = chartData.data.datasets[0].data[0]
+        const max = chartData.data.datasets[0].data[lenData]
+        console.log('log')
+        return {
+          responsive: true,
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'LABEL',
+              },
+              type: 'logarithmic',
+              ticks: {
+                min: min,
+                max: max
+              }
+            }]
+          }
+        }
       case 'horizontalBar':
         return {
           responsive: true,
@@ -74,28 +108,26 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     // console.log(options);
     const ctx: any = document.getElementById(`canvas-chart-${name}`);
     ctx.getContext('2d');
-    options = {
-      ...this.getOptions(chartData.type),
-      ...options
-    };
+    // options = {
+    //   ...this.getOptions(chartData.type ,chartData),
+    //   ...options
+    // };
+
+
+    let chartOptions = {}
+    if (chartData && this.typeChartLogEnable && this.chartData.flag) {
+      chartOptions = this.getOptions('logarithmic' ,chartData)
+    }else {
+      console.log(chartData.type)
+      chartOptions = this.getOptions(chartData.type ,chartData)
+    }
+
     const data = {
       ...chartData,
-      options: {
-        scales: {
-          yAxes: [{
-            type: 'logarithmic',
-            ticks: {
-              min: 150,
-              max: 2100
-            }
-          }]
-        }
-      }
+      options: chartOptions
     };
-    console.log('rendering data>', JSON.stringify(data));
-
     this.chart = new Chart(ctx, data);
-    // console.log('rendering>', chart);
+    // console.log('rendering>', this.chart);
   }
 
   updateData(data) {
@@ -130,10 +162,15 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('updatedChartData:', changes);
+    console.log('updatedChartData:', changes);
     if (changes && changes.chartData && !changes.firstChange) {
       this.updateData(this.chartData);
+      console.log(this.chartData)
     }
   }
 
+  enableTypeChart(typeChart: string) {
+    this.typeChartLogEnable = typeChart === 'logarithmic' ;
+    this.renderChart()
+  }
 }

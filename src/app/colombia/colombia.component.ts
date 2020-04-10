@@ -158,6 +158,7 @@ export class ColombiaComponent implements OnInit {
 
   selectWeek(weekNumber: number) {
     // console.log('oneWeekChart');
+    // console.log(this.colombiaChartLog)
     this.weekSelected = weekNumber;
     if (this.currentCountry) {
       this.getCountryByName(this.currentCountry.name);

@@ -19,17 +19,8 @@ export class FormatChartDataService {
     };
   }
 
-  static getCasesDataLog(history) {
-    const cases = history.cases;
-    const casesLogList = []
-    cases.forEach( caseAux => {
-      // const ram = Math.random();
-      // console.log(ram);
-      // console.log(Math.ceil(ram * 10.0) * Math.pow(10, Math.ceil(ram * 5)));
-      // console.log(`case -> ${caseAux} , case log -> ${Math.log(caseAux)}`);
-      casesLogList.push(Math.log(caseAux));
-    });
-    return { casesLog: casesLogList, cases: history.cases };
+  static getCasesDataLog(data) {
+    return {cases: data.map(item => item.cases)}
   }
 
   constructor(private sharedService: SharedService) { }
@@ -81,9 +72,10 @@ export class FormatChartDataService {
 
   private logarithmic(data, type) {
     const labels = FormatChartDataService.getDateLabels(data.history);
-    const history = FormatChartDataService.getCasesData(data.history);
-    console.log({labels, history});
-    const casesLog = FormatChartDataService.getCasesDataLog(history)
+    const history = FormatChartDataService.getCasesDataLog(data.history);
+    // console.log({labels, history});
+    // const casesLog = FormatChartDataService.getCasesDataLog(history)
+
     return {
       name: type,
       title: data.nameEs,
@@ -98,7 +90,7 @@ export class FormatChartDataService {
             // },
             {
               label: 'Casos totales',
-              data: casesLog.casesLog,
+              data: history.cases,
               // Changes this dataset to become a line
               borderColor: 'rgba(255, 165, 0, 1)',
               backgroundColor: 'rgba(255, 165, 0, 0.2)',
@@ -121,17 +113,6 @@ export class FormatChartDataService {
             }*/
           ],
           labels
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              type: 'logarithmic',
-              ticks: {
-                min: 100,
-                max: 2000
-              }
-            }]
-          }
         }
       }
     };
