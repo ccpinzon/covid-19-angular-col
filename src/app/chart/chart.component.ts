@@ -43,22 +43,30 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       case 'line':
         break;
       case 'logarithmic':
-        const lenData = chartData.data.datasets[0].data[0].length - 1
+        const lenData = chartData.data.datasets[0].data.length
+        // console.log(lenData);
         const min = chartData.data.datasets[0].data[0]
-        const max = chartData.data.datasets[0].data[lenData]
-        console.log('log')
+        const max = chartData.data.datasets[0].data[lenData - 1]
+        // console.log(min);
+        // console.log(max);
         return {
           responsive: true,
           scales: {
             yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'LABEL',
-              },
               type: 'logarithmic',
               ticks: {
-                min: min,
-                max: max
+                min: min + lenData   ,
+                max: max ,
+                // autoSkipPadding: max / lenData,
+                userCallback: function(value, index, values) {
+                  // Convert the number to a string and splite the string every 3 charaters from the end
+                  value = value.toString();
+                  value = value.split(/(?=(?:...)*$)/);
+
+                  // Convert the array to a string and format the output
+                  value = value.join('.');
+                  return value;
+                }
               }
             }]
           }
@@ -118,7 +126,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     if (chartData && this.typeChartLogEnable && this.chartData.flag) {
       chartOptions = this.getOptions('logarithmic' ,chartData)
     }else {
-      console.log(chartData.type)
+      // console.log(chartData.type)
       chartOptions = this.getOptions(chartData.type ,chartData)
     }
 
@@ -126,6 +134,9 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       ...chartData,
       options: chartOptions
     };
+    if (this.chart) {
+      this.chart.destroy();
+    }
     this.chart = new Chart(ctx, data);
     // console.log('rendering>', this.chart);
   }
@@ -137,6 +148,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     this.chart.data.labels = chartData.data.labels;
     // console.log('rendering data>', JSON.stringify(chartData.data.labels));
     this.chart.update();
+    this.renderChart();
   }
 
   ngOnInit() {
@@ -162,10 +174,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('updatedChartData:', changes);
+    // console.log('updatedChartData:', changes);
     if (changes && changes.chartData && !changes.firstChange) {
       this.updateData(this.chartData);
-      console.log(this.chartData)
+      // console.log(this.chartData)
     }
   }
 
