@@ -11,12 +11,16 @@
     COVID-19 COLOMBIA
     🦠
   </a>
-  <div class="row" *ngIf="!isMobile">
-    <div class=" text-light justify-content-md-center">
-            <h6>Ultima Actualización: {{lastUpdateDate}}</h6>
-<!--      <h6 class="text-light">weongiourtgnoirt</h6>-->
+  <div class="row" *ngIf="!isMobile; else shareBtn">
+    <div class="text-light justify-content-md-center">
+      <h6 class="last-update">Última Actualización: {{lastUpdateDate}}</h6>
     </div>
   </div>
+  <ng-template #shareBtn>
+    <div (click)="share()" class="share-button">
+      <img src="assets/icons/share-icon.svg" alt="Share Button">
+    </div>
+  </ng-template>
   <ul class="navbar-list"
       [class.animated]="isMobile"
       [class.show]="showResponsiveMenu"
@@ -29,10 +33,13 @@
       <a class="link" routerLink="/colombia">Colombia</a>
     </li>
     <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/informacion">Información</a>
+      <a class="link" routerLink="/autoevaluacion">Autoevaluación</a>
     </li>
     <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-      <a class="link" routerLink="/mapa-colombia">Mapa Colombia</a>
+      <a class="link" routerLink="/informacion">Información</a>
     </li>
+    <!-- <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="link" routerLink="/mapa-colombia">Mapa Colombia</a>
+    </li> -->
   </ul>
 </nav>

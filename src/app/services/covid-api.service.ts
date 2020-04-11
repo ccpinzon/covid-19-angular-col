@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {CountryModel} from '../models/country.model';
-import {catchError, map, retry, tap} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {SharedService} from './shared.service';
-import {PercentModel} from '../models/percent.model';
+import {PercentagesModel, PercentModel} from '../models/percent.model';
 import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ import {LastUpdateModel} from '../models/last-update.model';
 export class CovidApiService {
 
   private readonly baseUrl = 'https://covid-19-col.appspot.com/';
-
   private readonly apiUrl = `${this.baseUrl}covid19/`;
 
   constructor(private http: HttpClient,
@@ -73,15 +73,37 @@ export class CovidApiService {
       .pipe(catchError(this.handleError));
   }
 
+  getDataByCity(): Observable<CityCasesModel[]> {
+    return this.http.get<CityCasesModel[]>(`${this.baseUrl}c19colombia/casesByCity`)
+      .pipe(catchError(this.handleError));
+  }
+
   getLastUpdate(countryName: string): Observable<LastUpdateModel> {
     return countryName === 'colombia' ? this.getLastUpdateColombia() : this.getLastUpdateAllCountries();
   }
+
   private getLastUpdateAllCountries(): Observable<LastUpdateModel> {
     return this.http.get<LastUpdateModel>(`${this.baseUrl}covid19/lastUpdate`)
       .pipe(catchError(this.handleError));
   }
+
   private getLastUpdateColombia() {
     return this.http.get<LastUpdateModel>(`${this.baseUrl}c19colombia/lastUpdate`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getSelfAssessmentQuestions(): Observable<any> {
+    return this.http.get(`${this.baseUrl}self-assessment/question`)
+      .pipe(catchError(this.handleError));
+  }
+
+  saveSelfAssessmentResults(result): Observable<any> {
+    return this.http.post(`${this.baseUrl}self-assessment/result`, result)
+      .pipe(catchError(this.handleError));
+  }
+
+  getPercentages(): Observable<PercentagesModel> {
+    return this.http.get<PercentagesModel>(`${this.baseUrl}covid19/percentages`)
       .pipe(catchError(this.handleError));
   }
 

@@ -12,11 +12,26 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
 
   constructor(private router: Router) { }
   newCases = 0;
+  newDeaths = 0;
+  casesPerMillionPeople = 0;
   currentlySick = 0;
+  populationInfected = 0;
   rates = {
     mortality: {value: 0, style: {}},
     recovery:  {value: 0, style: {}}
   };
+
+  getNewDeaths() {
+    this.newDeaths = 0;
+    const history = [...this.currentCountry.history];
+    if (history && history.length > 0 ){
+      const len = history.length;
+      this.newDeaths =  this.currentCountry.deaths - history[len - 1].deaths ;
+      if (this.newDeaths === 0) {
+        this.newDeaths = history.splice(len - 2, 2).reduce((a, b) => b.deaths - a.deaths);
+      }
+    }
+  }
 
   getNewCases() {
     this.newCases = 0;
@@ -58,6 +73,25 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
     // console.log(this.currentlySick);
   }
 
+  getCasesPerMillionPeople() {
+    this.casesPerMillionPeople = 0;
+    if (this.currentCountry.population > 0) {
+      this.casesPerMillionPeople = parseFloat(
+        (this.currentCountry.cases / (this.currentCountry.population / 1000000)).toFixed(2)
+      );
+    }
+  }
+
+  getPercentageOfInfectedPopulation() {
+    this.populationInfected = 0;
+    if (this.currentCountry.population > 0) {
+      this.populationInfected = parseFloat(
+        (this.currentCountry.cases * 100 / this.currentCountry.population).toFixed(4)
+      );
+    }
+    // console.log(this.populationInfected);
+  }
+
   ngOnInit() {
   }
 
@@ -66,8 +100,11 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
       changes.currentCountry &&
       changes.currentCountry.currentValue) {
       this.getNewCases();
+      this.getNewDeaths();
       this.getRates();
       this.getCurrentSick();
+      this.getCasesPerMillionPeople();
+      // this.getPercentageOfInfectedPopulation();
     }
   }
 }

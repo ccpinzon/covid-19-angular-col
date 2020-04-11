@@ -30,6 +30,7 @@
     "leaflet": "^1.6.0",
     "mapbox-gl": "^0.54.0",
     "ngx-mapbox-gl": "^4.5.0",
+    "ng-navigator-share": "^1.0.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

@@ -1,0 +1,65 @@
+<article class="container self-assessment">
+  <h2 class="text-center title">
+    <ng-container *ngIf="showResults">Resultado de su </ng-container>
+    Autoevaluación del Covid-19
+  </h2>
+
+  <section class="test" *ngIf="!showResults; else testResult">
+
+    <form class="test-form" [formGroup]="testForm" *ngIf="testForm">
+
+      <div class="question" *ngFor="let question of questions">
+        <h3 class="question-title">{{question.id}}. {{question.question}}</h3>
+        <div class="question-options">
+          <label *ngFor="let option of question.options"
+                 class="question-option label"
+                 [class.checked]="option.type === 'checkbox' ? testForm.controls[option.name].value : testForm.controls[option.name].value == option.value">
+            <input class="d-none"
+                   [formControlName]="option.name"
+                   [type]="option.type"
+                   [value]="option.value"
+                   [name]="option.name"
+                   (change)="onCheckBoxChange(option)">
+            <span class="question-label">{{option.label}}</span>
+          </label>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="button-wrapper">
+      <button class="btn btn-dark" (click)="getTestResult()">Obtener resultados</button>
+    </div>
+
+  </section>
+
+  <ng-template #testResult>
+    <section class="result">
+
+      <div class="button-wrapper link">
+        <a class="" (click)="reTakeTest()">&lt;  Volver a tomar la autoevaluación</a>
+      </div>
+
+      <div class="result-observation">
+        <p [class]="'observation-item ' + result.level">{{result.text}}</p>
+
+        <ng-container *ngIf="result.recommendations.length > 0" class="recommendations-wrapper">
+          <p class="list-title"><strong>Recomendaciones:</strong></p>
+          <ul class="recommendations-list">
+            <li class="recommendation" *ngFor="let r of result.recommendations">{{r}}</li>
+          </ul>
+        </ng-container>
+
+        <p class="pd" *ngIf="result.pd">*{{result.pd}}</p>
+      </div>
+
+      <p class="reference">
+        <small>Basado en las guías de la </small>
+        <a class="link"
+           href="https://www.doh.gov.ph/2019-ncov/interim-guidelines"
+           target="_blank">DOH</a>
+      </p>
+    </section>
+  </ng-template>
+
+</article>

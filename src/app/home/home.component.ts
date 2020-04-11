@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryModel } from '../models/country.model';
-import { PercentModel } from '../models/percent.model';
+import {PercentagesModel, PercentModel} from '../models/percent.model';
 import { CovidApiService } from '../services/covid-api.service';
 import { FormatChartDataService } from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
 import {DatePipe} from '@angular/common';
+import {CityCasesModel} from '../models/city-cases.model';
 
 @Component({
   selector: 'app-home',
@@ -23,12 +24,19 @@ export class HomeComponent implements OnInit {
   colombia: CountryModel;
   isMobile;
   departmentsChart;
+  citiesData: CityCasesModel [];
+  citiesChart;
   selectedTab = {
     global: false,
     latam: true
   };
   lastUpdateDate: string;
   browser: string;
+  tableCityStatus = true;
+  chartCityStatus: boolean;
+  chartClass: string;
+  percentages: PercentagesModel;
+  weekSelected = 3;
 
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
@@ -71,7 +79,23 @@ export class HomeComponent implements OnInit {
         if (countryName.toLowerCase().indexOf('colombia') >= 0) {
           this.colombia = res;
           this.getDepartments();
+          this.getCities();
         }
+        this.chartClass = (this.colombia) ? 'col-sm-8' : 'col-sm-12';
+        const lenHistory = this.actualCountry.history.length;
+        switch (this.weekSelected) {
+          case 1:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 8, lenHistory);
+            break;
+          case 2:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 15, lenHistory);
+            break;
+          case 3:
+            this.actualCountry.history = this.actualCountry.history.slice(lenHistory - 20, lenHistory);
+            break;
+        }
+        // console.log('chart data this.actualCountry');
+        // console.log(this.actualCountry);
         this.getChartData('history', this.actualCountry);
       });
     }
@@ -88,6 +112,26 @@ export class HomeComponent implements OnInit {
         this.departmentsChart = this.formatChartData.format('departments', chartData);
         this.getChartData('departments', data);
       });
+  }
+
+  getCities() {
+    this.covidApiService.getDataByCity()
+      .subscribe(cityInfoList => {
+        // console.log(data);
+        this.citiesData = this.getTopCities(cityInfoList);
+        const chartCitiesData = {
+          title: 'Top 10 Ciudades',
+          ...this.colombiaService.getCityData(cityInfoList)
+        };
+        this.citiesChart = this.formatChartData.format('cities', chartCitiesData);
+      });
+  }
+
+  private getTopCities(cityInfoList: CityCasesModel[]) {
+    cityInfoList.forEach(cityInfo => {
+      cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.actualCountry.cases;
+    });
+    return cityInfoList;
   }
 
   getChartData(type, data) {
@@ -108,6 +152,10 @@ export class HomeComponent implements OnInit {
 
   onCountrySelected(country) {
     this.getCountryByName(country);
+    if (!this.colombia) {
+      // console.log('selecciono pais diferente a oclombia');
+      this.chartClass = 'col-sm-12';
+    }
   }
 
   closeModal() {
@@ -159,32 +207,29 @@ export class HomeComponent implements OnInit {
   getLastUpdateDate() {
     const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
     this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
+      // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = res.lastDate.split('.')[0].replace(' ', 'T');
-      console.log(lastDate)
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm', '+200');
+      const lastDate = new Date(res.lastDate.split(' ').join('T'));
+      // console.log(lastDate);
+      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
     });
   }
 
-
-  ngOnInit(): void {
-    this.getLatinAmericaList();
-    this.getAllCountries();
-    this.getPercentGlobal();
-    this.getPercentLatinAmerica();
-    this.closeModal();
-    this.getGeolocationInfo();
-    this.getLastUpdateDate();
-    this.setBrowser();
-    this.isMobile = window.innerWidth < 991;
+  getPercentages() {
+    this.covidApiService.getPercentages()
+      .subscribe(percentages => {
+        this.percentages = percentages;
+        // console.log(this.percentages);
+      });
   }
+
   private setBrowser() {
     this.browser = this.getBrowserName();
-    console.log(this.browser);
+    // console.log(this.browser);
   }
 
   private getBrowserName() {
-    const agent = window.navigator.userAgent.toLowerCase()
+    const agent = window.navigator.userAgent.toLowerCase();
     switch (true) {
       case agent.indexOf('edge') > -1:
         return 'edge';
@@ -201,5 +246,39 @@ export class HomeComponent implements OnInit {
       default:
         return 'other';
     }
+  }
+
+  enableCityTable() {
+    this.tableCityStatus = true;
+    this.chartCityStatus = false;
+    this.chartClass = this.colombia ? 'col-sm-8' : 'col-sm-12';
+ }
+
+  enableCityChart() {
+    this.tableCityStatus = false;
+    this.chartCityStatus = true;
+    this.chartClass = this.colombia ? 'col-sm-6' : 'col-sm-12';
+  }
+
+  selectWeek(weekNumber: number) {
+    // console.log('oneWeekChart');
+    this.weekSelected = weekNumber;
+    if (this.actualCountry) {
+      this.getCountryByName(this.actualCountry.name);
+    }
+    // this.actualCountry.history.slice(0, 2);
+  }
+
+  ngOnInit(): void {
+    this.getLatinAmericaList();
+    this.getAllCountries();
+    this.getPercentGlobal();
+    this.getPercentLatinAmerica();
+    this.getPercentages();
+    this.closeModal();
+    this.getGeolocationInfo();
+    this.getLastUpdateDate();
+    this.setBrowser();
+    this.isMobile = window.innerWidth < 991;
   }
 }

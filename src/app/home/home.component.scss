@@ -61,10 +61,6 @@
   }
 }
 
-.progress-bar {
-  background-color: limegreen;
-}
-
 .table-container {
   border: 1px solid lightgray;
   border-radius: 0.2rem !important;
@@ -97,6 +93,18 @@
   }
 }
 
+.scroll-table-in-y{
+  position: relative;
+  height: 350px;
+  overflow-y: scroll;
+}
+.tableFixHead          { overflow: auto; height: 400px; position: relative }
+.tableFixHead thead th { position: sticky; top: 0; }
+
+.top-margin-more-button {
+  margin-top: 0.5rem !important;
+}
+
 .see-more {
   display: flex;
   align-items: center;
@@ -122,6 +130,9 @@
     }
   }
 }
+.text-table-place {
+  font-size: 0.8rem;
+}
 
 @media (max-width: 991px) {
   .tables-wrapper  {
@@ -137,4 +148,8 @@
       width: 10rem;
     }
   }
+}
+
+.last-update {
+  font-variant: all-petite-caps;
 }

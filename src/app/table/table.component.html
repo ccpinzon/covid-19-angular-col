@@ -1,29 +1,32 @@
-<div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
-  <div class="search">
-    <input type="text" [(ngModel)]="query" (ngModelChange)="searchCountry()" placeholder="Buscar: Ej. Colombia">
-    <img src="assets/icons/search.svg" alt="Search Icon">
-  </div>
-  <div class="list-header">
-    <strong class="list-header-item text-center">País</strong>
-    <strong class="list-header-item text-center" (click)="reorderByCases()">Casos</strong>
-    <strong class="list-header-item text-center" (click)="reorderByDeaths()">Muertes</strong>
-    <strong class="list-header-item text-center" (click)="reorderByCured()">Recuperados</strong>
-    <strong class="list-header-item text-center" (click)="reorderBySuspected()">Críticos</strong>
-  </div>
-  <cdk-virtual-scroll-viewport itemSize="50" style="height:100%">
+<section class="table-container">
+  <app-table-percentages [percentage]="percentage"></app-table-percentages>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive">
+    <div class="search">
+      <input type="text" [(ngModel)]="query" (ngModelChange)="searchCountry()" placeholder="Buscar: Ej. Colombia">
+      <img src="assets/icons/search.svg" alt="Search Icon">
+    </div>
+    <div class="list-header">
+      <strong class="list-header-item text-center">País</strong>
+      <strong class="list-header-item text-center" (click)="reorderByCases()">Casos</strong>
+      <strong class="list-header-item text-center" (click)="reorderByDeaths()">Muertes</strong>
+      <strong class="list-header-item text-center" (click)="reorderByCured()">Recuperados</strong>
+      <strong class="list-header-item text-center" (click)="reorderBySuspected()">Críticos</strong>
+    </div>
+    <cdk-virtual-scroll-viewport itemSize="50" style="height:100%">
 
-  <ul id="tableCountry" class="country-list">
-    <li *cdkVirtualFor="let country of filteredCountries"
-        class="country-item"
-        (click)="selectedCountry(country)"
-        [class.active]="currentCountry && currentCountry.name === country.name">
+      <ul id="tableCountry" class="country-list">
+        <li *cdkVirtualFor="let country of filteredCountries"
+            class="country-item"
+            (click)="selectedCountry(country)"
+            [class.active]="currentCountry && currentCountry.name === country.name">
 
-      <h4 class="country">{{country.flag}} {{country.nameEs}}</h4>
-      <span class="cases">{{country.cases}}</span>
-      <span class="deaths">{{country.deaths}}</span>
-      <span class="cured">{{country.cured}}</span>
-      <span class="critic">{{country.critic}}</span>
-    </li>
-  </ul>
-  </cdk-virtual-scroll-viewport>
-</div>
+          <h4 class="country">{{country.flag}} {{country.nameEs}}</h4>
+          <span class="cases">{{country.cases}}</span>
+          <span class="deaths">{{country.deaths}}</span>
+          <span class="cured">{{country.cured}}</span>
+          <span class="critic">{{country.critic}}</span>
+        </li>
+      </ul>
+    </cdk-virtual-scroll-viewport>
+  </div>
+</section>

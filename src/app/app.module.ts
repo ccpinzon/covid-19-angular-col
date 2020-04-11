@@ -14,6 +14,7 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import {MapaColombiaModule} from './mapa-colombia/mapa-colombia.module';
 import {environment} from '../environments/environment.prod';
 import { NavbarComponent } from './navbar/navbar.component';
+import {FooterModule} from './footer/footer.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     InfoBoxesModule,
     TableModule,
     MapaColombiaModule,
-    NgxMapboxGLModule.withConfig({ accessToken: environment.accessToken})
+    NgxMapboxGLModule.withConfig({ accessToken: environment.accessToken}),
+    FooterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,6 +20,9 @@ const routes: Routes = [
   {
     path: 'mapa-colombia',
     loadChildren: () => import('./mapa-colombia/mapa-colombia.module').then(m => m.MapaColombiaModule)
+  }, {
+    path: 'autoevaluacion',
+    loadChildren: () => import('./self-assessment/self-assessment.module').then(m => m.SelfAssessmentModule)
   }
 ];
 

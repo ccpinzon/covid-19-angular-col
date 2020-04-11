@@ -5,6 +5,10 @@ body {
   font-size: 10px !important;
 }/* You can add global styles to this file, and also import other style files */
 
+.progress {
+  border-radius: 0.2rem;
+}
+
 .default-list {
   padding: 0;
   list-style: none;
@@ -282,6 +286,12 @@ body {
 .slideOutUp {
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp;
+}
+
+@media (max-width: 991px) {
+  .container {
+    margin-top: 7rem;
+  }
 }
 
 

@@ -23,13 +23,6 @@
     </div>
   </div>
   <div class="box-info-item">
-    <div class="alert alert-critic text-center" role="alert">
-      <h6>
-        <span>🤒 <span class="d-sm-inline">Críticos: </span>{{currentCountry.critic}}</span>
-      </h6>
-    </div>
-  </div>
-  <div class="box-info-item">
     <div class="alert alert-info text-center" role="alert">
       <h6>
         <span>🤧 <span class="d-sm-inline">Enfermos: </span>{{currentlySick}}</span>
@@ -37,13 +30,47 @@
     </div>
   </div>
   <div class="box-info-item">
-    <div class="alert alert-secondary text-center" role="alert">
+    <div class="alert alert-critic text-center" role="alert">
       <h6>
-        <span>➕ <span class="d-sm-inline">Casos nuevos: </span>{{newCases}}</span>
+        <span>🤒 <span class="d-sm-inline">Críticos: </span>{{currentCountry.critic}}</span>
       </h6>
     </div>
   </div>
-
+  <div class="box-info-item" *ngIf="currentCountry.tested">
+    <div class="alert alert-primary text-center" role="alert">
+      <h6>
+        <span>🧪<span class="d-sm-inline"> Test Realizados: </span>{{currentCountry.tested}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item">
+    <div class="alert alert-warning text-center" role="alert">
+      <h6>
+        <span>➕ <span class="d-sm-inline">Casos Hoy: </span>{{newCases}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item" *ngIf="newDeaths">
+    <div class="alert alert-danger text-center" role="alert">
+      <h6>
+        <span>➕<span class="d-sm-inline">Muertes Hoy: </span>{{newDeaths}}</span>
+      </h6>
+    </div>
+  </div>
+  <div class="box-info-item" *ngIf="casesPerMillionPeople">
+    <div class="alert alert-secondary text-center" role="alert">
+      <h6>
+        <span><span class="d-sm-inline">Casos por 1M de habitantes: </span>{{casesPerMillionPeople}}</span>
+      </h6>
+    </div>
+  </div>
+<!--  <div class="box-info-item" *ngIf="populationInfected">-->
+<!--    <div class="alert alert-secondary text-center" role="alert">-->
+<!--      <h6>-->
+<!--        <span><strong>%</strong> <span class="d-sm-inline"> de la población infectada: </span>{{populationInfected}}</span>-->
+<!--      </h6>-->
+<!--    </div>-->
+<!--  </div>-->
 </section>
 <section class="rates-wrapper" *ngIf="currentCountry">
   <div class="rate-bar">
