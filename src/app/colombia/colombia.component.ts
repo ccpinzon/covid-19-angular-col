@@ -78,7 +78,8 @@ export class ColombiaComponent implements OnInit {
           ...this.colombiaService.getCityData(data)
         };
         this.citiesChart = this.formatChartDataService.format(type, chartData);
-        // console.log(this.departmentsChart);
+        console.log(this.citiesData);
+        console.log(this.citiesChart);
         break;
       case 'history':
         this.colombiaChart = this.formatChartDataService.format(type, data);
@@ -86,7 +87,7 @@ export class ColombiaComponent implements OnInit {
         break;
       case 'logarithmic':
         this.colombiaChartLog = this.formatChartDataService.format(type, data);
-        console.log(this.colombiaChartLog);
+        // console.log(this.colombiaChartLog);
         break;
     }
   }
@@ -114,6 +115,7 @@ export class ColombiaComponent implements OnInit {
     this.covidApiService.getDataByCity()
       .subscribe( dataCity => {
         this.citiesData = dataCity;
+        console.log(this.citiesData);
         this.getChartData('cities', dataCity);
       });
   }
@@ -150,11 +152,9 @@ export class ColombiaComponent implements OnInit {
   ngOnInit() {
     this.getColombia();
     this.getDepartments();
-    // this.getCities();
+    this.getCities();
     this.getCountryByName('colombia');
   }
-
-
 
   selectWeek(weekNumber: number) {
     // console.log('oneWeekChart');

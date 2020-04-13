@@ -249,6 +249,7 @@ export class FormatChartDataService {
   }
 
   private cities(data, type) {
+    console.log('cities -> ' , data);
     return {
       name: type,
       title: data.title,

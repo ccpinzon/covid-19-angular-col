@@ -109,7 +109,8 @@ export class ColombiaService {
     const labels = [];
     const chartData = [];
     let total = 0;
-
+    const dataOthers = data.slice(25, data.length);
+    data = data.slice(0, 32);
     data.forEach(item => {
       labels.push(item.dept);
       chartData.push(item.cases);
@@ -159,9 +160,17 @@ export class ColombiaService {
     const cutData = dataCities.slice(0, 10);
     cutData.forEach( cityInfo => {
       // console.log(cityInfo)
-      const percent = cityInfo.percentCases.toFixed(1);
-      labels.push(`${cityInfo.city} (${percent}%)`);
-      chartData.push(percent);
+      if (cityInfo.percentCases) {
+        console.log(cityInfo);
+        const percent = cityInfo.percentCases.toFixed(1);
+        labels.push(`${cityInfo.city} (${percent}%)`);
+        chartData.push(percent);
+      } else {
+        console.log(cityInfo);
+        // const percent = cityInfo.percentCases.toFixed(1);
+        labels.push(`${cityInfo.city} (${cityInfo.cases})`);
+        chartData.push(cityInfo.cases);
+      }
     } );
 
     return {

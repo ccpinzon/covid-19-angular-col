@@ -1,7 +1,7 @@
-<section class="chart-container"  [class.history]="true" [class.max-height]="maxHeight">
+<section [ngClass]="chartData.name === 'departments' ? 'chart-container-bar' : 'chart-container' "  [class.history]="true" [class.max-height]="maxHeight">
 
   <div class="row">
-     <h4 class="country-title" *ngIf="chartData && !chartData.flag">{{chartData.flag}}{{chartData.title}}</h4>
+     <h4 class="country-title" *ngIf="chartData && !chartData.flag">{{chartData.flag}} {{chartData.title}}</h4>
   </div>
   <div *ngIf="chartData.flag" class="row justify-content-sm-center">
     <div class="col-sm-8">

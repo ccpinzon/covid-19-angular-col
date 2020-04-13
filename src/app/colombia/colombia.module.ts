@@ -16,6 +16,9 @@ import {InfoBoxesModule} from '../info-boxes/info-boxes.module';
     ChartModule,
     ScrollingModule,
     InfoBoxesModule
+  ],
+  schemas: [
+   ChartModule
   ]
 })
 export class ColombiaModule { }

@@ -152,6 +152,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit() {
+    // console.log(this.chartData);
     const renderMobile = () => {
       try {
         if (document.querySelectorAll('.chart-canvas')[0].classList) {
@@ -183,6 +184,6 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   enableTypeChart(typeChart: string) {
     this.typeChartLogEnable = typeChart === 'logarithmic' ;
-    this.renderChart()
+    this.renderChart();
   }
 }

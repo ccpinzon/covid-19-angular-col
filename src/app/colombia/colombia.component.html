@@ -22,30 +22,21 @@
   <hr>
 
   <section class="chart-section">
-    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
-  </section>
-
-  <hr>
-
-  <section class="chart-section">
 
     <div class="row">
-<!--      <div class="col-sm-6">-->
       <div class="col-sm-6">
         <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
       </div>
       <div class="col-sm-6">
         <app-chart *ngIf="percentageDepartmentsChart" [chartData]="percentageDepartmentsChart"></app-chart>
       </div>
-<!--      <div class="col-sm-6">
-        <app-chart *ngIf="citiesChart" [chartData]="citiesChart"></app-chart>
-      </div>-->
+     <!-- <div class="col-sm-6">
+      <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
+      </div> -->
     </div>
-<!--    <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>-->
-<!--    <app-chart *ngIf="chartCityStatus && colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>-->
     <div class="list-wrapper">
       <p class="text-center view-more" (click)="toggle('dep')">
-        <span>{{!toggleTable.dep ? 'Ver' : 'Ocultar'}} Tabla</span>
+        <span> <i class="fas fa-table"></i> {{!toggleTable.dep ? 'Ver' : 'Ocultar'}}  Tabla </span>
         <img [src]="'assets/icons/chevron-' + (!toggleTable.dep ? 'down' : 'up') + '.svg'" alt="Arrow">
       </p>
       <div class="list-container animated"
@@ -66,6 +57,12 @@
     </div>
   </section>
 
+  <section class="chart-section">
+    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
+  </section>
+
+  <hr>
+
   <hr>
 
   <section class="chart-section">
@@ -73,7 +70,7 @@
 
     <div class="list-wrapper attention">
       <p class="text-center view-more" (click)="toggle('attention')">
-        <span>{{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
+        <span><i class="fas fa-table"></i>  {{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
         <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">
       </p>
       <div class="list-container animated"
