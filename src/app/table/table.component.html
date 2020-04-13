@@ -6,11 +6,11 @@
       <img src="assets/icons/search.svg" alt="Search Icon">
     </div>
     <div class="list-header">
-      <strong class="list-header-item text-center">País</strong>
-      <strong class="list-header-item text-center" (click)="reorderByCases()">Casos</strong>
-      <strong class="list-header-item text-center" (click)="reorderByDeaths()">Muertes</strong>
-      <strong class="list-header-item text-center" (click)="reorderByCured()">Recuperados</strong>
-      <strong class="list-header-item text-center" (click)="reorderBySuspected()">Críticos</strong>
+      <strong class="list-header-item text-center"><i class="far fa-flag"></i> País</strong>
+      <strong class="list-header-item text-center" (click)="reorderByCases()"><i class="fas fa-virus"></i> Casos</strong>
+      <strong class="list-header-item text-center" (click)="reorderByDeaths()"><i class="fas fa-times"></i> Muertes</strong>
+      <strong class="list-header-item text-center" (click)="reorderByCured()"><i class="fas fa-heartbeat"></i> Recuperados</strong>
+      <strong class="list-header-item text-center" (click)="reorderBySuspected()"><i class="fas fa-procedures"></i> Críticos</strong>
     </div>
     <cdk-virtual-scroll-viewport itemSize="50" style="height:100%">
 

@@ -20,6 +20,10 @@ export class SharedService {
     return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   randomRgba() {
     const o = Math.round;
     const r = Math.random;

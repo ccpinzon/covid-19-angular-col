@@ -38,15 +38,15 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     // this.enableTypeChart('lineal');
   }
 
-  getOptions(type ,chartData) {
+  getOptions(type , chartData) {
     switch (type) {
       case 'line':
         break;
       case 'logarithmic':
-        const lenData = chartData.data.datasets[0].data.length
+        const lenData = chartData.data.datasets[0].data.length;
         // console.log(lenData);
-        const min = chartData.data.datasets[0].data[0]
-        const max = chartData.data.datasets[0].data[lenData - 1]
+        const min = chartData.data.datasets[0].data[0];
+        const max = chartData.data.datasets[0].data[lenData - 1];
         // console.log(min);
         // console.log(max);
         return {

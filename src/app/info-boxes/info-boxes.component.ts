@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {CountryModel} from '../models/country.model';
 import {Router} from '@angular/router';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-info-boxes',
@@ -10,10 +11,11 @@ import {Router} from '@angular/router';
 export class InfoBoxesComponent implements OnInit, OnChanges {
   @Input() currentCountry: CountryModel;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private sharedService: SharedService) { }
   newCases = 0;
   newDeaths = 0;
   casesPerMillionPeople = 0;
+  populationFormated: string;
   currentlySick = 0;
   populationInfected = 0;
   rates = {
@@ -24,7 +26,8 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
   getNewDeaths() {
     this.newDeaths = 0;
     const history = [...this.currentCountry.history];
-    if (history && history.length > 0 ){
+    this.populationFormated = this.sharedService.numberWithCommas(this.currentCountry.population);
+    if (history && history.length > 0 ) {
       const len = history.length;
       this.newDeaths =  this.currentCountry.deaths - history[len - 1].deaths ;
       if (this.newDeaths === 0) {

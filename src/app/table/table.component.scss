@@ -40,9 +40,9 @@ cdk-virtual-scroll-viewport {
 
 .list-header {
   display: grid;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   color: #fff;
   background-color: #343a40;
   border-color: #454d55;
@@ -52,7 +52,7 @@ cdk-virtual-scroll-viewport {
   border: 1px solid #454d55;
   border-radius: 0.2rem;
   align-items: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 0.3rem;
   margin: 0.5rem 0;
   display: grid;

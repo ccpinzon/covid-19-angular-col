@@ -1,9 +1,15 @@
+
+<div *ngIf="currentCountry && currentCountry.population > 0">
+  <h5>
+    <i class="fas fa-users"></i> Población: {{populationFormated}}
+  </h5>
+</div>
 <section class="row info-box-container" *ngIf="currentCountry">
 
   <div class="box-info-item">
     <div class="alert alert-warning text-center" role="alert">
       <h6>
-        <span>😷 <span class="d-sm-inline">Casos: </span>{{currentCountry.cases}}</span>
+        <span><i class="fas fa-virus"></i><span class="d-sm-inline"> Casos: </span>{{currentCountry.cases}}</span>
       </h6>
     </div>
   </div>
@@ -11,56 +17,56 @@
     <div class="alert alert-danger text-center" role="alert">
       <!-- ☠ -->
       <h6>
-        <span>❌ <span class="d-sm-inline">Muertes: </span>{{currentCountry.deaths}}</span>
+        <span><i class="fas fa-times"></i> <span class="d-sm-inline"> Muertes: </span>{{currentCountry.deaths}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item">
     <div class="alert alert-success text-center" role="alert">
       <h6>
-        <span>💚 <span class="d-sm-inline">Recuperados: </span>{{currentCountry.cured}}</span>
+        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span>{{currentCountry.cured}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item">
     <div class="alert alert-info text-center" role="alert">
       <h6>
-        <span>🤧 <span class="d-sm-inline">Enfermos: </span>{{currentlySick}}</span>
+        <span><i class="fas fa-bed"></i> <span class="d-sm-inline"> Enfermos: </span>{{currentlySick}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item">
     <div class="alert alert-critic text-center" role="alert">
       <h6>
-        <span>🤒 <span class="d-sm-inline">Críticos: </span>{{currentCountry.critic}}</span>
+        <span><i class="fas fa-procedures"></i> <span class="d-sm-inline"> Críticos UCI: </span>{{currentCountry.critic}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item" *ngIf="currentCountry.tested">
     <div class="alert alert-primary text-center" role="alert">
       <h6>
-        <span>🧪<span class="d-sm-inline"> Test Realizados: </span>{{currentCountry.tested}}</span>
+        <span><i class="fas fa-vials"></i><span class="d-sm-inline"> Test Realizados: </span>{{currentCountry.tested}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item">
     <div class="alert alert-warning text-center" role="alert">
       <h6>
-        <span>➕ <span class="d-sm-inline">Casos Hoy: </span>{{newCases}}</span>
+        <span><i class="fas fa-user-plus"></i> <span class="d-sm-inline"> Casos Hoy: </span>{{newCases}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item" *ngIf="newDeaths">
     <div class="alert alert-danger text-center" role="alert">
       <h6>
-        <span>➕<span class="d-sm-inline">Muertes Hoy: </span>{{newDeaths}}</span>
+        <span><i class="fas fa-user-times"></i><span class="d-sm-inline"> Muertes Hoy: </span>{{newDeaths}}</span>
       </h6>
     </div>
   </div>
   <div class="box-info-item" *ngIf="casesPerMillionPeople">
     <div class="alert alert-secondary text-center" role="alert">
       <h6>
-        <span><span class="d-sm-inline">Casos por 1M de habitantes: </span>{{casesPerMillionPeople}}</span>
+        <span> <i class="fas fa-people-arrows"></i><span class="d-sm-inline"> Casos por 1M de habitantes: </span>{{casesPerMillionPeople}}</span>
       </h6>
     </div>
   </div>
