@@ -9,7 +9,7 @@ import {PlacesModel} from '../../models/places.model';
 export class TablePlacesComponent implements OnInit {
 
   @Input() placesList: PlacesModel [] = [];
-  private isMobile: boolean;
+  isMobile: boolean;
   constructor() { }
 
   ngOnInit() {
