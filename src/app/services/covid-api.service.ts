@@ -9,6 +9,7 @@ import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
 import {CityCasesModel} from '../models/city-cases.model';
+import {PlacesModel} from "../models/places.model";
 
 @Injectable({
   providedIn: 'root'
@@ -107,6 +108,14 @@ export class CovidApiService {
       .pipe(catchError(this.handleError));
   }
 
+  getPlacesData(type: string): Observable<PlacesModel[]> {
+    if (type === 'departments') {
+      return this.http.get<PlacesModel[]>(`${this.baseUrl}c19colombia/departments`)
+        .pipe(catchError(this.handleError));
+    }
+    return undefined;
+
+  }
   handleError(error) {
     let errorMessage = '';
     if ( error.error instanceof ErrorEvent) {

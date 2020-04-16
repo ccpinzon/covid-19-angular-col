@@ -5,6 +5,7 @@ import {DepartmentModel} from '../models/department.model';
 import {SharedService} from '../services/shared.service';
 import {ColombiaService} from '../services/colombia.service';
 import {CityCasesModel} from '../models/city-cases.model';
+import {PlacesModel} from "../models/places.model";
 
 @Component({
   selector: 'app-colombia',
@@ -22,6 +23,7 @@ export class ColombiaComponent implements OnInit {
   percentageDepartmentsChart;
   departmentData: DepartmentModel[] = [];
   citiesData: CityCasesModel[] = [];
+  placesList: PlacesModel[] = [];
   countryData;
   currentCountry;
   toggleTable = {
@@ -154,6 +156,7 @@ export class ColombiaComponent implements OnInit {
     this.getDepartments();
     this.getCities();
     this.getCountryByName('colombia');
+    this.getPlacesListData();
   }
 
   selectWeek(weekNumber: number) {
@@ -165,4 +168,11 @@ export class ColombiaComponent implements OnInit {
     }
     // this.actualCountry.history.slice(0, 2);
   }
+
+  getPlacesListData() {
+    this.covidApiService.getPlacesData('departments').subscribe(res => {
+      this.placesList = res;
+    });
+  }
+
 }

@@ -6,6 +6,7 @@ import { ColombiaComponent } from './colombia.component';
 import {ChartModule} from '../chart/chart.module';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {InfoBoxesModule} from '../info-boxes/info-boxes.module';
+import {TableModule} from "../table/table.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {InfoBoxesModule} from '../info-boxes/info-boxes.module';
     ColombiaRoutingModule,
     ChartModule,
     ScrollingModule,
-    InfoBoxesModule
+    InfoBoxesModule,
+    TableModule
   ],
   schemas: [
    ChartModule
