@@ -9,9 +9,11 @@ import {PlacesModel} from '../../models/places.model';
 export class TablePlacesComponent implements OnInit {
 
   @Input() placesList: PlacesModel [] = [];
+  private isMobile: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.isMobile = window.innerWidth < 991;
   }
 
 }

@@ -2,18 +2,39 @@
   <h4 class="title text-center">Detalle Casos</h4>
 
   <div  class="scroll-table-in-y">
-    <table class="table tableFixHead text-table-place">
-      <thead class="thead-dark list-header">
+    <table class="table tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 50px">
+      <thead class="thead-dark list-header" [ngClass]="isMobile ? 'list-header-mobile' : 'list-header' ">
       <tr>
-        <th  scope="col">Departamento</th>
-        <th  scope="col"><i class="fas fa-virus"></i> Casos
-<!--          <i class="fas fa-sort"></i>-->
+        <th>
+          <i class="fas fa-map-pin"></i>
+            <span *ngIf="isMobile"><br>Departamento</span>
+            <span *ngIf="!isMobile"> Departamento</span>
         </th>
-        <th  scope="col"><i class="fas fa-user-times"></i> Muertes</th>
-        <th  scope="col"><i class="fas fa-heartbeat"></i> Recuperados</th>
-        <th  scope="col"><i class="fas fa-hospital"></i> En Hospital</th>
-        <th  scope="col"><i class="fas fa-procedures"></i> En Hospital UCI</th>
-        <th  scope="col"><i class="fas fa-home"></i> En Casa</th>
+        <th><i class="fas fa-virus"></i>
+<!--          <i class="fas fa-sort"></i>-->
+          <span *ngIf="isMobile">Casos</span>
+          <span *ngIf="!isMobile"> Casos</span>
+        </th>
+        <th><i class="fas fa-user-times"></i>
+          <span *ngIf="isMobile">Muertes</span>
+          <span *ngIf="!isMobile"> Muertes</span>
+        </th>
+        <th><i class="fas fa-heartbeat"></i>
+          <span *ngIf="isMobile">Recuperados</span>
+          <span *ngIf="!isMobile"> Recuperados</span>
+        </th>
+        <th><i class="fas fa-hospital"></i>
+          <span *ngIf="isMobile">Hospital</span>
+          <span *ngIf="!isMobile"> En Hospital</span>
+        </th>
+        <th><i class="fas fa-procedures"></i>
+          <span *ngIf="isMobile">UCI</span>
+          <span *ngIf="!isMobile"> En Hospital UCI</span>
+        </th>
+        <th><i class="fas fa-home"></i>
+          <span *ngIf="isMobile">Casa</span>
+          <span *ngIf="!isMobile"> En Casa</span>
+        </th>
       </tr>
       </thead>
       <tbody>
