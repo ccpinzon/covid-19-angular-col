@@ -1,6 +1,6 @@
-scroll-table-in-y{
+.scroll-table-in-y{
   position: relative;
-  height: 5px;
+  height: 400px;
   overflow-y: scroll;
 }
 .tableFixHead          { overflow: auto; height: 400px; position: relative }
@@ -8,6 +8,9 @@ scroll-table-in-y{
 
 .text-table-place {
   font-size: 0.8rem;
+  td {
+    text-align: center;
+  }
 }
 .list-header {
   font-size: 1rem;

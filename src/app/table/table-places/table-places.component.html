@@ -1,12 +1,14 @@
 <div *ngIf="placesList">
-  <h2 class="title text-center">Detalle Casos</h2>
+  <h4 class="title text-center">Detalle Casos</h4>
 
   <div  class="scroll-table-in-y">
-    <table class="table tableFixHead text-table-place" style="height: 50px">
+    <table class="table tableFixHead text-table-place">
       <thead class="thead-dark list-header">
       <tr>
-        <th  scope="col">Dep/Ciudad</th>
-        <th  scope="col"><i class="fas fa-virus"></i> Casos</th>
+        <th  scope="col">Departamento</th>
+        <th  scope="col"><i class="fas fa-virus"></i> Casos
+<!--          <i class="fas fa-sort"></i>-->
+        </th>
         <th  scope="col"><i class="fas fa-user-times"></i> Muertes</th>
         <th  scope="col"><i class="fas fa-heartbeat"></i> Recuperados</th>
         <th  scope="col"><i class="fas fa-hospital"></i> En Hospital</th>
