@@ -7,6 +7,7 @@ import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
 import {DatePipe} from '@angular/common';
 import {CityCasesModel} from '../models/city-cases.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,8 @@ export class HomeComponent implements OnInit {
   constructor(private covidApiService: CovidApiService,
               private colombiaService: ColombiaService,
               private formatChartData: FormatChartDataService,
-              private ipGeolocationService: IpGeolocationService) {
+              private ipGeolocationService: IpGeolocationService,
+              private router: Router) {
   }
 
   getLatinAmericaList() {
@@ -197,6 +199,8 @@ export class HomeComponent implements OnInit {
           let country = res.country_name ? res.country_name.toLowerCase() : 'colombia';
           if (res.country_code === 'US') {
             country = 'usa';
+          }else if (res.country_code === 'CO') {
+            this.router.navigate(['/colombia']);
           }
           this.getCountryByName(country);
         }
