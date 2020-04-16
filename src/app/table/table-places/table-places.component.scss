@@ -1,0 +1,14 @@
+scroll-table-in-y{
+  position: relative;
+  height: 5px;
+  overflow-y: scroll;
+}
+.tableFixHead          { overflow: auto; height: 400px; position: relative }
+.tableFixHead thead th { position: sticky; top: 0; }
+
+.text-table-place {
+  font-size: 0.8rem;
+}
+.list-header {
+  font-size: 1rem;
+}

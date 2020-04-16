@@ -1,0 +1,30 @@
+<div *ngIf="placesList">
+  <h2 class="title text-center">Detalle Casos</h2>
+
+  <div  class="scroll-table-in-y">
+    <table class="table tableFixHead text-table-place" style="height: 50px">
+      <thead class="thead-dark list-header">
+      <tr>
+        <th  scope="col">Dep/Ciudad</th>
+        <th  scope="col"><i class="fas fa-virus"></i> Casos</th>
+        <th  scope="col"><i class="fas fa-user-times"></i> Muertes</th>
+        <th  scope="col"><i class="fas fa-heartbeat"></i> Recuperados</th>
+        <th  scope="col"><i class="fas fa-hospital"></i> En Hospital</th>
+        <th  scope="col"><i class="fas fa-procedures"></i> En Hospital UCI</th>
+        <th  scope="col"><i class="fas fa-home"></i> En Casa</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let placesData of placesList">
+        <th  scope="row">{{placesData.dept}}</th>
+        <td>{{placesData.cases}}</td>
+        <td>{{placesData.deaths}}</td>
+        <td>{{placesData.recovered}}</td>
+        <td>{{placesData.hospital}}</td>
+        <td>{{placesData.critic}}</td>
+        <td>{{placesData.inHouse}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
