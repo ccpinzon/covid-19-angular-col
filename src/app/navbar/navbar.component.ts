@@ -27,10 +27,10 @@ export class NavbarComponent implements OnInit {
       text: 'Mantente al tanto de lo último del Covid-19',
       url: location.href
     }).then( (response) => {
-      console.log(response);
+     //  console.log(response);
     })
       .catch( (error) => {
-        console.log(error);
+       // console.log(error);
       });
   }
 

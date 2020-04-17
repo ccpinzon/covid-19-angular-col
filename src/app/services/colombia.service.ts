@@ -161,12 +161,12 @@ export class ColombiaService {
     cutData.forEach( cityInfo => {
       // console.log(cityInfo)
       if (cityInfo.percentCases) {
-        console.log(cityInfo);
+        // console.log(cityInfo);
         const percent = cityInfo.percentCases.toFixed(1);
         labels.push(`${cityInfo.city} (${percent}%)`);
         chartData.push(percent);
       } else {
-        console.log(cityInfo);
+        // console.log(cityInfo);
         // const percent = cityInfo.percentCases.toFixed(1);
         labels.push(`${cityInfo.city} (${cityInfo.cases})`);
         chartData.push(cityInfo.cases);

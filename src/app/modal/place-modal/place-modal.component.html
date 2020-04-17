@@ -1,11 +1,64 @@
-<h1 mat-dialog-title>Want to receive our emails?</h1>
-<div mat-dialog-content>
-  <p>What's your email?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.email">
-  </mat-form-field>
+<div class="row justify-content-md-end">
+  <div  [ngClass]="isMobile ? 'col-sm-1' : 'col-md-1'" >
+    <button  mat-button (click)="onNoClick()"><i class="fas fa-times"></i></button>
+
+
+  </div>
+
+
+
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button>
+
+<h5 class="title text-center"> {{data.dept}}</h5>
+<hr>
+
+<div  class="scroll-table-in-y">
+  <table class="table table-hover tableFixHead" style="height: 50px">
+    <thead class="thead-dark list-header" >
+    <tr>
+      <th>
+        <i class="fas fa-map-pin"></i>
+        <span>Ciudad</span>
+      </th>
+      <th><i class="fas fa-virus"></i>
+        <!--          <i class="fas fa-sort"></i>-->
+        <span>Casos</span>
+      </th>
+      <th><i class="fas fa-user-times"></i>
+        <span>Muertes</span>
+      </th>
+      <th><i class="fas fa-heartbeat"></i>
+        <span>Recuperados</span>
+      </th>
+      <th><i class="fas fa-hospital"></i>
+        <span>Hospital</span>
+      </th>
+      <th><i class="fas fa-procedures"></i>
+        <span>UCI</span>
+      </th>
+      <th><i class="fas fa-home"></i>
+        <span>Casa</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th  scope="row"></th>
+      <td></td>
+
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<!--<div mat-dialog-content>-->
+<!--  <p></p>-->
+<!--  <mat-form-field>-->
+<!--    <input matInput [(ngModel)]="data.email">-->
+<!--  </mat-form-field>-->
+<!--</div>-->
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-button (click)="onNoClick()">No</button>-->
+<!--  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button>-->
+<!--</div>-->
+<!--<app-table-places></app-table-places>-->

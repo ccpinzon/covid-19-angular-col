@@ -2,7 +2,7 @@
   <h4 class="title text-center">Detalle Casos</h4>
 
   <div  class="scroll-table-in-y">
-    <table class="table tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 50px">
+    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 50px">
       <thead class="thead-dark list-header" [ngClass]="isMobile ? 'list-header-mobile' : 'list-header' ">
       <tr>
         <th>
@@ -38,7 +38,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr  *ngFor="let placesData of placesList">
+      <tr (click)="openModal(placesData.dept)"  *ngFor="let placesData of placesList">
         <th  scope="row">{{placesData.dept}}</th>
         <td>{{placesData.cases}}</td>
         <td>{{placesData.deaths}}</td>

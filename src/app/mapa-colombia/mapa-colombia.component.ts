@@ -25,7 +25,7 @@ export class MapaColombiaComponent implements OnInit {
   constructor(private covidApiService: CovidApiService) {}
 
   onGeolocate(event) {
-    console.log(event);
+    // console.log(event);
   }
 
   getDepartments() {
@@ -56,7 +56,7 @@ export class MapaColombiaComponent implements OnInit {
   }
 
   showPopUpInfo(feature, show) {
-    console.log('¿show popup? ', show);
+    // console.log('¿show popup? ', show);
     if (show) {
       this.showPopUp = true;
       this.popUpInfo = feature.properties.message;

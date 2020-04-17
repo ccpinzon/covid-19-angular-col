@@ -89,10 +89,10 @@ export class MapColombiaService {
 
         const lat = element.lat_lon[0];
         const lon = element.lat_lon[1];
-        console.log('coordenadas: ', lat, lon);
-        console.log('this.map: ', this.map.accessToken);
+        // console.log('coordenadas: ', lat, lon);
+        // console.log('this.map: ', this.map.accessToken);
         new mapboxgl.Marker(el).setLngLat([lat, lon]).setPopup(popup).addTo(this.map);
-        console.log('element: ', element);
+        // console.log('element: ', element);
       }
     );
 
