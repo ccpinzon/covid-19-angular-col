@@ -5,7 +5,13 @@ import {DepartmentModel} from '../models/department.model';
 import {SharedService} from '../services/shared.service';
 import {ColombiaService} from '../services/colombia.service';
 import {CityCasesModel} from '../models/city-cases.model';
-import {PlacesModel} from "../models/places.model";
+import {PlacesModel} from '../models/places.model';
+import {PlaceModalComponent} from '../modal/place-modal/place-modal.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+interface DialogData {
+  email: string;
+}
 
 @Component({
   selector: 'app-colombia',
@@ -35,10 +41,12 @@ export class ColombiaComponent implements OnInit {
     attention: false
   };
   weekSelected = 3;
+  email: string;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
               private colombiaService: ColombiaService,
-              private formatChartDataService: FormatChartDataService) { }
+              private formatChartDataService: FormatChartDataService,
+              public dialog: MatDialog) { }
 
   getChartData(type, data) {
     let chartData;
@@ -172,6 +180,16 @@ export class ColombiaComponent implements OnInit {
   getPlacesListData() {
     this.covidApiService.getPlacesData('departments').subscribe(res => {
       this.placesList = res;
+    });
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PlaceModalComponent, {
+      width: '300px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.email = result;
     });
   }
 
