@@ -29,7 +29,7 @@ export class TablePlacesComponent implements OnInit {
     if (this.isMobile) {
       configD = {
         width: '99%',
-        height: '70%',
+        height: '60%',
         data: {dept} // {dept: 'bogota'}
       };
     } else {
