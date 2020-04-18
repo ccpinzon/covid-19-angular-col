@@ -27,17 +27,15 @@
 
   <section class="chart-section">
 
-    <div class="row">
-      <div class="col-sm-6">
         <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
-      </div>
-      <div class="col-sm-6">
-        <app-chart *ngIf="percentageDepartmentsChart" [chartData]="percentageDepartmentsChart"></app-chart>
-      </div>
+
+<!--      <div class="col-sm-6">-->
+<!--        <app-chart *ngIf="percentageDepartmentsChart" [chartData]="percentageDepartmentsChart"></app-chart>-->
+<!--      </div>-->
      <!-- <div class="col-sm-6">
       <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
       </div> -->
-    </div>
+
     <div class="list-wrapper">
       <p class="text-center view-more" (click)="toggle('dep')">
         <span> <i class="fas fa-table"></i> {{!toggleTable.dep ? 'Ver' : 'Ocultar'}}  Tabla </span>
@@ -97,5 +95,15 @@
         </ul>
       </div>
     </div>
+
+    <div class="row row justify-content-md-center">
+      <div class="col-12 col-sm-6 ">
+        <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/">Más Países 🌎</button>
+      </div>
+    </div>
+    <hr>
+
   </section>
+
 </article>
+

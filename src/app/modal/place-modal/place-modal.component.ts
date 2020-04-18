@@ -30,11 +30,10 @@ export class PlaceModalComponent implements OnInit {
     this.dialogRef.close();
   }
   getCitiesFromDep(nameDept: string) {
-    console.log(nameDept);
+    // console.log(nameDept);
     this.covidApiService.getCitiesFromDepData(nameDept).subscribe(res => {
       this.placeModelList = res;
-
-      console.log(res);
+      // console.log(res);
     });
   }
 

@@ -2,7 +2,7 @@
   <h5 *ngIf="!showCities" class="title text-center">Detalle Casos</h5>
 
   <div  class="scroll-table-in-y">
-    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 100%">
+    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 10%">
       <thead class="thead-dark list-header" [ngClass]="isMobile ? 'list-header-mobile' : 'list-header' ">
       <tr>
         <th *ngIf="!showCities">
@@ -40,6 +40,9 @@
           <span *ngIf="isMobile">Casa</span>
           <span *ngIf="!isMobile"> En Casa</span>
         </th>
+        <th *ngIf="!showCities">
+          <span>Detalle</span>
+        </th>
       </tr>
       </thead>
       <tbody *ngIf="!showCities">
@@ -51,6 +54,14 @@
           <td>{{placesData.hospital}}</td>
           <td>{{placesData.critic}}</td>
           <td>{{placesData.inHouse}}</td>
+          <td *ngIf="!isMobile">
+            <button type="button" class="btn btn-dark btn-sm">
+              <i class="fas fa-search-location"></i>
+            </button>
+          </td>
+          <td *ngIf="isMobile">
+              <i class="fas fa-search-location"></i>
+          </td>
         </tr>
       </tbody>
       <tbody *ngIf="showCities" >

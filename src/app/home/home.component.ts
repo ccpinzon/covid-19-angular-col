@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   percentGlobal: PercentModel = {percent: 0, confirmation: false};
   percentLA: PercentModel = {percent: 0, confirmation: false};
   colombia: CountryModel;
+  firstVisit = false;
   isMobile;
   departmentsChart;
   citiesData: CityCasesModel [];
@@ -199,7 +200,8 @@ export class HomeComponent implements OnInit {
           let country = res.country_name ? res.country_name.toLowerCase() : 'colombia';
           if (res.country_code === 'US') {
             country = 'usa';
-          }else if (res.country_code === 'CO') {
+          }else if (res.country_code === 'CO' && this.firstVisit) {
+            this.firstVisit = false;
             this.router.navigate(['/colombia']);
           }
           this.getCountryByName(country);

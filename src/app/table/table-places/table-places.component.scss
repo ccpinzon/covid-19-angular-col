@@ -1,9 +1,9 @@
 .scroll-table-in-y{
   position: relative;
-  height: 400px;
+  height: 450px;
   overflow-y: scroll;
 }
-.tableFixHead          { overflow: auto; height: 400px; position: relative }
+.tableFixHead          { overflow: auto; height: 10px; position: absolute }
 .tableFixHead thead th { position: sticky; top: 0; }
 
 .text-table-place {
@@ -12,36 +12,33 @@
     text-align: center;
   }
 }
+
 .text-table-place-mobile {
-  font-size: 0.5rem;
+
   td {
+    font-size: 0.5rem;
     text-align: center;
   }
 }
+
+
 .list-header {
-  font-size: 0.3rem;
+  font-size: 0.8rem;
 }
 
-
+.name-place {
+  font-size: 0.1rem;
+}
 .list-header-mobile {
-  font-size: 0.5rem;
-  th {
+  tr {
+    font-size: 0.6rem;
     text-align: center;
-  }
-}
-
-.list-header-mobile-modal {
-  font-size: 0.2rem;
-  th {
-    text-align: center
-    ;
   }
 }
 
 .list-header-modal {
   font-size: 0.1rem;
 }
-
 
 
 
