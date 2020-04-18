@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   percentGlobal: PercentModel = {percent: 0, confirmation: false};
   percentLA: PercentModel = {percent: 0, confirmation: false};
   colombia: CountryModel;
-  firstVisit = false;
   isMobile;
   departmentsChart;
   citiesData: CityCasesModel [];
@@ -191,7 +190,14 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-
+   validateFirstVisit() {
+    if (typeof(Storage) !== "undefined") {
+      const firstVisit = localStorage.getItem('firstVisit');
+      if (firstVisit == undefined) {
+        localStorage.setItem('firstVisit', 'true');
+      }
+    }
+  }
   getGeolocationInfo() {
     this.ipGeolocationService.get()
       .subscribe(res => {
@@ -200,9 +206,20 @@ export class HomeComponent implements OnInit {
           let country = res.country_name ? res.country_name.toLowerCase() : 'colombia';
           if (res.country_code === 'US') {
             country = 'usa';
-          }else if (res.country_code === 'CO' && this.firstVisit) {
-            this.firstVisit = false;
-            this.router.navigate(['/colombia']);
+          }else if (res.country_code === 'CO') {
+            if (typeof(Storage) !== "undefined") {
+              // LocalStorage disponible
+              const firstVisit = localStorage.getItem('firstVisit');
+              if (firstVisit === 'true') {
+                this.router.navigate(['/colombia']);
+                localStorage.setItem('firstVisit', 'false');
+              }
+
+            } else {
+              // LocalStorage no soportado en este navegador
+            }
+
+
           }
           this.getCountryByName(country);
         }
@@ -276,6 +293,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validateFirstVisit();
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
@@ -287,4 +305,6 @@ export class HomeComponent implements OnInit {
     this.setBrowser();
     this.isMobile = window.innerWidth < 991;
   }
+
+
 }
