@@ -1,56 +1,20 @@
 <div class="row justify-content-md-end">
-  <div  [ngClass]="isMobile ? 'col-sm-1' : 'col-md-1'" >
+
+  <div *ngIf="!isMobile" class="col-md-1">
+
     <button  mat-button (click)="onNoClick()"><i class="fas fa-times"></i></button>
 
-
   </div>
+
 
 
 
 </div>
 
 <h5 class="title text-center"> {{data.dept}}</h5>
-<hr>
 
-<div  class="scroll-table-in-y">
-  <table class="table table-hover tableFixHead" style="height: 50px">
-    <thead class="thead-dark list-header" >
-    <tr>
-      <th>
-        <i class="fas fa-map-pin"></i>
-        <span>Ciudad</span>
-      </th>
-      <th><i class="fas fa-virus"></i>
-        <!--          <i class="fas fa-sort"></i>-->
-        <span>Casos</span>
-      </th>
-      <th><i class="fas fa-user-times"></i>
-        <span>Muertes</span>
-      </th>
-      <th><i class="fas fa-heartbeat"></i>
-        <span>Recuperados</span>
-      </th>
-      <th><i class="fas fa-hospital"></i>
-        <span>Hospital</span>
-      </th>
-      <th><i class="fas fa-procedures"></i>
-        <span>UCI</span>
-      </th>
-      <th><i class="fas fa-home"></i>
-        <span>Casa</span>
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th  scope="row"></th>
-      <td></td>
 
-    </tr>
-    </tbody>
-  </table>
-</div>
-
+<app-table-places [placesList]="placeModelList" [showCities]="true"></app-table-places>
 <!--<div mat-dialog-content>-->
 <!--  <p></p>-->
 <!--  <mat-form-field>-->

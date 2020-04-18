@@ -1,14 +1,19 @@
 <div *ngIf="placesList">
-  <h4 class="title text-center">Detalle Casos</h4>
+  <h5 *ngIf="!showCities" class="title text-center">Detalle Casos</h5>
 
   <div  class="scroll-table-in-y">
-    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 50px">
+    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 100%">
       <thead class="thead-dark list-header" [ngClass]="isMobile ? 'list-header-mobile' : 'list-header' ">
       <tr>
-        <th>
+        <th *ngIf="!showCities">
           <i class="fas fa-map-pin"></i>
             <span *ngIf="isMobile"><br>Departamento</span>
             <span *ngIf="!isMobile"> Departamento</span>
+        </th>
+        <th *ngIf="showCities">
+          <i class="fas fa-map-pin"></i>
+          <span *ngIf="isMobile"><br>Ciudad</span>
+          <span *ngIf="!isMobile"> Ciudad</span>
         </th>
         <th><i class="fas fa-virus"></i>
 <!--          <i class="fas fa-sort"></i>-->
@@ -37,9 +42,20 @@
         </th>
       </tr>
       </thead>
-      <tbody>
-      <tr (click)="openModal(placesData.dept)"  *ngFor="let placesData of placesList">
-        <th  scope="row">{{placesData.dept}}</th>
+      <tbody *ngIf="!showCities">
+        <tr (click)="openModal(placesData.dept)"  *ngFor="let placesData of placesList">
+          <th scope="row">{{placesData.dept}}</th>
+          <td>{{placesData.cases}}</td>
+          <td>{{placesData.deaths}}</td>
+          <td>{{placesData.recovered}}</td>
+          <td>{{placesData.hospital}}</td>
+          <td>{{placesData.critic}}</td>
+          <td>{{placesData.inHouse}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="showCities" >
+      <tr  *ngFor="let placesData of placesList">
+        <th scope="row">{{placesData.city}}</th>
         <td>{{placesData.cases}}</td>
         <td>{{placesData.deaths}}</td>
         <td>{{placesData.recovered}}</td>

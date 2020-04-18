@@ -19,7 +19,7 @@
   }
 }
 .list-header {
-  font-size: 1rem;
+  font-size: 0.3rem;
 }
 
 
@@ -29,4 +29,19 @@
     text-align: center;
   }
 }
+
+.list-header-mobile-modal {
+  font-size: 0.2rem;
+  th {
+    text-align: center
+    ;
+  }
+}
+
+.list-header-modal {
+  font-size: 0.1rem;
+}
+
+
+
 

@@ -3,6 +3,7 @@ export class PlacesModel {
   critic: number;
   deaths: number;
   dept: string;
+  city: string;
   hospital: number;
   inHouse: number;
   recovered: number;

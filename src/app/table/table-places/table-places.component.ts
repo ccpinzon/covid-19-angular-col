@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PlacesModel} from '../../models/places.model';
 import {PlaceModalComponent} from '../../modal/place-modal/place-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {config} from "rxjs";
 
 interface DialogData {
   email: string;
@@ -16,8 +15,8 @@ interface DialogData {
 export class TablePlacesComponent implements OnInit {
 
   @Input() placesList: PlacesModel [] = [];
+  @Input() showCities: boolean;
   isMobile: boolean;
-  email: string;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -29,14 +28,14 @@ export class TablePlacesComponent implements OnInit {
     // console.log(this.isMobile);
     if (this.isMobile) {
       configD = {
-        width: '95%',
-        height: '90%',
+        width: '99%',
+        height: '60%',
         data: {dept} // {dept: 'bogota'}
       };
     } else {
       configD = {
         width: '1000px',
-        height: '800px',
+        height: '600px',
         data: {dept} // {dept: 'bogota'}
       };
     }
@@ -44,7 +43,7 @@ export class TablePlacesComponent implements OnInit {
     const dialogRef = this.dialog.open(PlaceModalComponent, configD );
 
     dialogRef.afterClosed().subscribe(result => {
-      this.email = result;
+      // this.email = result;
     });
   }
 
