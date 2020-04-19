@@ -25,11 +25,11 @@ export class TablePlacesComponent implements OnInit {
 
   openModal(dept: string) {
     let configD = {}
-    // console.log(this.isMobile);
+    console.log(this.isMobile);
     if (this.isMobile) {
       configD = {
         width: '99%',
-        height: '60%',
+        height: '75%',
         data: {dept} // {dept: 'bogota'}
       };
     } else {
