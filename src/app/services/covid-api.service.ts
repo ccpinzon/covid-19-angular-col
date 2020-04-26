@@ -128,6 +128,8 @@ export class CovidApiService {
     // window.alert(errorMessage);
     return throwError(errorMessage);
   }
+
+
   getCitiesFromDepData(nameDept: string): Observable<PlacesModel[]> {
 
     return this.http.get<PlacesModel[]>(`${this.baseUrl}c19colombia/cities/${nameDept}`)
