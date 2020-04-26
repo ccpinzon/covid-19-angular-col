@@ -9,15 +9,15 @@ import {ColombiaDataModel} from '../models/colombia-data.model';
 import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
 import {CityCasesModel} from '../models/city-cases.model';
-import {PlacesModel} from "../models/places.model";
+import {PlacesModel} from '../models/places.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CovidApiService {
 
-  private readonly baseUrl = 'https://covid-19-col.appspot.com/';
-  private readonly apiUrl = `${this.baseUrl}covid19/`;
+  private readonly baseUrl = 'https://c19col.xyz/';
+  private readonly apiUrl = `${this.baseUrl}countries/`;
 
   constructor(private http: HttpClient,
               private sharedService: SharedService) { }
@@ -104,7 +104,7 @@ export class CovidApiService {
   }
 
   getPercentages(): Observable<PercentagesModel> {
-    return this.http.get<PercentagesModel>(`${this.baseUrl}covid19/percentages`)
+    return this.http.get<PercentagesModel>(`${this.apiUrl}percentages`)
       .pipe(catchError(this.handleError));
   }
 
