@@ -28,6 +28,8 @@ export class CovidApiService {
       // retry(1),
       map(country => {
         country.nameEs = !country.nameEs ? this.sharedService.upperFirstLetter(country.name) : country.nameEs;
+        country.flag = this.sharedService.countryToFlag(country.countryCode);
+        // console.log(country);
         return country;
       }),
       catchError(this.handleError)
@@ -70,12 +72,12 @@ export class CovidApiService {
   }
 
   getDataByDepartment(): Observable<DepartmentModel[]> {
-    return this.http.get<DepartmentModel[]>(`${this.baseUrl}c19colombia/casesByDept`)
+    return this.http.get<DepartmentModel[]>(`${this.baseUrl}departments`)
       .pipe(catchError(this.handleError));
   }
 
   getDataByCity(): Observable<CityCasesModel[]> {
-    return this.http.get<CityCasesModel[]>(`${this.baseUrl}c19colombia/casesByCity`)
+    return this.http.get<CityCasesModel[]>(`${this.baseUrl}cities`)
       .pipe(catchError(this.handleError));
   }
 
@@ -110,7 +112,7 @@ export class CovidApiService {
 
   getPlacesData(type: string): Observable<PlacesModel[]> {
     if (type === 'departments') {
-      return this.http.get<PlacesModel[]>(`${this.baseUrl}c19colombia/departments`)
+      return this.http.get<PlacesModel[]>(`${this.baseUrl}departments`)
         .pipe(catchError(this.handleError));
     }
     return undefined;

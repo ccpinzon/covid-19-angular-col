@@ -162,6 +162,7 @@ export class HomeComponent implements OnInit {
         this.modalOpened = true;
       }
       this.chartData = this.formatChartData.format(type, data);
+      // console.log(this.chartData)
     } else {
       // this.getChartData('currentCountry', this.actualCountry);
     }
@@ -313,7 +314,7 @@ export class HomeComponent implements OnInit {
     this.getLatinAmericaList();
     this.getAllCountries();
     this.getPercentGlobal();
-    this.getPercentLatinAmerica();
+    // this.getPercentLatinAmerica();
     this.getPercentages();
     this.closeModal();
     this.getGeolocationInfo();
