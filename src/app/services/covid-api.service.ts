@@ -65,7 +65,7 @@ export class CovidApiService {
   }
 
   getColombiaData(): Observable<ColombiaDataModel[]> {
-    return this.http.get<ColombiaDataModel[]>(`${this.baseUrl}c19colombia`)
+    return this.http.get<ColombiaDataModel[]>(`${this.baseUrl}colombia`)
       .pipe(catchError(this.handleError));
   }
 
