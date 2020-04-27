@@ -110,4 +110,6 @@ export class InfoBoxesComponent implements OnInit, OnChanges {
       // this.getPercentageOfInfectedPopulation();
     }
   }
+
+
 }

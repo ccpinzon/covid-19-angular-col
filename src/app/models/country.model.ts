@@ -11,4 +11,5 @@ export class CountryModel {
   history: Array<any>;
   tested?: number;
   population: number;
+  countryCode: string;
 }

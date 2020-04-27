@@ -7,7 +7,8 @@ import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
 import {DatePipe} from '@angular/common';
 import {CityCasesModel} from '../models/city-cases.model';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {SharedService} from '../services/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
               private colombiaService: ColombiaService,
               private formatChartData: FormatChartDataService,
               private ipGeolocationService: IpGeolocationService,
+              private shareService: SharedService,
               private router: Router) {
   }
 
@@ -50,6 +52,13 @@ export class HomeComponent implements OnInit {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
       res.sort((countryA, countryB) => countryB.cases - countryA.cases);
       this.latinCountries = res;
+      this.latinCountries.forEach(countryTemp => {
+        try {
+          countryTemp.flag = this.shareService.countryToFlag(countryTemp.countryCode);
+        } catch (e) {
+          console.log(`ERROR COUNTRY FLAG ${countryTemp.name}` );
+        }
+      });
     });
   }
   getPercentGlobal() {
@@ -68,6 +77,13 @@ export class HomeComponent implements OnInit {
     this.covidApiService.getCountryList().subscribe(res => {
       res.sort((countryA, countryB) => countryB.cases - countryA.cases);
       this.allCountries = res;
+      this.allCountries.forEach(countryTemp => {
+        try {
+          countryTemp.flag = this.shareService.countryToFlag(countryTemp.countryCode);
+        } catch (e) {
+          console.log(`ERROR COUNTRY FLAG ${countryTemp.name}`);
+        }
+      });
     });
   }
 
@@ -191,7 +207,7 @@ export class HomeComponent implements OnInit {
     }
   }
    validateFirstVisit() {
-    if (typeof(Storage) !== "undefined") {
+    if (typeof(Storage) !== 'undefined') {
       const firstVisit = localStorage.getItem('firstVisit');
       if (firstVisit == undefined) {
         localStorage.setItem('firstVisit', 'true');
@@ -206,8 +222,8 @@ export class HomeComponent implements OnInit {
           let country = res.country_name ? res.country_name.toLowerCase() : 'colombia';
           if (res.country_code === 'US') {
             country = 'usa';
-          }else if (res.country_code === 'CO') {
-            if (typeof(Storage) !== "undefined") {
+          } else if (res.country_code === 'CO') {
+            if (typeof(Storage) !== 'undefined') {
               // LocalStorage disponible
               const firstVisit = localStorage.getItem('firstVisit');
               if (firstVisit === 'true') {
