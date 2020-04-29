@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {CovidApiService} from '../services/covid-api.service';
-import { NgNavigatorShareService } from 'ng-navigator-share';
+import {NgNavigatorShareService} from 'ng-navigator-share';
 
 @Component({
   selector: 'app-navbar',
@@ -41,13 +41,15 @@ export class NavbarComponent implements OnInit {
   }
 
   getLastUpdateDate() {
-    const nameCountry = 'global';
-    this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
+    // const nameCountry = 'global';
+    this.covidApiService.getLastUpdate().subscribe(res => {
       // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = new Date(res.lastDate.split(' ').join('T'));
+      const lastDate = new Date(res.date.split(' ').join('T'));
       // console.log(lastDate);
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
+      // this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
+      // console.log(stringColDate);
+      this.lastUpdateDate = pipe.transform(lastDate, 'short', 'UTC +14', 'en-US');
     });
   }
 

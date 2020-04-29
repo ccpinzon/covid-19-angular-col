@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CountryModel } from '../models/country.model';
+import {Component, OnInit} from '@angular/core';
+import {CountryModel} from '../models/country.model';
 import {PercentagesModel, PercentModel} from '../models/percent.model';
-import { CovidApiService } from '../services/covid-api.service';
-import { FormatChartDataService } from '../services/format-chart-data.service';
+import {CovidApiService} from '../services/covid-api.service';
+import {FormatChartDataService} from '../services/format-chart-data.service';
 import {ColombiaService} from '../services/colombia.service';
 import {IpGeolocationService} from '../services/ip-geolocation.service';
 import {DatePipe} from '@angular/common';
@@ -210,7 +210,7 @@ export class HomeComponent implements OnInit {
    validateFirstVisit() {
     if (typeof(Storage) !== 'undefined') {
       const firstVisit = localStorage.getItem('firstVisit');
-      if (firstVisit == undefined) {
+      if (firstVisit === undefined) {
         localStorage.setItem('firstVisit', 'true');
       }
     }
@@ -245,13 +245,13 @@ export class HomeComponent implements OnInit {
       });
   }
   getLastUpdateDate() {
-    const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
-    this.covidApiService.getLastUpdate(nameCountry).subscribe(res => {
+    // const nameCountry = this.actualCountry ? this.actualCountry.name : 'global';
+    this.covidApiService.getLastUpdate().subscribe(res => {
       // console.log(res);
       const pipe = new DatePipe('en-US');
-      const lastDate = new Date(res.lastDate.split(' ').join('T'));
-      // console.log(lastDate);
-      this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
+      const lastDate = new Date(res.date.split(' ').join('T'));
+      // console.log(stringColDate);
+      this.lastUpdateDate = pipe.transform(lastDate, 'short', 'UTC +14', 'en-US');
     });
   }
 
@@ -310,6 +310,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getLastUpdateDate();
     this.validateFirstVisit();
     this.getLatinAmericaList();
     this.getAllCountries();
@@ -318,7 +319,6 @@ export class HomeComponent implements OnInit {
     this.getPercentages();
     this.closeModal();
     this.getGeolocationInfo();
-    this.getLastUpdateDate();
     this.setBrowser();
     this.isMobile = window.innerWidth < 991;
   }

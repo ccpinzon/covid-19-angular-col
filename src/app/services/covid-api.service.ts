@@ -81,27 +81,28 @@ export class CovidApiService {
       .pipe(catchError(this.handleError));
   }
 
-  getLastUpdate(countryName: string): Observable<LastUpdateModel> {
-    return countryName === 'colombia' ? this.getLastUpdateColombia() : this.getLastUpdateAllCountries();
+  getLastUpdate(): Observable<LastUpdateModel> {
+    // const res = this.getLastUpdateAllCountries();
+    // const pipe = new DatePipe('en-US');
+    // const lastDate = new Date(res.split(' ').join('T'));
+    // const stringColDate = pipe.transform(lastDate, 'short', 'UTC -10', 'en-US' );
+    // console.log(stringColDate);
+    return this.getLastUpdateAllCountries();
   }
 
   private getLastUpdateAllCountries(): Observable<LastUpdateModel> {
-    return this.http.get<LastUpdateModel>(`${this.baseUrl}covid19/lastUpdate`)
+    return this.http.get<LastUpdateModel>(`${this.apiUrl}lastUpdate`)
       .pipe(catchError(this.handleError));
   }
 
-  private getLastUpdateColombia() {
-    return this.http.get<LastUpdateModel>(`${this.baseUrl}c19colombia/lastUpdate`)
-      .pipe(catchError(this.handleError));
-  }
 
   getSelfAssessmentQuestions(): Observable<any> {
-    return this.http.get(`${this.baseUrl}self-assessment/question`)
+    return this.http.get(`https://covid-19-col.appspot.com/self-assessment/question`)
       .pipe(catchError(this.handleError));
   }
 
   saveSelfAssessmentResults(result): Observable<any> {
-    return this.http.post(`${this.baseUrl}self-assessment/result`, result)
+    return this.http.post(`https://covid-19-col.appspot.com/self-assessment/result`, result)
       .pipe(catchError(this.handleError));
   }
 
