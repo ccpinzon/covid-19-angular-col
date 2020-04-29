@@ -28,9 +28,11 @@ export class TableComponent implements OnInit, OnChanges {
   selectedCountry(country) {
     if (country) {
       this.currentCountry = country;
-      this.country.emit(country.name);
+      if (country.name !== 'world') {
+        this.country.emit(country.name);
+        this.topFunction();
+      }
     }
-    this.topFunction();
   }
   topFunction() {
     document.body.scrollTop = 0; // For Safari
