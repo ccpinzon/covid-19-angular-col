@@ -10,6 +10,7 @@ export class FooterComponent implements OnInit {
   year;
   developers = [
     {name: 'Cristhian Rodríguez', github: 'https://github.com/ccpinzon'},
+    {name: 'Laura B', github: 'https://github.com/lbotia'},
     {name: 'Jhon Puentes', github: 'https://github.com/jfreddypuentes'},
     {name: 'Mónica Carvajal', github: 'https://github.com/monik182'}
   ];
