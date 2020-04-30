@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CovidApiService} from './covid-api.service';
+import {CountryModel} from "../models/country.model";
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +47,16 @@ export class SharedService {
     return degraded;
   }
 
-  countryToFlag(country: string) {
-    return country.toUpperCase().replace(/./g, char => String.
-                    fromCodePoint(char.charCodeAt(0) + 127397));
-
+  countryToFlag(country: CountryModel) {
+    // console.log(country);
+    if (country.countryCode === 'XX' && country.name === 'world') {
+      return '🌎';
+    } else if ( country.countryCode === 'XX' && country.name !== 'world' ) {
+      return '📍';
+    } else {
+      return country.countryCode.toUpperCase().replace(/./g, char => String.
+      fromCodePoint(char.charCodeAt(0) + 127397));
+    }
   }
 
 }

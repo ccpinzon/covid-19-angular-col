@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       this.latinCountries = res;
       this.latinCountries.forEach(countryTemp => {
         try {
-          countryTemp.flag = this.shareService.countryToFlag(countryTemp.countryCode);
+          countryTemp.flag = this.shareService.countryToFlag(countryTemp);
         } catch (e) {
           console.log(`ERROR COUNTRY FLAG ${countryTemp.name}` );
         }
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
       this.allCountries = res;
       this.allCountries.forEach(countryTemp => {
         try {
-          countryTemp.flag = this.shareService.countryToFlag(countryTemp.countryCode);
+          countryTemp.flag = this.shareService.countryToFlag(countryTemp);
         } catch (e) {
           console.log(`ERROR COUNTRY FLAG ${countryTemp.name}`);
         }

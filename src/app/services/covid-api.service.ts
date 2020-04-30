@@ -28,7 +28,7 @@ export class CovidApiService {
       // retry(1),
       map(country => {
         country.nameEs = !country.nameEs ? this.sharedService.upperFirstLetter(country.name) : country.nameEs;
-        country.flag = this.sharedService.countryToFlag(country.countryCode);
+        country.flag = this.sharedService.countryToFlag(country);
         // console.log(country);
         return country;
       }),
