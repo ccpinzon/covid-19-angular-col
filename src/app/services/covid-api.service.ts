@@ -10,13 +10,14 @@ import {DepartmentModel} from '../models/department.model';
 import {LastUpdateModel} from '../models/last-update.model';
 import {CityCasesModel} from '../models/city-cases.model';
 import {PlacesModel} from '../models/places.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CovidApiService {
 
-  private readonly baseUrl = 'https://c19col.xyz/';
+  private readonly baseUrl = environment.urlApi;
   private readonly apiUrl = `${this.baseUrl}countries/`;
 
   constructor(private http: HttpClient,

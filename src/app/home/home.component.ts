@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   latinCountries: CountryModel[] = [];
   allCountries: CountryModel[] = [];
   chartData;
-  modalOpened = false;
+  // modalOpened = false;
   percentGlobal: PercentModel = {percent: 0, confirmation: false};
   percentLA: PercentModel = {percent: 0, confirmation: false};
   colombia: CountryModel;
@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
     if (data.history && data.history.length > 0) {
 
       if (mobile) {
-        this.modalOpened = true;
+        // this.modalOpened = true;
       }
       this.chartData = this.formatChartData.format(type, data);
       // console.log(this.chartData)
@@ -177,7 +177,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  closeModal() {
+/*  closeModal() {
     document.addEventListener('click', (event: any) => {
       if (this.isMobile && this.modalOpened) {
         const modalClass = 'chart-modal';
@@ -190,7 +190,7 @@ export class HomeComponent implements OnInit {
       }
     });
     this.modalOpened = false;
-  }
+  }*/
 
   selectTab(opt) {
     this.selectedTab = {
@@ -215,6 +215,10 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
+  private getColombiaInfo() {
+    this.getCountryByName('colombia');
+  }
   getGeolocationInfo() {
     this.ipGeolocationService.get()
       .subscribe(res => {
@@ -231,6 +235,7 @@ export class HomeComponent implements OnInit {
                 this.router.navigate(['/colombia']);
                 localStorage.setItem('firstVisit', 'false');
               }
+              // this.router.navigate(['/colombia']);
 
             } else {
               // LocalStorage no soportado en este navegador
@@ -317,11 +322,13 @@ export class HomeComponent implements OnInit {
     this.getPercentGlobal();
     // this.getPercentLatinAmerica();
     this.getPercentages();
-    this.closeModal();
-    this.getGeolocationInfo();
+    // this.closeModal();
+    // this.getGeolocationInfo();
+    this.getColombiaInfo();
     this.setBrowser();
     this.isMobile = window.innerWidth < 991;
   }
+
 
 
 }

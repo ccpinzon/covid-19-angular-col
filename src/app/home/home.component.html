@@ -1,16 +1,11 @@
 <section class="container">
-  <ng-container *ngIf="!modalOpened">
+  <ng-container >
     <div class="row d-none d-lg-block">
       <ng-container *ngTemplateOutlet="countryInfo"></ng-container>
     </div>
   </ng-container>
   <!--  <hr>-->
-
-
   <hr class="d-none d-lg-block">
-
-
-
 
   <div class="row">
     <div class="tabs-btn d-lg-none">
@@ -33,18 +28,18 @@
 
 
 </section>
-<div class="chart-modal animated show"
-     *ngIf="isMobile"
-     [hidden]="!modalOpened"
-     [class.zoomIn]="modalOpened"
-     [class.zoomOut]="!modalOpened">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-  </div>
-  <div class="modal-body">
-    <ng-container *ngTemplateOutlet="countryInfo"></ng-container>
-  </div>
-</div>
+<!--<div class="chart-modal animated show"-->
+<!--     *ngIf="isMobile"-->
+<!--     [hidden]="!modalOpened"-->
+<!--     [class.zoomIn]="modalOpened"-->
+<!--     [class.zoomOut]="!modalOpened">-->
+<!--  <div class="modal-header">-->
+<!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>-->
+<!--  </div>-->
+<!--  <div class="modal-body">-->
+<!--    <ng-container *ngTemplateOutlet="countryInfo"></ng-container>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 <ng-template #countryInfo>
@@ -89,7 +84,7 @@
 
         <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && citiesChart"></app-chart>
       </div>
-      <app-info-boxes *ngIf="modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
+<!--      <app-info-boxes *ngIf="modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>-->
       <div *ngIf="colombia"  [ngClass]="tableCityStatus ? 'col-sm-4' : 'col-sm-6'" >
         <div class="btn-group float-right">
           <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>
@@ -120,7 +115,7 @@
       </div>
     </div>
     <hr class="divider d-lg-none">
-    <app-info-boxes *ngIf="!modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
+    <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
 
 
 
@@ -142,7 +137,7 @@
 
     <div class="row justify-content-center">
         <div *ngIf="colombia" class="col-12 col-sm-6">
-          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/colombia" >
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/" >
             Más información de Colombia 🇨🇴
           </button>
         </div>

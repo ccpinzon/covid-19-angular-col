@@ -16,6 +16,7 @@ import {MaterialModule} from './modal/material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PlaceModalComponent } from './modal/place-modal/place-modal.component';
 import {SharedModule} from './shared/shared.module';
+import {FooterModule} from "./shared/components/footer/footer.module";
 
 
 @NgModule({
@@ -34,9 +35,10 @@ import {SharedModule} from './shared/shared.module';
     InfoBoxesModule,
     TableModule,
     MapaColombiaModule,
-    NgxMapboxGLModule.withConfig({ accessToken: environment.accessToken}),
+    NgxMapboxGLModule.withConfig({accessToken: environment.accessToken}),
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FooterModule
   ],
   providers: [],
   bootstrap: [AppComponent],

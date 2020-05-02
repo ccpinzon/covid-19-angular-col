@@ -6,6 +6,10 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: '',
+    loadChildren: () => import('./colombia/colombia.module').then(m => m.ColombiaModule)
+  },
+  {
+    path: 'countries',
     pathMatch: 'full',
     component: HomeComponent
   },
@@ -13,10 +17,10 @@ const routes: Routes = [
     path: 'informacion',
     loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
   },
-  {
-    path: 'colombia',
-    loadChildren: () => import('./colombia/colombia.module').then(m => m.ColombiaModule)
-  },
+  // {
+  //   path: 'colombia',
+  //   loadChildren: () => import('./colombia/colombia.module').then(m => m.ColombiaModule)
+  // },
   {
     path: 'mapa-colombia',
     loadChildren: () => import('./mapa-colombia/mapa-colombia.module').then(m => m.MapaColombiaModule)
