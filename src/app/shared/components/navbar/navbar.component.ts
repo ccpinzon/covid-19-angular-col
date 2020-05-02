@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {CovidApiService} from '../services/covid-api.service';
+import {CovidApiService} from '../../../services/covid-api.service';
 import {NgNavigatorShareService} from 'ng-navigator-share';
 
 @Component({
