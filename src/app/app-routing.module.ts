@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule , PreloadAllModules} from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import {CountryMobileComponent} from './country-mobile/country-mobile.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,11 @@ const routes: Routes = [
     path: 'countries',
     pathMatch: 'full',
     component: HomeComponent
+  },
+  {
+    path: 'countrymobile/:countryName',
+    pathMatch: 'full',
+    component: CountryMobileComponent
   },
   {
     path: 'informacion',

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {CountryModel} from '../models/country.model';
 import {SharedService} from '../services/shared.service';
 import {Percentage} from '../models/percent.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -19,9 +20,10 @@ export class TableComponent implements OnInit, OnChanges {
   currentCountry: CountryModel;
   filteredCountries: CountryModel[] = [];
   query = '';
+  private isMobile: boolean;
 
 
-  constructor(private sharedService: SharedService) {
+  constructor(private sharedService: SharedService, private router: Router) {
     this.casesReorder = true;
   }
 
@@ -29,6 +31,10 @@ export class TableComponent implements OnInit, OnChanges {
     if (country) {
       this.currentCountry = country;
       if (country.name !== 'world') {
+        // validate mobile
+        if (this.isMobile) {
+          this.router.navigate(['/countrymobile', country.name]);
+        }
         this.country.emit(country.name);
         this.topFunction();
       }
@@ -92,6 +98,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.isMobile = window.innerWidth < 991;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

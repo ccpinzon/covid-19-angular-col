@@ -24,7 +24,7 @@ export class TablePlacesComponent implements OnInit {
   }
 
   openModal(dept: string) {
-    let configD = {}
+    let configD = {};
     console.log(this.isMobile);
     if (this.isMobile) {
       configD = {
