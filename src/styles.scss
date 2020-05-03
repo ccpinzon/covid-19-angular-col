@@ -1,6 +1,9 @@
 @import "~mapbox-gl/dist/mapbox-gl.css";
 @import "~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "./variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootswatch/dist/darkly/bootswatch";
 
 body {
   font-size: 10px !important;

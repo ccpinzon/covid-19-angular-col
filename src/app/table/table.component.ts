@@ -32,7 +32,9 @@ export class TableComponent implements OnInit, OnChanges {
       this.currentCountry = country;
       if (country.name !== 'world') {
         // validate mobile
-        if (this.isMobile) {
+        if (country.name === 'colombia') {
+          this.router.navigate(['/']);
+        } else if (this.isMobile) {
           this.router.navigate(['/countrymobile', country.name]);
         }
         this.country.emit(country.name);
