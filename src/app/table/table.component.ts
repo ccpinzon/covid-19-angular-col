@@ -101,6 +101,9 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.isMobile = window.innerWidth < 991;
+    if (this.isMobile) {
+      this.topFunction();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

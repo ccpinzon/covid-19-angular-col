@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
     this.ngNavigatorShareService.share({
       title: 'Covid 19 Colombia',
       text: 'Mantente al tanto de lo último del Covid-19',
-      url: location.href
+      url: 'www.covid19colombia.com'
     }).then( (response) => {
      //  console.log(response);
     })
