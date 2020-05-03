@@ -10,7 +10,7 @@ import {FormatChartDataService} from '../services/format-chart-data.service';
   styleUrls: ['./country-mobile.component.scss']
 })
 export class CountryMobileComponent implements OnInit {
-  private country: CountryModel;
+  country: CountryModel;
   chartData;
   weekSelected = 3;
   constructor(private router: ActivatedRoute,
