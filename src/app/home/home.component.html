@@ -28,92 +28,55 @@
 
 
 </section>
-<!--<div class="chart-modal animated show"-->
-<!--     *ngIf="isMobile"-->
-<!--     [hidden]="!modalOpened"-->
-<!--     [class.zoomIn]="modalOpened"-->
-<!--     [class.zoomOut]="!modalOpened">-->
-<!--  <div class="modal-header">-->
-<!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>-->
-<!--  </div>-->
-<!--  <div class="modal-body">-->
-<!--    <ng-container *ngTemplateOutlet="countryInfo"></ng-container>-->
-<!--  </div>-->
-<!--</div>-->
-
 
 <ng-template #countryInfo>
 <!--  <div class="col-sm-4 justify-content-md-center" *ngIf="isMobile">-->
     <h6 class="last-update" *ngIf="isMobile && actualCountry && lastUpdateDate !== '' ">
       Última Actualización: {{lastUpdateDate}}
     </h6>
-<!--depts chart-->
-<!--  <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !departmentsChart">
-    <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && departmentsChart"></app-chart>
-    <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
-    <hr class="divider d-lg-none">
-    <app-chart class="dep-chart" *ngIf="colombia && departmentsChart" [chartData]="departmentsChart" [maxHeight]="isMobile"></app-chart>
-  </div>-->
-<!--  end depts charts -->
-
-<!-- cities data -->
-<!--  <div class="col-sm-12 chart-container" [class.full-width]="!colombia && !citiesChart">
-    <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && citiesChart"></app-chart>
-    <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
-    <hr class="divider d-lg-none">
-    <app-chart class="dep-chart" *ngIf="colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
-  </div>-->
 
   <div class="col-sm-12" [class.full-width]="!colombia && !citiesChart">
 
 
-    <div class="row">
+    <div class="row justify-content-md-center">
       <div [ngClass]="chartClass" >
-        <div class="row justify-content-md-end">
-          <div class="col-12" [ngClass]="(!colombia) ? 'col-md-4': 'col-md-4'">
+        <div class="row justify-content-md-center">
+          <div class="col-12 col-md-4">
             <h4 class="country-title" *ngIf="chartData">{{chartData.flag}}{{chartData.title}}</h4>
           </div>
-          <div class="col-12" [ngClass]="(!colombia) ? 'col-md-3': 'col-md-5'" >
+          <div class="col-12 col-md-4" >
             <div class="btn-group">
               <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
               <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
               <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
             </div>
           </div>
+          <div class="row justify-content-md-center">
+            <div class="col-md-8">
+              <div class="btn-group btn-block">
+                <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
+                  Lineal
+                </button>
+                <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
+                  Logaritimica
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <app-chart class="history-chart" [chartData]="chartData" *ngIf="!colombia && chartData || colombia && chartData && citiesChart"></app-chart>
       </div>
+
 <!--      <app-info-boxes *ngIf="modalOpened" class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>-->
-      <div *ngIf="colombia"  [ngClass]="tableCityStatus ? 'col-sm-4' : 'col-sm-6'" >
-        <div class="btn-group float-right">
-          <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>
-          <button type="button" (click)="enableCityChart()" [ngClass]="(chartCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Grafico</button>
-        </div>
-        <h4 *ngIf="tableCityStatus" class="text-center">Casos por ciudad</h4>
-        <br>
-
-        <div *ngIf="tableCityStatus" class="scroll-table-in-y">
-          <table class="table tableFixHead text-table-place" style="height: 50px">
-            <thead class="thead-dark">
-            <tr>
-              <th scope="col">Ciudad</th>
-              <th scope="col"># Casos</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr  *ngFor="let cityElm of citiesData">
-              <th  scope="row">{{cityElm.city}}</th>
-              <td>{{cityElm.cases}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <app-chart class="dep-chart" *ngIf="chartCityStatus && colombia && citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
-
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart [typeChart]="typeChart" class="history-chart" [chartData]="chartData" *ngIf="chartData"></app-chart>
+      </div>
+      <div class="col-md-6">
+        <app-chart [typeChart]="typeChart" class="history-chart" [chartData]="chartDataDeaths" *ngIf="chartDataDeaths"></app-chart>
       </div>
     </div>
+
     <hr class="divider d-lg-none">
     <app-info-boxes class="info-boxes" [currentCountry]="actualCountry"></app-info-boxes>
 
@@ -123,42 +86,16 @@
 
 
 
-
-<!--  <p class="list-item header">
-  <span class="name">Ciudad</span>
-  <span class="cases">Casos</span>
-</p>
-  <ul class="list default-list">
-    <li class="list-item" *ngFor="let cityElm of citiesData">
-      <span class="name">{{cityElm.city}}</span>
-      <span class="cases">{{cityElm.cases}}</span>
-    </li>
-  </ul>-->
-
     <div class="row justify-content-center">
         <div *ngIf="colombia" class="col-12 col-sm-6">
           <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/" >
             Más información de Colombia 🇨🇴
           </button>
         </div>
-<!--        <div class="col-12 col-sm-6 "  *ngIf="isMobile">-->
-<!--          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" (click)="modalOpened = false">Más Países 🌎</button>-->
-<!--        </div>-->
+
     </div>
 
-<!--  <div class="row justify-content-s-center">-->
-<!--    <div class="col-sm-4">-->
-<!--&lt;!&ndash;      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>&ndash;&gt;-->
-<!--      <button type="button" class="btn btn-dark btn-lg see-more" routerLink="/colombia" >Ver más</button>-->
-<!--    </div>-->
-<!--    <div class="col-sm-auto">-->
-<!--      Variable width content-->
-<!--    </div>-->
-<!--    <div class="col-sm-4">-->
-<!--&lt;!&ndash;      <button type="button" class="btn btn-dark btn-lg" routerLink="/colombia" >Ver más</button>&ndash;&gt;-->
-<!--      <p class="see-more"><a *ngIf="colombia" routerLink="/colombia" class="see-more-link">Ver más</a></p>-->
-<!--    </div>-->
-<!--  </div>-->
+
 
 </ng-template>
 

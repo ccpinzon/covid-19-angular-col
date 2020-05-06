@@ -16,6 +16,14 @@ import {SharedService} from '../services/shared.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  constructor(private covidApiService: CovidApiService,
+              private colombiaService: ColombiaService,
+              private formatChartData: FormatChartDataService,
+              private ipGeolocationService: IpGeolocationService,
+              private shareService: SharedService,
+              private router: Router) {
+  }
   actualCountry: CountryModel;
   latinCountries: CountryModel[] = [];
   allCountries: CountryModel[] = [];
@@ -39,14 +47,23 @@ export class HomeComponent implements OnInit {
   chartClass: string;
   percentages: PercentagesModel;
   weekSelected = 3;
+  typeChart: string;
 
-  constructor(private covidApiService: CovidApiService,
-              private colombiaService: ColombiaService,
-              private formatChartData: FormatChartDataService,
-              private ipGeolocationService: IpGeolocationService,
-              private shareService: SharedService,
-              private router: Router) {
-  }
+/*  closeModal() {
+    document.addEventListener('click', (event: any) => {
+      if (this.isMobile && this.modalOpened) {
+        const modalClass = 'chart-modal';
+        if (event.target.classList.contains('close') ||
+          (!event.target.classList.contains(modalClass) &&
+            !event.target.closest('.' + modalClass))) {
+          // console.log('closing modal!');
+          this.modalOpened = false;
+        }
+      }
+    });
+    this.modalOpened = false;
+  }*/
+  chartDataDeaths: any;
 
   getLatinAmericaList() {
     this.covidApiService.getLatinAmericaList().subscribe(res => {
@@ -99,7 +116,7 @@ export class HomeComponent implements OnInit {
           this.getDepartments();
           this.getCities();
         }
-        this.chartClass = (this.colombia) ? 'col-sm-8' : 'col-sm-12';
+        this.chartClass =  'col-sm-12';
         const lenHistory = this.actualCountry.history.length;
         switch (this.weekSelected) {
           case 1:
@@ -115,6 +132,7 @@ export class HomeComponent implements OnInit {
         // console.log('chart data this.actualCountry');
         // console.log(this.actualCountry);
         this.getChartData('history', this.actualCountry);
+        this.getChartDataDeaths('historyDeaths', this.actualCountry);
       });
     }
   }
@@ -162,6 +180,23 @@ export class HomeComponent implements OnInit {
         // this.modalOpened = true;
       }
       this.chartData = this.formatChartData.format(type, data);
+      this.chartDataDeaths = this.formatChartData.format(type, data);
+      // console.log(this.chartData)
+    } else {
+      // this.getChartData('currentCountry', this.actualCountry);
+    }
+    // console.log('char data -> ' + JSON.stringify(data));
+  }
+  getChartDataDeaths(type, data) {
+    // console.log(data);
+    if (!data) { return; }
+    const mobile = window.innerWidth < 991;
+    if (data.history && data.history.length > 0) {
+
+      if (mobile) {
+        // this.modalOpened = true;
+      }
+      this.chartDataDeaths = this.formatChartData.format(type, data);
       // console.log(this.chartData)
     } else {
       // this.getChartData('currentCountry', this.actualCountry);
@@ -176,21 +211,6 @@ export class HomeComponent implements OnInit {
       this.chartClass = 'col-sm-12';
     }
   }
-
-/*  closeModal() {
-    document.addEventListener('click', (event: any) => {
-      if (this.isMobile && this.modalOpened) {
-        const modalClass = 'chart-modal';
-        if (event.target.classList.contains('close') ||
-          (!event.target.classList.contains(modalClass) &&
-            !event.target.closest('.' + modalClass))) {
-          // console.log('closing modal!');
-          this.modalOpened = false;
-        }
-      }
-    });
-    this.modalOpened = false;
-  }*/
 
   selectTab(opt) {
     this.selectedTab = {
@@ -330,5 +350,8 @@ export class HomeComponent implements OnInit {
   }
 
 
-
+  enableTypeChart(typeChart: string) {
+    // console.log(typeChart);
+    this.typeChart = typeChart;
+  }
 }
