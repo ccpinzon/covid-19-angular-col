@@ -42,33 +42,6 @@
 
 
   <app-table-places [placesList]="placesList" [showCities]="false"></app-table-places>
-<!--  <div class="col-md-12" >-->
-<!--    <div class="btn-group float-right">-->
-<!--      <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>-->
-<!--      <button type="button" (click)="enableCityChart()" [ngClass]="(chartCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Grafico</button>-->
-<!--    </div>-->
-<!--    <h4 class="text-center">Casos por ciudad</h4>-->
-<!--    <br>-->
-
-<!--    <div  class="scroll-table-in-y">-->
-<!--      <table class="table tableFixHead text-table-place" style="height: 50px">-->
-<!--        <thead class="thead-dark">-->
-<!--        <tr>-->
-<!--          <th scope="col">Ciudad</th>-->
-<!--          <th scope="col"># Casos</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr  *ngFor="let cityElm of citiesData">-->
-<!--          <th  scope="row">{{cityElm.city}}</th>-->
-<!--          <td>{{cityElm.cases}}</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
-
-
-<!--  </div>-->
   <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
 
 

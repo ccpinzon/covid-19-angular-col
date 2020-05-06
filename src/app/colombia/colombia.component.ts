@@ -89,7 +89,7 @@ export class ColombiaComponent implements OnInit {
             // console.log(data);
             this.citiesData = this.getTopCities(cityInfoList);
             const chartCitiesData = {
-              title: 'Top Ciudades',
+              title: 'Ciudaes con mas casos',
               ...this.colombiaService.getCityData(cityInfoList)
             };
             this.citiesChart = this.formatChartDataService.format('cities', chartCitiesData);
