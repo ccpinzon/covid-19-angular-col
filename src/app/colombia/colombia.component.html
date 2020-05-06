@@ -10,8 +10,26 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12">
-      <app-chart [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+    <br>
+    <div class="row justify-content-md-center">
+      <div class="col-md-8">
+        <div class="btn-group btn-block">
+          <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'lineal' ? 'active':'' ">
+            Lineal
+          </button>
+          <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
+            Logaritimica
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+      </div>
+      <div class="col-md-6">
+        <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+      </div>
     </div>
 <!--    <div class="col-sm-12">
       <app-chart [chartData]="colombiaChartLog" *ngIf="colombiaChartLog"></app-chart>

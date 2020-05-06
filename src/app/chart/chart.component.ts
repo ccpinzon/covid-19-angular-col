@@ -18,6 +18,7 @@ import Chart from 'chart.js';
 export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() modal = false;
   @Input() maxHeight = false;
+  @Input() typeChart: string;
   @Input() chartData: {
     name: string,
     title: string,
@@ -56,9 +57,9 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
               type: 'logarithmic',
               ticks: {
                 min: min + lenData   ,
-                max: max ,
+                max ,
                 // autoSkipPadding: max / lenData,
-                userCallback: function(value, index, values) {
+                userCallback(value, index, values) {
                   // Convert the number to a string and splite the string every 3 charaters from the end
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -70,7 +71,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
               }
             }]
           }
-        }
+        };
       case 'horizontalBar':
         return {
           responsive: true,
@@ -89,7 +90,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
               }
             }],
           }
-        }
+        };
       case 'bar':
         return {
           scales: {
@@ -112,7 +113,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     const {name, chartData} = this.chartData;
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);
-    let {options} = this.chartData;
+    const {options} = this.chartData;
     // console.log(options);
     const ctx: any = document.getElementById(`canvas-chart-${name}`);
     ctx.getContext('2d');
@@ -122,12 +123,12 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     // };
 
 
-    let chartOptions = {}
-    if (chartData && this.typeChartLogEnable && this.chartData.flag) {
-      chartOptions = this.getOptions('logarithmic' ,chartData)
-    }else {
+    let chartOptions = {};
+    if (chartData && this.typeChart === 'logarithmic' && this.chartData.flag) {
+      chartOptions = this.getOptions('logarithmic' , chartData);
+    } else {
       // console.log(chartData.type)
-      chartOptions = this.getOptions(chartData.type ,chartData)
+      chartOptions = this.getOptions(chartData.type , chartData);
     }
 
     const data = {
@@ -175,7 +176,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('updatedChartData:', changes);
+    // console.log('updatedChartData:', JSON.stringify(changes));changes
+    if (changes && changes.typeChart && !changes.firstChange) {
+      this.enableTypeChart(this.typeChart);
+    }
     if (changes && changes.chartData && !changes.firstChange) {
       this.updateData(this.chartData);
       // console.log(this.chartData)
@@ -183,7 +187,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   enableTypeChart(typeChart: string) {
-    this.typeChartLogEnable = typeChart === 'logarithmic' ;
-    this.renderChart();
+    // console.log('enableTypeChart -> ', typeChart);
+    if (typeChart) {
+      this.renderChart();
+    }
+    // this.typeChartLogEnable = typeChart === 'logarithmic' ;
   }
 }

@@ -20,11 +20,40 @@ export class FormatChartDataService {
   }
 
   static getCasesDataLog(data) {
-    return {cases: data.map(item => item.cases)}
+    return {cases: data.map(item => item.cases)};
   }
 
   constructor(private sharedService: SharedService) { }
 
+  private historyDeaths(data, type) {
+    const labels = FormatChartDataService.getDateLabels(data.history);
+    const history = FormatChartDataService.getCasesData(data.history);
+    // console.log({labels, history});
+    return {
+      name: type,
+      title: data.nameEs,
+      flag: data.flag,
+      chartData: {
+        type: 'line',
+        data: {
+          datasets: [
+            {
+              label: 'Muertes',
+              data: history.deaths,
+              borderColor: 'rgba(210, 53, 69, 0.6)',
+              backgroundColor: 'rgba(210, 53, 69, 0.2)',
+              // Changes this dataset to become a line
+              type: 'line',
+              pointRadius: 5,
+              pointHoverRadius: 8,
+              borderWidth: 2
+            }
+          ],
+          labels
+        }
+      }
+    };
+  }
   private history(data, type) {
     const labels = FormatChartDataService.getDateLabels(data.history);
     const history = FormatChartDataService.getCasesData(data.history);
@@ -37,10 +66,6 @@ export class FormatChartDataService {
         type: 'line',
         data: {
           datasets: [
-            // {
-            //   label: 'Bar Dataset',
-            //   data: history.cases
-            // },
             {
               label: 'Casos totales',
               data: history.cases,
@@ -50,17 +75,6 @@ export class FormatChartDataService {
               pointRadius: 5,
               pointHoverRadius: 8,
               type: 'line',
-              borderWidth: 2
-            },
-            {
-              label: 'Muertes',
-              data: history.deaths,
-              borderColor: 'rgba(210, 53, 69, 0.6)',
-              backgroundColor: 'rgba(210, 53, 69, 0.2)',
-              // Changes this dataset to become a line
-              type: 'line',
-              pointRadius: 5,
-              pointHoverRadius: 8,
               borderWidth: 2
             }
           ],
@@ -316,6 +330,8 @@ export class FormatChartDataService {
         return this.currentCountry(data, type);
       case 'history':
         return this.history(data, type);
+      case 'historyDeaths':
+        return this.historyDeaths(data, type);
       case 'logarithmic':
         return this.logarithmic(data, type);
       case 'ageAndGender':

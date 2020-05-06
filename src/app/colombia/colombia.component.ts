@@ -25,6 +25,7 @@ export class ColombiaComponent implements OnInit {
   citiesChart;
   attentionChart;
   colombiaChart;
+  colombiaChartDeaths;
   colombiaChartLog;
   percentageDepartmentsChart;
   departmentData: DepartmentModel[] = [];
@@ -41,6 +42,7 @@ export class ColombiaComponent implements OnInit {
     attention: false
   };
   weekSelected = 3;
+  typeChart: string;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
               private colombiaService: ColombiaService,
@@ -94,6 +96,10 @@ export class ColombiaComponent implements OnInit {
         this.colombiaChart = this.formatChartDataService.format(type, data);
         // console.log(this.departmentsChart);
         break;
+      case 'historyDeaths':
+        // console.log('history detahs -> ' , data);
+        this.colombiaChartDeaths = this.formatChartDataService.format(type, data);
+        break;
       case 'logarithmic':
         this.colombiaChartLog = this.formatChartDataService.format(type, data);
         // console.log(this.colombiaChartLog);
@@ -132,7 +138,7 @@ export class ColombiaComponent implements OnInit {
   getCountryByName(countryName: string ) {
     if (countryName) {
       this.covidApiService.getCountry(countryName).subscribe(res => {
-        // console.log(`method getCountryByName :  ${JSON.stringify(res)}`);
+        // console.log('method getCountryByName :', res  );
         this.currentCountry = res;
         const lenHistory = this.currentCountry.history.length;
         switch (this.weekSelected) {
@@ -147,6 +153,7 @@ export class ColombiaComponent implements OnInit {
             break;
         }
         this.getChartData('history', this.currentCountry);
+        this.getChartData('historyDeaths', this.currentCountry);
         this.getChartData('logarithmic', this.currentCountry);
       });
     }
@@ -192,4 +199,8 @@ export class ColombiaComponent implements OnInit {
   //   });
   // }
 
+  enableTypeChart(typeChart: string) {
+    // console.log(typeChart);
+    this.typeChart = typeChart;
+  }
 }
