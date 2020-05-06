@@ -84,11 +84,16 @@ export class ColombiaComponent implements OnInit {
         // console.log(this.departmentsChart);
         break;
       case 'cities':
-        chartData = {
-          title: 'Casos por ciudad',
-          ...this.colombiaService.getCityData(data)
-        };
-        this.citiesChart = this.formatChartDataService.format(type, chartData);
+        this.covidApiService.getDataByCity()
+          .subscribe(cityInfoList => {
+            // console.log(data);
+            this.citiesData = this.getTopCities(cityInfoList);
+            const chartCitiesData = {
+              title: 'Top Ciudades',
+              ...this.colombiaService.getCityData(cityInfoList)
+            };
+            this.citiesChart = this.formatChartDataService.format('cities', chartCitiesData);
+          });
         // console.log(this.citiesData);
         // console.log(this.citiesChart);
         break;
@@ -106,7 +111,12 @@ export class ColombiaComponent implements OnInit {
         break;
     }
   }
-
+  private getTopCities(cityInfoList: CityCasesModel[]) {
+    cityInfoList.forEach(cityInfo => {
+      cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.currentCountry.cases;
+    });
+    return cityInfoList;
+  }
   getColombia() {
     this.covidApiService.getColombiaData()
       .subscribe(data => {
@@ -166,11 +176,12 @@ export class ColombiaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCountryByName('colombia');
     this.getColombia();
     this.getDepartments();
-    this.getCities();
-    this.getCountryByName('colombia');
     this.getPlacesListData();
+    this.getCities();
+    // this.typeChart = 'lineal';
   }
 
   selectWeek(weekNumber: number) {
@@ -199,8 +210,11 @@ export class ColombiaComponent implements OnInit {
   //   });
   // }
 
+
   enableTypeChart(typeChart: string) {
     // console.log(typeChart);
     this.typeChart = typeChart;
   }
+
+
 }

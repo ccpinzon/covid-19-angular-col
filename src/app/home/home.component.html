@@ -73,7 +73,7 @@
           <div class="col-12" [ngClass]="(!colombia) ? 'col-md-4': 'col-md-4'">
             <h4 class="country-title" *ngIf="chartData">{{chartData.flag}}{{chartData.title}}</h4>
           </div>
-          <div class="col-12"[ngClass]="(!colombia) ? 'col-md-3': 'col-md-5'" >
+          <div class="col-12" [ngClass]="(!colombia) ? 'col-md-3': 'col-md-5'" >
             <div class="btn-group">
               <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
               <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>

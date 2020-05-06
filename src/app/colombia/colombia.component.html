@@ -14,7 +14,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-8">
         <div class="btn-group btn-block">
-          <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'lineal' ? 'active':'' ">
+          <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
             Lineal
           </button>
           <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
@@ -42,48 +42,47 @@
 
 
   <app-table-places [placesList]="placesList" [showCities]="false"></app-table-places>
+<!--  <div class="col-md-12" >-->
+<!--    <div class="btn-group float-right">-->
+<!--      <button type="button" (click)="enableCityTable()" [ngClass]="(tableCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Tabla</button>-->
+<!--      <button type="button" (click)="enableCityChart()" [ngClass]="(chartCityStatus) ? 'active' : '' " class="btn btn-md btn-outline-dark">Grafico</button>-->
+<!--    </div>-->
+<!--    <h4 class="text-center">Casos por ciudad</h4>-->
+<!--    <br>-->
 
-  <section class="chart-section">
+<!--    <div  class="scroll-table-in-y">-->
+<!--      <table class="table tableFixHead text-table-place" style="height: 50px">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--          <th scope="col">Ciudad</th>-->
+<!--          <th scope="col"># Casos</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr  *ngFor="let cityElm of citiesData">-->
+<!--          <th  scope="row">{{cityElm.city}}</th>-->
+<!--          <td>{{cityElm.cases}}</td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
 
-        <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
 
-<!--      <div class="col-sm-6">-->
-<!--        <app-chart *ngIf="percentageDepartmentsChart" [chartData]="percentageDepartmentsChart"></app-chart>-->
-<!--      </div>-->
-     <!-- <div class="col-sm-6">
-      <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" [maxHeight]="isMobile"></app-chart>
-      </div> -->
+<!--  </div>-->
+  <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
 
-    <div class="list-wrapper">
-      <p class="text-center view-more" (click)="toggle('dep')">
-        <span> <i class="fas fa-table"></i> {{!toggleTable.dep ? 'Ver' : 'Ocultar'}}  Tabla </span>
-        <img [src]="'assets/icons/chevron-' + (!toggleTable.dep ? 'down' : 'up') + '.svg'" alt="Arrow">
-      </p>
-      <div class="list-container animated"
-          *ngIf="showTable.dep"
-          [class.slideOutUp]="!toggleTable.dep"
-          [class.slideInDown]="toggleTable.dep">
-        <p class="list-item header">
-          <span class="name">Departamento</span>
-          <span class="cases">Casos</span>
-        </p>
-        <ul class="list default-list">
-          <li class="list-item" *ngFor="let dep of departmentData">
-            <span class="name">{{dep.dept}}</span>
-            <span class="cases">{{dep.cases}}</span>
-          </li>
-        </ul>
-      </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <section class="chart-section">
+        <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
+      </section>
     </div>
-  </section>
+    <div class="col-md-6">
+      <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" ></app-chart>
+    </div>
+  </div>
 
-  <section class="chart-section">
-    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
-  </section>
-
-  <hr>
-
-  <hr>
 
   <section class="chart-section">
     <app-chart *ngIf="attentionChart" [chartData]="attentionChart"></app-chart>
