@@ -55,29 +55,32 @@ export class ColombiaService {
     // console.log(getObj(attentionLabels));
     data.forEach(item => {
       // console.log(item)
-      if (item.attention.toLowerCase().includes('casa')) { item.attention = 'Casa'; }
-      const idx = attentionLabels.indexOf(this.sharedService.upperFirstLetter(item.attention));
-      // console.log(attentionLabels)
-      item.attention = attentionLabels[idx];
+      if (item && item.attention){
+        if (item.attention.toLowerCase().includes('casa')) { item.attention = 'Casa'; }
+        const idx = attentionLabels.indexOf(this.sharedService.upperFirstLetter(item.attention));
+        // console.log(attentionLabels)
+        item.attention = attentionLabels[idx];
 
 
-      for (const range in ageRanges) {
-        if (ageRanges.hasOwnProperty(range)) {
-          if (ageRanges[range].indexOf(item.ageRange.toString()) >= 0) {
-            if (!ageData[range]) {
-              ageData = {
-                ...ageData,
-                [range]: {
-                  ...getObj(genderLabels),
-                  ...getObj(attentionLabels)
-                }
-              };
+        for (const range in ageRanges) {
+          if (ageRanges.hasOwnProperty(range)) {
+            if (ageRanges[range].indexOf(item.ageRange.toString()) >= 0) {
+              if (!ageData[range]) {
+                ageData = {
+                  ...ageData,
+                  [range]: {
+                    ...getObj(genderLabels),
+                    ...getObj(attentionLabels)
+                  }
+                };
+              }
+              ageData[range][item.gender] += 1;
+              ageData[range][item.attention] += 1;
             }
-            ageData[range][item.gender] += 1;
-            ageData[range][item.attention] += 1;
           }
         }
       }
+
     });
 
     // ageLabels.sort();
