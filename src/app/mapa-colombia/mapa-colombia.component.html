@@ -1,26 +1,143 @@
 <div class="container">
   <h1 align="center">{{mainTittle}}</h1>
   <mgl-map [style]="'mapbox://styles/mapbox/light-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
+<!--    <ng-container *ngIf="geoJsonCities">
+      <mgl-geojson-source id="geoJsonCities"
+                          [data]="geoJsonCities"
+                          [cluster]="true"
+                          [clusterMaxZoom]="14"
+                          [clusterRadius]="50"
+      >
+        <mgl-layer
+        id="clusters"
+        type="circle"
+        source="geoJsonCities"
+        [filter]="['has','point_count']"
+        [paint]=" {
+          'circle-color': {
+              property: 'point_count',
+              type: 'interval',
+              stops: [
+                [0, '#DC143C'],
+                [100, '#DC143C'],
+                [750, '#DC143C']
+              ]
+            },
+            'circle-radius': {
+              property: 'point_count',
+              type: 'interval',
+              stops: [
+                [0, 20],
+                [100, 30],
+                [750, 40]
+              ]
+            }
+          }"
+        ></mgl-layer>
 
+        <mgl-layer
+        id="cluster_count"
+        type="symbol"
+        source="geoJsonCities"
+        [filter]="['has','point_count']"
+        [layout]="{
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+          }"
+        ></mgl-layer>
+
+        <mgl-layer
+          id="unclustered-point"
+          type="circle"
+          source="earthquakes"
+          [filter]="['!has', 'point_count']"
+          [paint]="{
+            'circle-color': '#11b4da',
+            'circle-radius': 4,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#fff'
+          }"
+        >
+        </mgl-layer>
+
+      </mgl-geojson-source>
+    </ng-container>-->
+<!--    end cluster -->
     <!-- Marcador del virus -->
+<!--
     <mgl-marker *ngFor="let feature of geoData.features" [feature]="feature">
       <div style="text-align: center;"
            (click)="showPopUpInfo(feature, true)"
            (mouseenter)="showPopUpInfo(feature, true)"
            (mouseleave) ="showPopUpInfo(null, false)">
-        <img class="dotImage" src="assets/icons/coronavirus.png">
+        <img class="dotImage" src="../../assets/icons/coronavirus.png">
       </div>
     </mgl-marker>
+-->
 
-    <!-- Popup cuando es seleccionado -->
+<!--    new clusters -->
+<!--    <ng-container *ngIf="geoJsonFeatures">-->
+<!--      <mgl-geojson-source-->
+<!--        id="clusterCities"-->
+<!--        [data]="geoJsonFeatures"-->
+<!--        [cluster]="true"-->
+<!--        [clusterRadius]="50"-->
+<!--        [clusterMaxZoom]="14"-->
+<!--      ></mgl-geojson-source>-->
+
+<!--      <mgl-markers-for-clusters source="geoJsonFeatures">-->
+<!--        <ng-template mglPoint let-feature>-->
+<!--          <div class="marker" [title]="feature.properties['message']">-->
+<!--            {{ feature.properties['cases'] }}-->
+<!--          </div>-->
+<!--        </ng-template>-->
+<!--      </mgl-markers-for-clusters>-->
+<!--    </ng-container>-->
+
+<!--    end new  clusters -->
+<!--
+
+    &lt;!&ndash; Popup cuando es seleccionado &ndash;&gt;
     <mgl-popup *ngIf="selectedPoint" [feature]="selectedPoint">
       <span [innerHTML]="selectedPoint.properties?.message"></span>
     </mgl-popup>
+-->
+
+
+
 
     <!-- Controles del mapa -->
 <!--    <mgl-control mglFullscreen position="top-right"></mgl-control>-->
 <!--    <mgl-control mglGeocoder position="top-right"></mgl-control>-->
 <!--    <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)"></mgl-control>-->
+
+
+
+    <ng-container *ngIf="geoJsonFeatures">
+      <mgl-geojson-source
+        #clusterComponent
+        id="geoJsonFeatures"
+        [data]="geoJsonFeatures"
+        [cluster]="true"
+        [clusterRadius]="50"
+        [clusterMaxZoom]="14"
+      ></mgl-geojson-source>
+      <mgl-markers-for-clusters source="geoJsonFeatures">
+        <ng-template mglPoint let-feature>
+          <div class="marker" [title]="feature.properties['Secondary ID']">
+            {{ feature.properties['Primary ID'] }}
+          </div>
+        </ng-template>
+        <ng-template mglClusterPoint let-feature>
+          <div class="marker-cluster">
+            {{ feature.properties?.point_count }}
+          </div>
+        </ng-template>
+      </mgl-markers-for-clusters>
+
+    </ng-container>
+
     <mgl-control mglNavigation position="top-right"></mgl-control>
 <!--    <mgl-control mglScale position="top-right"></mgl-control>-->
 

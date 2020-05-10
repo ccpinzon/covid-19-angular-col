@@ -140,6 +140,10 @@ export class CovidApiService {
       .pipe(catchError(this.handleError));
   }
 
+  getAllCities(): Observable<PlacesModel[]> {
+    return this.http.get<PlacesModel[]>(`${this.baseUrl}cities`).pipe(catchError(this.handleError));
+  }
+
 
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {DepartmentModel} from '../models/department.model';
 import {CovidApiService} from '../services/covid-api.service';
+import {PlacesModel} from '../models/places.model';
 
 
 @Component({
@@ -11,11 +12,14 @@ import {CovidApiService} from '../services/covid-api.service';
 export class MapaColombiaComponent implements OnInit {
 
   mainTittle = 'Ubicación de covid-19 en Colombia';
-  departmentData: DepartmentModel[] = [];
-  geoData = {
+  // departmentData: DepartmentModel[] = [];
+  colombianCities: PlacesModel[] = [];
+  geoJsonCities = {
     type: 'FeatureCollection',
     features: []
   };
+
+  geoJsonFeatures: GeoJSON.FeatureCollection;
 
 
   showPopUp = false;
@@ -27,30 +31,31 @@ export class MapaColombiaComponent implements OnInit {
   onGeolocate(event) {
     // console.log(event);
   }
-
-  getDepartments() {
-    this.covidApiService.getDataByDepartment()
-      .subscribe(data => {
-        this.departmentData = data;
-        this.buildGeoJson();
-      });
+  getCities() {
+    this.covidApiService.getAllCities().subscribe(data => {
+      this.colombianCities = data;
+      this.buildGeoJsonCities();
+    });
   }
 
-  buildGeoJson() {
-    if (this.departmentData.length > 0) {
-      this.departmentData.forEach(department => {
-        const feature = {
-          type: 'Feature',
-          properties: {
-            message: '<strong>' + department.dept + '</strong> <br>' + department.cases + ' casos.',
-            iconSize: [60, 60]
-          },
-          geometry: {
-            type: 'Point',
-            coordinates: [department.lat, department.lng]
-          }
-        };
-        this.geoData.features.push(feature);
+  private buildGeoJsonCities() {
+    if (this.colombianCities && this.colombianCities.length > 0) {
+      this.colombianCities.forEach( colombianCity => {
+        if (colombianCity && colombianCity.lat && colombianCity.lng) {
+          const feature = {
+            type: 'Feature',
+            properties: {
+              message: '<strong>' + colombianCity.city + '</strong> <br>' + colombianCity.cases + ' casos.',
+              // iconSize: [20, 20]
+              cases: colombianCity.cases
+            },
+            geometry: {
+              type: 'Point',
+              coordinates: [colombianCity.lat, colombianCity.lng]
+            }
+          };
+          this.geoJsonCities.features.push(feature);
+        }
       });
     }
   }
@@ -67,7 +72,17 @@ export class MapaColombiaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDepartments();
+    this.getCities();
+    this.configGeoJsonInfo();
   }
 
+  private async configGeoJsonInfo() {
+    const geoJsonFeatures: GeoJSON.FeatureCollection = this.geoJsonCities;
+    setInterval(() => {
+      if (geoJsonFeatures.features.length) {
+        geoJsonFeatures.features.pop();
+      }
+      this.geoJsonFeatures = {...geoJsonFeatures};
+    }, 500);
+  }
 }

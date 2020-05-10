@@ -7,4 +7,6 @@ export class PlacesModel {
   hospital: number;
   inHouse: number;
   recovered: number;
+  lat: number;
+  lng: number;
 }
