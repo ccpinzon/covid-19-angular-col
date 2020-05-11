@@ -49,10 +49,10 @@ mgl-map {
 
 /* to simplify readability of the component.ts */
 ::ng-deep .marker-cluster {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #4f615a;
+  background-color: #6d152f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,12 +62,17 @@ mgl-map {
 }
 
 .marker {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #7d7d7d;
+  background-color: #97e34f;
   display: flex;
   justify-content: center;
+  font-stretch: condensed;
   align-items: center;
-  border: 2px solid #c9c9c9;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #210505;
+  border: 2px solid #110505;
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {DepartmentModel} from '../models/department.model';
 import {CovidApiService} from '../services/covid-api.service';
 import {PlacesModel} from '../models/places.model';
+import {CirclePaint, SymbolLayout, SymbolPaint} from 'mapbox-gl';
 
 
 @Component({
@@ -26,11 +27,11 @@ export class MapaColombiaComponent implements OnInit {
   selectedPoint = null;
   popUpInfo = '';
 
-  constructor(private covidApiService: CovidApiService) {}
-
-  onGeolocate(event) {
-    // console.log(event);
+  constructor(private covidApiService: CovidApiService) {
   }
+
+
+
   getCities() {
     this.covidApiService.getAllCities().subscribe(data => {
       this.colombianCities = data;
@@ -45,7 +46,9 @@ export class MapaColombiaComponent implements OnInit {
           const feature = {
             type: 'Feature',
             properties: {
-              message: '<strong>' + colombianCity.city + '</strong> <br>' + colombianCity.cases + ' casos.',
+              messageHtml: '<strong>' + colombianCity.city + '</strong> <br>' + colombianCity.cases + ' casos.',
+              message: colombianCity.city + ' ' + colombianCity.cases + ' casos.',
+              // message: colombianCity.cases + '\n casos.',
               // iconSize: [20, 20]
               cases: colombianCity.cases
             },
@@ -77,12 +80,21 @@ export class MapaColombiaComponent implements OnInit {
   }
 
   private async configGeoJsonInfo() {
-    const geoJsonFeatures: GeoJSON.FeatureCollection = this.geoJsonCities;
+    const geoJsonFeatures: { features: any[]; type: string } = this.geoJsonCities;
     setInterval(() => {
       if (geoJsonFeatures.features.length) {
         geoJsonFeatures.features.pop();
       }
-      this.geoJsonFeatures = {...geoJsonFeatures};
+      this.geoJsonFeatures = {features: undefined, type: 'FeatureCollection', ...geoJsonFeatures};
     }, 500);
+  }
+
+  selectCluster($event: MouseEvent, feature) {
+    console.log(feature);
+  }
+
+  selectMarkerPoint($event: MouseEvent, feature) {
+    console.log('selectAux', feature);
+    // console.log('selectAux event -> ', $event);
   }
 }

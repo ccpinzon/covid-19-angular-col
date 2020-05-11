@@ -120,22 +120,27 @@
         id="geoJsonFeatures"
         [data]="geoJsonFeatures"
         [cluster]="true"
-        [clusterRadius]="50"
-        [clusterMaxZoom]="14"
-      ></mgl-geojson-source>
-      <mgl-markers-for-clusters source="geoJsonFeatures">
+        [clusterRadius]="60"
+        [clusterMaxZoom]="8"
+      >
+
+      </mgl-geojson-source>
+      <mgl-markers-for-clusters  source="geoJsonFeatures">
         <ng-template mglPoint let-feature>
-          <div class="marker" [title]="feature.properties['Secondary ID']">
-            {{ feature.properties['Primary ID'] }}
+          <div (click)="selectMarkerPoint($event, feature)"
+               class="marker"
+               [title]=  "feature.properties['cases']"
+          >
+            {{ feature.properties['message']}}
+<!--            {{ feature.properties['cases']  + ' Casos '}}-->
           </div>
         </ng-template>
-        <ng-template mglClusterPoint let-feature>
-          <div class="marker-cluster">
+        <ng-template  mglClusterPoint let-feature>
+          <div class="marker-cluster" (click)="selectCluster($event, feature)" >
             {{ feature.properties?.point_count }}
           </div>
         </ng-template>
       </mgl-markers-for-clusters>
-
     </ng-container>
 
     <mgl-control mglNavigation position="top-right"></mgl-control>
