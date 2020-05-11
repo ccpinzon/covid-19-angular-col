@@ -114,6 +114,7 @@
 
 
 
+<!-- CLUSTERES Q S EBORRAN SOLOS
     <ng-container *ngIf="geoJsonFeatures">
       <mgl-geojson-source
         #clusterComponent
@@ -132,7 +133,7 @@
                [title]=  "feature.properties['cases']"
           >
             {{ feature.properties['message']}}
-<!--            {{ feature.properties['cases']  + ' Casos '}}-->
+&lt;!&ndash;            {{ feature.properties['cases']  + ' Casos '}}&ndash;&gt;
           </div>
         </ng-template>
         <ng-template  mglClusterPoint let-feature>
@@ -142,6 +143,33 @@
         </ng-template>
       </mgl-markers-for-clusters>
     </ng-container>
+-->
+
+<!--    CLUSTERES Q S EBORRAN SOLOS-->
+    <mgl-geojson-source
+      id="geoJsonCities"
+      [data]="geoJsonCities"
+      [cluster]="true"
+      [clusterRadius]="30"
+      [clusterMaxZoom]="8"
+    >
+    </mgl-geojson-source>
+
+    <mgl-markers-for-clusters source="geoJsonCities">
+      <ng-template mglClusterPoint let-feature>
+        <div class="marker-cluster" (click)="selectCluster($event, feature)" >
+          {{ feature.properties?.point_count }}
+        </div>
+      </ng-template>
+      <ng-template mglPoint let-feature>
+        <div (click)="selectMarkerPoint($event, feature)" class="marker" [title]="feature.properties['message']">
+<!--          {{ feature.properties['cases'] }}-->
+          {{ feature.properties['cases'] }}<i class="fas fa-virus"></i>
+        </div>
+      </ng-template>
+    </mgl-markers-for-clusters>
+
+
 
     <mgl-control mglNavigation position="top-right"></mgl-control>
 <!--    <mgl-control mglScale position="top-right"></mgl-control>-->

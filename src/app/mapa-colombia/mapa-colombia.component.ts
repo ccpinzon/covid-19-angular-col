@@ -76,18 +76,18 @@ export class MapaColombiaComponent implements OnInit {
 
   ngOnInit() {
     this.getCities();
-    this.configGeoJsonInfo();
+    // this.configGeoJsonInfo();
   }
 
-  private async configGeoJsonInfo() {
-    const geoJsonFeatures: { features: any[]; type: string } = this.geoJsonCities;
-    setInterval(() => {
-      if (geoJsonFeatures.features.length) {
-        geoJsonFeatures.features.pop();
-      }
-      this.geoJsonFeatures = {features: undefined, type: 'FeatureCollection', ...geoJsonFeatures};
-    }, 500);
-  }
+  // private async configGeoJsonInfo() {
+  //   const geoJsonFeatures: { features: any[]; type: string } = this.geoJsonCities;
+  //   setInterval(() => {
+  //     if (geoJsonFeatures.features.length) {
+  //       geoJsonFeatures.features.pop();
+  //     }
+  //     this.geoJsonFeatures = {features: undefined, type: 'FeatureCollection', ...geoJsonFeatures};
+  //   }, 500);
+  // }
 
   selectCluster($event: MouseEvent, feature) {
     console.log(feature);
