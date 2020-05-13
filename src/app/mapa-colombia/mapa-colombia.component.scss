@@ -46,6 +46,29 @@ mgl-map {
 }
 
 
+/*::ng-deep .marker-cluster {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4f615a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 2px solid #56c498;
+  cursor: pointer;
+}
+
+.marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #7d7d7d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #c9c9c9;
+}*/
 
 /* to simplify readability of the component.ts */
 ::ng-deep .marker-cluster {
@@ -63,19 +86,15 @@ mgl-map {
 }
 
 .marker {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  opacity: 0.9;
-  background-color: #97e34f;
+  background-color: #4f615a;
   display: flex;
   justify-content: center;
-  //font-stretch: condensed;
   align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #210505;
-  border: 1px solid #110505;
+  color: white;
+  border: 2px solid #56c498;
   cursor: pointer;
 }
 

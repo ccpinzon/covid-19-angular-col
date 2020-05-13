@@ -20,12 +20,10 @@ export class MapaColombiaComponent implements OnInit {
     features: []
   };
 
-  geoJsonFeatures: GeoJSON.FeatureCollection;
-
-
-  showPopUp = false;
-  selectedPoint = null;
-  popUpInfo = '';
+  // popup
+  pointSelected: any;
+  popUpLng: number;
+  popUpLat: number;
 
   constructor(private covidApiService: CovidApiService) {
   }
@@ -50,7 +48,9 @@ export class MapaColombiaComponent implements OnInit {
               message: colombianCity.city + ' ' + colombianCity.cases + ' casos.',
               // message: colombianCity.cases + '\n casos.',
               // iconSize: [20, 20]
-              cases: colombianCity.cases
+              cases: colombianCity.cases,
+              lat: colombianCity.lat,
+              lng: colombianCity.lng,
             },
             geometry: {
               type: 'Point',
@@ -63,38 +63,21 @@ export class MapaColombiaComponent implements OnInit {
     }
   }
 
-  showPopUpInfo(feature, show) {
-    // console.log('¿show popup? ', show);
-    if (show) {
-      this.showPopUp = true;
-      this.popUpInfo = feature.properties.message;
-      this.selectedPoint = feature;
-    } else {
-      this.showPopUp = false;
-    }
-  }
-
   ngOnInit() {
     this.getCities();
-    // this.configGeoJsonInfo();
   }
 
-  // private async configGeoJsonInfo() {
-  //   const geoJsonFeatures: { features: any[]; type: string } = this.geoJsonCities;
-  //   setInterval(() => {
-  //     if (geoJsonFeatures.features.length) {
-  //       geoJsonFeatures.features.pop();
-  //     }
-  //     this.geoJsonFeatures = {features: undefined, type: 'FeatureCollection', ...geoJsonFeatures};
-  //   }, 500);
-  // }
 
   selectCluster($event: MouseEvent, feature) {
-    console.log(feature);
+    // console.log('selectCluster > ', feature);
   }
 
-  selectMarkerPoint($event: MouseEvent, feature) {
-    console.log('selectAux', feature);
-    // console.log('selectAux event -> ', $event);
+  selectMarker($event: MouseEvent, feature) {
+    // console.log('selectMarker > ', feature.properties);
+    if (feature.properties.lat && feature.properties.lng) {
+      this.pointSelected = feature.properties;
+      this.popUpLat = feature.properties.lat;
+      this.popUpLng = feature.properties.lng;
+    }
   }
 }

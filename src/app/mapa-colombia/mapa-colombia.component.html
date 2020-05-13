@@ -1,7 +1,8 @@
 <div class="container">
   <h1 align="center">{{mainTittle}}</h1>
-  <mgl-map [style]="'mapbox://styles/mapbox/light-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
-<!--    <ng-container *ngIf="geoJsonCities">
+    <mgl-map [style]="'mapbox://styles/mapbox/light-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
+      <ng-container>
+      <!--    <ng-container *ngIf="geoJsonCities">
       <mgl-geojson-source id="geoJsonCities"
                           [data]="geoJsonCities"
                           [cluster]="true"
@@ -162,19 +163,24 @@
         </div>
       </ng-template>
       <ng-template mglPoint let-feature>
-        <div (click)="selectMarkerPoint($event, feature)" class="marker" [title]="feature.properties['message']">
+        <div (mouseover)="selectMarker($event, feature)" class="marker" [title]="feature.properties['message']">
 <!--          {{ feature.properties['cases'] }}-->
           {{ feature.properties['cases'] }}<i class="fas fa-virus"></i>
         </div>
-
       </ng-template>
     </mgl-markers-for-clusters>
-
+    <mgl-popup *ngIf="pointSelected" [lngLat]="[popUpLat, popUpLng]" [closeOnClick]="false">
+<!--      <div>Prueba</div>-->
+<!--      <span [innerHTML]="pointSelected.messageHtml"></span>-->
+      <div>
+        <span [innerHTML]="pointSelected.messageHtml"></span>
+      </div>
+    </mgl-popup>
 
 
     <mgl-control mglNavigation position="top-right"></mgl-control>
 <!--    <mgl-control mglScale position="top-right"></mgl-control>-->
-
+    </ng-container>
   </mgl-map>
 </div>
 
