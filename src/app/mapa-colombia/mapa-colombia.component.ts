@@ -44,8 +44,19 @@ export class MapaColombiaComponent implements OnInit {
           const feature = {
             type: 'Feature',
             properties: {
-              messageHtml: '<strong>' + colombianCity.city + '</strong> <br>' + colombianCity.cases + ' casos.',
-              message: colombianCity.city + ' ' + colombianCity.cases + ' casos.',
+              messageHtml:
+                '    <div class="col-md-12">\n' +
+                '        <h6 align="center"> ' + colombianCity.city + '</h6>\n' +
+                '    </div>\n' +
+                '    <div class="col-md-12 alert-warning" >\n' +
+                '        <span><i class="fas fa-virus"></i><span class="d-sm-inline"> Casos: </span>' + colombianCity.cases + '  </span>\n' +
+                '    </div>\n' +
+                '    <div class="col-md-12 alert-danger">\n' +
+                '        <span><i class="fas fa-times"></i> <span class="d-sm-inline"> Muertes: </span> ' +  colombianCity.deaths + '  </span>\n' +
+                '    </div>\n' +
+                '    <div class="col-md-12 alert-success">\n' +
+                '        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span> ' + colombianCity.recovered + ' </span>\n' +
+                '    </div>\n',
               // message: colombianCity.cases + '\n casos.',
               // iconSize: [20, 20]
               cases: colombianCity.cases,
