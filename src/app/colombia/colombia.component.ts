@@ -37,6 +37,7 @@ export class ColombiaComponent implements OnInit {
     dep: false,
     attention: false
   };
+  isMobile: boolean;
   showTable = {
     dep: false,
     attention: false
@@ -181,6 +182,8 @@ export class ColombiaComponent implements OnInit {
     this.getDepartments();
     this.getPlacesListData();
     this.getCities();
+    this.initComponents();
+    this.isMobile = window.innerWidth < 991;
     // this.typeChart = 'lineal';
   }
 
@@ -199,16 +202,6 @@ export class ColombiaComponent implements OnInit {
       this.placesList = res;
     });
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(PlaceModalComponent, {
-  //     width: '300px',
-  //     data: {}
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.email = result;
-  //   });
-  // }
 
 
   enableTypeChart(typeChart: string) {
@@ -217,4 +210,7 @@ export class ColombiaComponent implements OnInit {
   }
 
 
+  private initComponents() {
+    this.weekSelected = this.isMobile ? 3 : 1;
+  }
 }

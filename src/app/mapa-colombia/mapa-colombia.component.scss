@@ -1,23 +1,22 @@
-.container {
-  margin: 5rem auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
+//.container {
+//  margin: 5rem auto;
+//  display: flex;
+//  justify-content: center;
+//  flex-direction: column;
+//  align-items: center;
+//}
 
 h1 {
   margin: 2rem 0;
 }
 
 mgl-map {
-  //height: 600px;
-  //width: 800px;
-  width: 90vw;
-  height: 90vh;
+  height: 36rem;
+  width: 100%;
+  //width: 90vw;
+  //height: 90vh;
   border-radius: 0.2rem !important;
 }
-
 
 .dotImage {
   align-content: center;

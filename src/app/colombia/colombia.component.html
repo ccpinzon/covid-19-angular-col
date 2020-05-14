@@ -1,3 +1,4 @@
+
 <article class="container">
   <h2 class="title text-center">Colombia 🇨🇴</h2>
   <section class="chart-section">
@@ -23,39 +24,63 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+
+    <div *ngIf="!isMobile" class="row">
+      <div class="col-md-8">
+        <div class="map-container">
+          <app-mapa-colombia></app-mapa-colombia>
+        </div>
       </div>
-      <div class="col-md-6">
-        <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+      <div class="col-md-4">
+        <div class="col-md-12">
+          <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+        </div>
+        <div class="col-md-12">
+          <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+        </div>
       </div>
     </div>
-<!--    <div class="col-sm-12">
-      <app-chart [chartData]="colombiaChartLog" *ngIf="colombiaChartLog"></app-chart>
-    </div>-->
+
+    <div *ngIf="isMobile">
+      <div class="row">
+        <div class="col-6 col-sm-6">
+          <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+        </div>
+        <div class="col-6 col-sm-6">
+          <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+        </div>
+      </div>
+    </div>
     <app-info-boxes [currentCountry]="currentCountry"></app-info-boxes>
   </section>
 
   <hr>
 
-
-
   <app-table-places [placesList]="placesList" [showCities]="false"></app-table-places>
-  <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
+
+
+  <div *ngIf="isMobile" class="row justify-content-center justify-content-sm-center">
+
+    <div class="col-12 col-sm-12 map-container">
+      <h4>Mapa de Casos</h4>
+      <app-mapa-colombia></app-mapa-colombia>
+    </div>
+  </div>
+
+
 
 
   <div class="row">
     <div class="col-md-6">
-      <section class="chart-section">
-        <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
-      </section>
+      <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
     </div>
     <div class="col-md-6">
       <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" ></app-chart>
     </div>
   </div>
-
+  <section class="chart-section">
+    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
+  </section>
 
   <section class="chart-section">
     <app-chart *ngIf="attentionChart" [chartData]="attentionChart"></app-chart>
