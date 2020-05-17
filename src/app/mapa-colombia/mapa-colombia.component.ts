@@ -80,7 +80,6 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.getCities();
     this.isMobile = window.innerWidth < 991;
   }
 
@@ -89,7 +88,7 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
     console.log('selectCluster > ', feature._geometry.coordinates);
     if (feature._geometry.coordinates) {
       this.locationCenter = feature._geometry.coordinates;
-      this.zoomMap = this.zoomMap + 1;
+      this.zoomMap = this.zoomMap + 2;
     }
   }
 
@@ -102,7 +101,7 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
     }
   }
    ngAfterViewInit() {
-
+    this.getCities();
   }
 
   moveMap() {
