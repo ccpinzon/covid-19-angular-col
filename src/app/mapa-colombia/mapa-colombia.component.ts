@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import {DepartmentModel} from '../models/department.model';
 import {CovidApiService} from '../services/covid-api.service';
 import {PlacesModel} from '../models/places.model';
@@ -14,7 +14,7 @@ export class MapaColombiaComponent implements OnInit {
 
   mainTittle = 'Ubicación de covid-19 en Colombia';
   // departmentData: DepartmentModel[] = [];
-  colombianCities: PlacesModel[] = [];
+  @Input() colombianCities: PlacesModel[] = [];
   geoJsonCities = {
     type: 'FeatureCollection',
     features: []
@@ -30,8 +30,8 @@ export class MapaColombiaComponent implements OnInit {
 
 
 
-  getCities() {
-    this.covidApiService.getAllCities().subscribe(data => {
+  async getCities() {
+    await this.covidApiService.getAllCities().subscribe(data => {
       this.colombianCities = data;
       this.buildGeoJsonCities();
     });
@@ -39,6 +39,7 @@ export class MapaColombiaComponent implements OnInit {
 
   private buildGeoJsonCities() {
     if (this.colombianCities && this.colombianCities.length > 0) {
+      console.log(this.colombianCities);
       this.colombianCities.forEach( colombianCity => {
         if (colombianCity && colombianCity.lat && colombianCity.lng) {
           const feature = {

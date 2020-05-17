@@ -9,6 +9,7 @@ import {DatePipe} from '@angular/common';
 import {CityCasesModel} from '../models/city-cases.model';
 import {Router} from '@angular/router';
 import {SharedService} from '../services/shared.service';
+import {PlacesModel} from "../models/places.model";
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
   colombia: CountryModel;
   isMobile;
   departmentsChart;
-  citiesData: CityCasesModel [];
+  citiesData: PlacesModel [];
   citiesChart;
   selectedTab = {
     global: false,
@@ -151,7 +152,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCities() {
-    this.covidApiService.getDataByCity()
+    this.covidApiService.getAllCities()
       .subscribe(cityInfoList => {
         // console.log(data);
         this.citiesData = this.getTopCities(cityInfoList);
@@ -163,7 +164,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private getTopCities(cityInfoList: CityCasesModel[]) {
+  private getTopCities(cityInfoList: PlacesModel[]) {
     cityInfoList.forEach(cityInfo => {
       cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.actualCountry.cases;
     });

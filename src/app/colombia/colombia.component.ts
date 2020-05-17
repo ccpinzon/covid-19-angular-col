@@ -29,7 +29,7 @@ export class ColombiaComponent implements OnInit {
   colombiaChartLog;
   percentageDepartmentsChart;
   departmentData: DepartmentModel[] = [];
-  citiesData: CityCasesModel[] = [];
+  citiesData: PlacesModel[] = [];
   placesList: PlacesModel[] = [];
   countryData;
   currentCountry;
@@ -85,7 +85,7 @@ export class ColombiaComponent implements OnInit {
         // console.log(this.departmentsChart);
         break;
       case 'cities':
-        this.covidApiService.getDataByCity()
+        this.covidApiService.getAllCities()
           .subscribe(cityInfoList => {
             // console.log(data);
             this.citiesData = this.getTopCities(cityInfoList);
@@ -112,7 +112,7 @@ export class ColombiaComponent implements OnInit {
         break;
     }
   }
-  private getTopCities(cityInfoList: CityCasesModel[]) {
+  private getTopCities(cityInfoList: PlacesModel[]) {
     cityInfoList.forEach(cityInfo => {
       cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.currentCountry.cases;
     });
@@ -138,10 +138,10 @@ export class ColombiaComponent implements OnInit {
   }
 
   getCities() {
-    this.covidApiService.getDataByCity()
+    this.covidApiService.getAllCities()
       .subscribe( dataCity => {
         this.citiesData = dataCity;
-       //  console.log(this.citiesData);
+        // console.log(this.citiesData);
         this.getChartData('cities', dataCity);
       });
   }
@@ -176,17 +176,6 @@ export class ColombiaComponent implements OnInit {
     setTimeout(() => { this.showTable[type] = this.toggleTable[type]; }, delay);
   }
 
-  ngOnInit() {
-    this.getCountryByName('colombia');
-    this.getColombia();
-    this.getDepartments();
-    this.getPlacesListData();
-    this.getCities();
-    this.initComponents();
-    this.isMobile = window.innerWidth < 991;
-    // this.typeChart = 'lineal';
-  }
-
   selectWeek(weekNumber: number) {
     // console.log('oneWeekChart');
     // console.log(this.colombiaChartLog)
@@ -212,5 +201,17 @@ export class ColombiaComponent implements OnInit {
 
   private initComponents() {
     this.weekSelected = this.isMobile ? 3 : 1;
+  }
+
+
+    ngOnInit() {
+    this.getCountryByName('colombia');
+    this.getCities();
+    this.getColombia();
+    this.getDepartments();
+    this.getPlacesListData();
+    this.initComponents();
+    this.isMobile = window.innerWidth < 991;
+    // this.typeChart = 'lineal';
   }
 }

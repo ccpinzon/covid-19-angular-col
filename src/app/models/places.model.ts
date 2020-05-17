@@ -9,4 +9,5 @@ export class PlacesModel {
   recovered: number;
   lat: number;
   lng: number;
+  percentCases: number;
 }
