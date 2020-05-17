@@ -88,7 +88,12 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
     console.log('selectCluster > ', feature._geometry.coordinates);
     if (feature._geometry.coordinates) {
       this.locationCenter = feature._geometry.coordinates;
-      this.zoomMap = this.zoomMap + 2;
+      console.log(this.zoomMap);
+      if (this.zoomMap <= 8) {
+        this.zoomMap = this.zoomMap + 2;
+        console.log('new zoom ' , this.zoomMap);
+      }
+
     }
   }
 

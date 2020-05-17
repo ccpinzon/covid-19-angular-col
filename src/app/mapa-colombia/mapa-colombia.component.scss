@@ -71,22 +71,40 @@ h1 {
 
 /* to simplify readability of the component.ts */
 ::ng-deep .marker-cluster {
-  width: 50px;
-  height: 50px;
-  opacity: 0.8;
+  width: 20px;
+  height: 20px;
+  //opacity: 0.8;
   border-radius: 50%;
-  background-color: #bd1818;
+  background-color: #de9106;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  border: 2px solid #ebf3f1;
+  //border: 2px solid #ebf3f1;
   cursor: pointer;
+
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #de9106;
+    -webkit-box-shadow: 0 0 1px 1px #de9106;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    0 0 1px 1px #de9106;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         0 0 1px 1px #de9106;
+  }
+  100% {
+    background-color: #de9106;
+    -webkit-box-shadow: 0 0 5px 5px #de9106;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    0 0 5px 5px #de9106;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         0 0 5px 5px #de9106;
+  }
 }
 
 .marker {
   width: 40px;
   height: 40px;
+  font-size: small;
   border-radius: 50%;
   background-color: #4f615a;
   display: flex;

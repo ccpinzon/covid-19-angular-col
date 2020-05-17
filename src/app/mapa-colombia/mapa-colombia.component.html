@@ -20,7 +20,7 @@
     <mgl-markers-for-clusters source="geoJsonCities">
       <ng-template mglClusterPoint let-feature>
         <div class="marker-cluster" (click)="selectCluster($event, feature)" >
-          {{ feature.properties?.point_count }}
+<!--          {{ feature.properties?.point_count }}-->
         </div>
       </ng-template>
       <ng-template mglPoint let-feature>
