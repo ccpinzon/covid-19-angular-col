@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import {DepartmentModel} from '../models/department.model';
 import {CovidApiService} from '../services/covid-api.service';
 import {PlacesModel} from '../models/places.model';
@@ -10,7 +10,7 @@ import {CirclePaint, SymbolLayout, SymbolPaint} from 'mapbox-gl';
   templateUrl: './mapa-colombia.component.html',
   styleUrls: ['./mapa-colombia.component.scss']
 })
-export class MapaColombiaComponent implements OnInit {
+export class MapaColombiaComponent implements OnInit, AfterViewInit {
 
   mainTittle = 'Ubicación de covid-19 en Colombia';
   // departmentData: DepartmentModel[] = [];
@@ -24,6 +24,7 @@ export class MapaColombiaComponent implements OnInit {
   pointSelected: any;
   popUpLng: number;
   popUpLat: number;
+  isMobile: boolean;
 
   constructor(private covidApiService: CovidApiService) {
   }
@@ -75,8 +76,9 @@ export class MapaColombiaComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.getCities();
+  async ngOnInit() {
+    await this.getCities();
+    this.isMobile = window.innerWidth < 991;
   }
 
 
@@ -90,6 +92,13 @@ export class MapaColombiaComponent implements OnInit {
       this.pointSelected = feature.properties;
       this.popUpLat = feature.properties.lat;
       this.popUpLng = feature.properties.lng;
+    }
+  }
+  async ngAfterViewInit() {
+    // viewChild is set after the view has been initialized
+    console.log('ngAfterViewInit');
+    if (this.colombianCities === undefined || this.colombianCities.length <= 0) {
+      // await this.getCities();
     }
   }
 }

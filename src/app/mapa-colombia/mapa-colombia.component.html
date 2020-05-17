@@ -1,6 +1,9 @@
 
 
-  <mgl-map [style]="'mapbox://styles/mapbox/light-v9'" [zoom]="[4.5]" [center]="[-74.50, 4]" class="mgl-map">
+  <mgl-map [style]="'mapbox://styles/mapbox/light-v10'"
+           [maxBounds]="[ -84.696394,-4.814055, -60.078593, 15.114921]"
+           [zoom]="[2]"
+           [center]="[-74.50, 4]" class="map-container" [ngStyle]="{'height': isMobile ? '20rem' : '36rem'}">
     <ng-container>
 
   <mgl-geojson-source
@@ -30,7 +33,7 @@
       <span [innerHTML]="pointSelected.messageHtml"></span>
     </div>
   </mgl-popup>
-  <mgl-control mglNavigation position="top-right"></mgl-control>
+<!--  <mgl-control *ngIf="!isMobile" mglNavigation position="top-right"></mgl-control>-->
   </ng-container>
 </mgl-map>
 
