@@ -25,6 +25,8 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
   popUpLng: number;
   popUpLat: number;
   isMobile: boolean;
+  locationCenter: [number, number] = [-74.50, 4];
+  zoomMap = 2;
 
   constructor(private covidApiService: CovidApiService) {
   }
@@ -84,7 +86,11 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
 
 
   selectCluster($event: MouseEvent, feature) {
-    // console.log('selectCluster > ', feature);
+    console.log('selectCluster > ', feature._geometry.coordinates);
+    if (feature._geometry.coordinates) {
+      this.locationCenter = feature._geometry.coordinates;
+      this.zoomMap = this.zoomMap + 1;
+    }
   }
 
   selectMarker($event: MouseEvent, feature) {
@@ -97,5 +103,15 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
   }
    ngAfterViewInit() {
 
+  }
+
+  moveMap() {
+    if (this.colombianCities === undefined || this.colombianCities.length <= 0) {
+      this.getCities();
+      console.log('get cities');
+    }
+    if (this.pointSelected) {
+      this.pointSelected = undefined;
+    }
   }
 }

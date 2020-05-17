@@ -1,39 +1,43 @@
 
 
-  <mgl-map [style]="'mapbox://styles/mapbox/light-v10'"
+  <mgl-map (move)="moveMap()"
+           [style]="'mapbox://styles/mapbox/light-v10'"
            [maxBounds]="[ -84.696394,-4.814055, -60.078593, 15.114921]"
-           [zoom]="[2]"
-           [center]="[-74.50, 4]" class="map-container" [ngStyle]="{'height': isMobile ? '22rem' : '36rem'}">
-    <ng-container>
-
-  <mgl-geojson-source
-    id="geoJsonCities"
-    [data]="geoJsonCities"
-    [cluster]="true"
-    [clusterRadius]="40"
-    [clusterMaxZoom]="8"
+           [zoom]="[zoomMap]"
+           [center]="locationCenter"
+           class="map-container" [ngStyle]="{'height': isMobile ? '22rem' : '36rem'}"
   >
-  </mgl-geojson-source>
+  <ng-container>
+    <mgl-geojson-source
+      id="geoJsonCities"
+      [data]="geoJsonCities"
+      [cluster]="true"
+      [clusterRadius]="40"
+      [clusterMaxZoom]="8"
+    >
+    </mgl-geojson-source>
 
-  <mgl-markers-for-clusters source="geoJsonCities">
-    <ng-template mglClusterPoint let-feature>
-      <div class="marker-cluster" (click)="selectCluster($event, feature)" >
-        {{ feature.properties?.point_count }}
-      </div>
-    </ng-template>
-    <ng-template mglPoint let-feature>
-      <div (mouseover)="selectMarker($event, feature)" class="marker" [title]="feature.properties['message']">
-        {{ feature.properties['cases'] }}<i class="fas fa-virus"></i>
-      </div>
-    </ng-template>
-  </mgl-markers-for-clusters>
-  <mgl-popup *ngIf="pointSelected" [lngLat]="[popUpLat, popUpLng]" [closeOnClick]="false">
+    <mgl-markers-for-clusters source="geoJsonCities">
+      <ng-template mglClusterPoint let-feature>
+        <div class="marker-cluster" (click)="selectCluster($event, feature)" >
+          {{ feature.properties?.point_count }}
+        </div>
+      </ng-template>
+      <ng-template mglPoint let-feature>
+        <div (mouseover)="selectMarker($event, feature)"
+             class="marker"
+             [title]="feature.properties['message']">
+          {{ feature.properties['cases'] }}<i class="fas fa-virus"></i>
+        </div>
+      </ng-template>
+    </mgl-markers-for-clusters>
+    <mgl-popup *ngIf="pointSelected" [lngLat]="[popUpLat, popUpLng]" [closeOnClick]="false">
 
-    <div>
-      <span [innerHTML]="pointSelected.messageHtml"></span>
-    </div>
-  </mgl-popup>
-<!--  <mgl-control *ngIf="!isMobile" mglNavigation position="top-right"></mgl-control>-->
+      <div>
+        <span [innerHTML]="pointSelected.messageHtml"></span>
+      </div>
+    </mgl-popup>
+    <!--  <mgl-control *ngIf="!isMobile" mglNavigation position="top-right"></mgl-control>-->
   </ng-container>
 </mgl-map>
 
