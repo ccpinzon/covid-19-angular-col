@@ -90,7 +90,7 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
       this.locationCenter = feature._geometry.coordinates;
       console.log(this.zoomMap);
       if (this.zoomMap <= 8) {
-        this.zoomMap = this.zoomMap + 2;
+        this.zoomMap = 7;
         console.log('new zoom ' , this.zoomMap);
       }
 
