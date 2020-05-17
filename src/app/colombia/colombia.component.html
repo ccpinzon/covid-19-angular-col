@@ -7,16 +7,41 @@
     </div>
   </div>-->
 
-  <div *ngIf="isMobile" class="row">
-    <div class="col-7 col-sm-7">
-      <div>
-        <app-mapa-colombia></app-mapa-colombia>
+  <div *ngIf="isMobile">
+    <div class="row">
+      <div class="col-7 col-sm-7">
+        <div>
+          <app-mapa-colombia></app-mapa-colombia>
+        </div>
+      </div>
+      <div class="col-5 col-sm-5 col-md-5">
+        <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
       </div>
     </div>
-    <div class="col-5 col-sm-5 col-md-5">
-      <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
+
+    <div class="row justify-content-center">
+      <div class="col-6 col-sm-6">
+        <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value.toFixed(2)}}%</strong>
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar" role="progressbar"
+               [ngStyle]="rates.recovery.style"
+               [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-sm-6">
+        <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar mortality" role="progressbar"
+               [ngStyle]="rates.mortality.style"
+               [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
 
 
 

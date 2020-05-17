@@ -53,25 +53,5 @@
     </div>
   </div>
 
-    <div class="rate-bar">
-      <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value.toFixed(2)}}%</strong>
-      <div class="progress" style="height: 20px;">
-        <div class="progress-bar" role="progressbar"
-             [ngStyle]="rates.recovery.style"
-             [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
-        </div>
-      </div>
-    </div>
-    <div class="rate-bar">
-      <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
-      <div class="progress" style="height: 20px;">
-        <div class="progress-bar mortality" role="progressbar"
-             [ngStyle]="rates.mortality.style"
-             [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
-        </div>
-      </div>
-    </div>
-
-
 </div>
 

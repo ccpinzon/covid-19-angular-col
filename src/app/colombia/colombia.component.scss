@@ -74,3 +74,12 @@
     }
   }
 }
+
+.progress-bar {
+  background-color: limegreen;
+
+  &.mortality {
+    background-color: red;
+  }
+}
+

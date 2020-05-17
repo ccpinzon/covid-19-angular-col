@@ -42,7 +42,14 @@ export class ColombiaComponent implements OnInit {
     dep: false,
     attention: false
   };
-  weekSelected = 3;
+
+  rates = {
+    mortality: {value: 0, style: {}},
+    recovery:  {value: 0, style: {}}
+  };
+
+
+  weekSelected = 1;
   typeChart: string;
   constructor(private covidApiService: CovidApiService,
               private sharedService: SharedService,
@@ -166,6 +173,10 @@ export class ColombiaComponent implements OnInit {
         this.getChartData('history', this.currentCountry);
         this.getChartData('historyDeaths', this.currentCountry);
         this.getChartData('logarithmic', this.currentCountry);
+
+        if (this.isMobile){
+          this.getRates();
+        }
       });
     }
   }
@@ -200,18 +211,42 @@ export class ColombiaComponent implements OnInit {
 
 
   private initComponents() {
-    this.weekSelected = this.isMobile ? 3 : 1;
+    this.isMobile = window.innerWidth < 991;
+    console.log('is Mobile? -> ', this.isMobile);
+    this.weekSelected = this.isMobile ? 1 : 3;
+  }
+
+  getRates() {
+    // console.log(this.currentCountry);
+    if (this.currentCountry) {
+      const recovery = this.currentCountry.percentRecovered ? parseFloat(this.currentCountry.percentRecovered) : 0;
+      const mortality = this.currentCountry.cases > 0 ?
+        parseFloat(((this.currentCountry.deaths / this.currentCountry.cases) * 100).toFixed(2)) : 0;
+      const getStyle = value => ({width: `${value}%`});
+      this.rates = {
+        recovery: {
+          value: recovery,
+          style: getStyle(recovery)
+        },
+        mortality: {
+          value: mortality,
+          style: getStyle(mortality)
+        }
+      };
+      console.log(this.rates);
+    }
+
   }
 
 
     ngOnInit() {
+    this.initComponents();
     this.getCountryByName('colombia');
     this.getCities();
     this.getColombia();
     this.getDepartments();
     this.getPlacesListData();
-    this.initComponents();
-    this.isMobile = window.innerWidth < 991;
+
     // this.typeChart = 'lineal';
   }
 }
