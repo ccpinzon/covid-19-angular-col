@@ -1,6 +1,6 @@
 
 <article class="container">
-  <h2 class="title text-center">Colombia 🇨🇴</h2>
+  <h2 *ngIf="!isMobile" class="title text-center">Colombia 🇨🇴</h2>
 <!--  <div *ngIf="isMobile" class="row justify-content-center justify-content-sm-center">
     <div class="col-12 col-sm-12 map-container">
       <app-mapa-colombia></app-mapa-colombia>
@@ -8,13 +8,13 @@
   </div>-->
 
   <div *ngIf="isMobile" class="row">
-    <div class="col-8 col-sm-8">
-      <div class="map-container">
+    <div class="col-7 col-sm-7">
+      <div>
         <app-mapa-colombia></app-mapa-colombia>
       </div>
     </div>
-    <div class="col-4 col-sm-4 col-md-4">
-      <app-info-boxes-mobile></app-info-boxes-mobile>
+    <div class="col-5 col-sm-5 col-md-5">
+      <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
     </div>
   </div>
 

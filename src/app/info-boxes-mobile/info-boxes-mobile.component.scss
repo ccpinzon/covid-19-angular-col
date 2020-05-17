@@ -1,0 +1,25 @@
+.alert-critic {
+  border-color: rgba(255, 165, 0, 0.2);
+  color: rgb(106, 76, 0);
+  background-color: rgba(255, 165, 0, 0.1);
+  //padding: 1rem;
+}
+
+.box-info {
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.72rem;
+}
+
+.rate-bar {
+  font-size: 0.72rem;
+  margin: 0 0.5rem;
+}
+
+.progress-bar {
+  background-color: limegreen;
+
+  &.mortality {
+    background-color: red;
+  }
+}

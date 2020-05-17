@@ -1,1 +1,77 @@
-<p>info-boxes-mobile works!</p>
+
+<div *ngIf="currentCountry && currentCountry.population > 0" class="row">
+  <div class="col-12 col-sm-12 box-info">
+      <p>
+        <i class="fas fa-users"></i> Población: {{populationFormated}}
+      </p>
+  </div>
+  <div class="col-12 col-sm-12">
+    <div class="alert-warning box-info population" role="alert">
+      <p>
+        <span><i class="fas fa-virus"></i><span class="d-sm-inline"> Casos: </span>{{currentCountry.cases}}</span>
+      </p>
+    </div>
+    <div class="alert-danger box-info" role="alert">
+      <p>
+        <span><i class="fas fa-times"></i> <span class="d-sm-inline"> Muertes: </span>{{currentCountry.deaths}}</span>
+      </p>
+    </div>
+    <div class="alert-success box-info" role="alert">
+      <p>
+        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span>{{currentCountry.cured}}</span>
+      </p>
+    </div>
+    <div class="alert-info box-info" role="alert">
+      <p>
+        <span><i class="fas fa-bed"></i> <span class="d-sm-inline"> Enfermos: </span>{{currentlySick}}</span>
+      </p>
+    </div>
+    <div class="alert-critic box-info" role="alert">
+      <p>
+        <span><i class="fas fa-procedures"></i> <span class="d-sm-inline"> Críticos UCI: </span>{{currentCountry.critic}}</span>
+      </p>
+    </div>
+    <div class="alert-warning box-info" role="alert">
+      <p>
+        <span><i class="fas fa-user-plus"></i> <span class="d-sm-inline"> Casos Hoy: </span>{{newCases}}</span>
+      </p>
+    </div>
+    <div class="alert-danger box-info" role="alert">
+      <p>
+        <span><i class="fas fa-user-times"></i><span class="d-sm-inline"> Muertes Hoy: </span>{{newDeaths}}</span>
+      </p>
+    </div>
+    <div class="alert-primary box-info" role="alert">
+      <p>
+        <span><i class="fas fa-vials"></i><span class="d-sm-inline"> Test Realizados: </span>{{currentCountry.tested}}</span>
+      </p>
+    </div>
+    <div class="alert-secondary box-info" role="alert">
+      <p>
+        <span> <i class="fas fa-people-arrows"></i><span class="d-sm-inline"> Casos por 1M de habitantes: </span>{{casesPerMillionPeople}}</span>
+      </p>
+    </div>
+  </div>
+
+    <div class="rate-bar">
+      <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value.toFixed(2)}}%</strong>
+      <div class="progress" style="height: 20px;">
+        <div class="progress-bar" role="progressbar"
+             [ngStyle]="rates.recovery.style"
+             [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+    </div>
+    <div class="rate-bar">
+      <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
+      <div class="progress" style="height: 20px;">
+        <div class="progress-bar mortality" role="progressbar"
+             [ngStyle]="rates.mortality.style"
+             [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+    </div>
+
+
+</div>
+

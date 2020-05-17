@@ -31,34 +31,35 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
 
 
 
-  async getCities() {
-    await this.covidApiService.getAllCities().subscribe(data => {
+  getCities() {
+     this.covidApiService.getAllCities().subscribe(data => {
       this.colombianCities = data;
       this.buildGeoJsonCities();
     });
   }
 
-  private buildGeoJsonCities() {
+   buildGeoJsonCities() {
+
     if (this.colombianCities && this.colombianCities.length > 0) {
-      console.log(this.colombianCities);
-      this.colombianCities.forEach( colombianCity => {
+      // console.log(this.colombianCities);
+      this.colombianCities.forEach(colombianCity => {
         if (colombianCity && colombianCity.lat && colombianCity.lng) {
           const feature = {
             type: 'Feature',
             properties: {
               messageHtml:
-                '    <div class="col-md-12">\n' +
-                '        <h6 align="center"> ' + colombianCity.city + '</h6>\n' +
-                '    </div>\n' +
-                '    <div class="col-md-12 alert-warning" >\n' +
-                '        <span><i class="fas fa-virus"></i><span class="d-sm-inline"> Casos: </span>' + colombianCity.cases + '  </span>\n' +
-                '    </div>\n' +
-                '    <div class="col-md-12 alert-danger">\n' +
-                '        <span><i class="fas fa-times"></i> <span class="d-sm-inline"> Muertes: </span> ' +  colombianCity.deaths + '  </span>\n' +
-                '    </div>\n' +
-                '    <div class="col-md-12 alert-success">\n' +
-                '        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span> ' + colombianCity.recovered + ' </span>\n' +
-                '    </div>\n',
+                  '    <div class="col-md-12">\n' +
+                  '        <h6 align="center"> ' + colombianCity.city + '</h6>\n' +
+                  '    </div>\n' +
+                  '    <div class="col-md-12 alert-warning" >\n' +
+                  '        <span><i class="fas fa-virus"></i><span class="d-sm-inline"> Casos: </span>' + colombianCity.cases + '  </span>\n' +
+                  '    </div>\n' +
+                  '    <div class="col-md-12 alert-danger">\n' +
+                  '        <span><i class="fas fa-times"></i> <span class="d-sm-inline"> Muertes: </span> ' + colombianCity.deaths + '  </span>\n' +
+                  '    </div>\n' +
+                  '    <div class="col-md-12 alert-success">\n' +
+                  '        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span> ' + colombianCity.recovered + ' </span>\n' +
+                  '    </div>\n',
               // message: colombianCity.cases + '\n casos.',
               // iconSize: [20, 20]
               cases: colombianCity.cases,
@@ -76,8 +77,8 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async ngOnInit() {
-    await this.getCities();
+  ngOnInit() {
+    this.getCities();
     this.isMobile = window.innerWidth < 991;
   }
 
@@ -94,11 +95,7 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
       this.popUpLng = feature.properties.lng;
     }
   }
-  async ngAfterViewInit() {
-    // viewChild is set after the view has been initialized
-    console.log('ngAfterViewInit');
-    if (this.colombianCities === undefined || this.colombianCities.length <= 0) {
-      // await this.getCities();
-    }
+   ngAfterViewInit() {
+
   }
 }
