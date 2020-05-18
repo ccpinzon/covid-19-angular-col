@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
       // console.log(lastDate);
       // this.lastUpdateDate = pipe.transform(lastDate, 'dd/MM/yyyy hh:mm a');
       // console.log(stringColDate);
-      this.lastUpdateDate = pipe.transform(lastDate, 'short', 'UTC +14', 'en-US');
+      this.lastUpdateDate = pipe.transform(lastDate, 'shortTime', 'UTC +14', 'en-US');
     });
   }
 
