@@ -18,6 +18,8 @@ import { PlaceModalComponent } from './modal/place-modal/place-modal.component';
 import {SharedModule} from './shared/shared.module';
 import {FooterModule} from './shared/components/footer/footer.module';
 import { CountryMobileComponent } from './country-mobile/country-mobile.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { CountryMobileComponent } from './country-mobile/country-mobile.componen
     NgxMapboxGLModule.withConfig({accessToken: environment.accessToken}),
     MaterialModule,
     BrowserAnimationsModule,
-    FooterModule
+    FooterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],
