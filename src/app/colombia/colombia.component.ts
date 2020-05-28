@@ -121,7 +121,9 @@ export class ColombiaComponent implements OnInit {
   }
   private getTopCities(cityInfoList: PlacesModel[]) {
     cityInfoList.forEach(cityInfo => {
-      cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.currentCountry.cases;
+      if (this.currentCountry){
+        cityInfo.percentCases = ( cityInfo.cases * 100 ) / this.currentCountry.cases;
+      }
     });
     return cityInfoList;
   }
@@ -239,14 +241,14 @@ export class ColombiaComponent implements OnInit {
   }
 
 
-    ngOnInit() {
-    this.initComponents();
-    this.getCountryByName('colombia');
-    this.getCities();
-    this.getColombia();
-    this.getDepartments();
-    this.getPlacesListData();
+    async ngOnInit() {
+      this.initComponents();
+      await this.getCountryByName('colombia');
+      this.getCities();
+      this.getColombia();
+      this.getDepartments();
+      this.getPlacesListData();
 
-    // this.typeChart = 'lineal';
-  }
+      // this.typeChart = 'lineal';
+    }
 }

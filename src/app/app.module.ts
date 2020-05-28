@@ -11,7 +11,6 @@ import {TableModule} from './table/table.module';
 import { HomeComponent } from './home/home.component';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import {MapaColombiaModule} from './mapa-colombia/mapa-colombia.module';
-import {environment} from '../environments/environment.prod';
 import {MaterialModule} from './modal/material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PlaceModalComponent } from './modal/place-modal/place-modal.component';
