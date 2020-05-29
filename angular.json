@@ -135,6 +135,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "covic19col"
+    }
+  },
+  "defaultProject": "covic19col",
+  "cli": {
+    "analytics": false
+  }
 }
