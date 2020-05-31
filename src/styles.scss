@@ -4,6 +4,12 @@
 @import "./variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+
+.dark-theme {
+  background: #343a40;
+  color: #d0d0d0;
+}
+
 body {
   font-size: 10px !important;
 }/* You can add global styles to this file, and also import other style files */

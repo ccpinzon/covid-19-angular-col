@@ -1,184 +1,184 @@
 
-<article class="container">
-  <h2 *ngIf="!isMobile" class="title text-center">Colombia 🇨🇴</h2>
-<!--  <div *ngIf="isMobile" class="row justify-content-center justify-content-sm-center">
-    <div class="col-12 col-sm-12 map-container">
-      <app-mapa-colombia></app-mapa-colombia>
-    </div>
-  </div>-->
+  <article class="container">
+    <h2 *ngIf="!isMobile" class="title text-center">Colombia 🇨🇴</h2>
+  <!--  <div *ngIf="isMobile" class="row justify-content-center justify-content-sm-center">
+      <div class="col-12 col-sm-12 map-container">
+        <app-mapa-colombia></app-mapa-colombia>
+      </div>
+    </div>-->
 
-  <div *ngIf="isMobile">
-    <div class="row">
-      <div class="col-7 col-sm-7">
-        <div>
-          <app-mapa-colombia></app-mapa-colombia>
-        </div>
-      </div>
-      <div class="col-5 col-sm-5 col-md-5">
-        <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
-      </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-6 col-sm-6">
-        <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value.toFixed(2)}}%</strong>
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar" role="progressbar"
-               [ngStyle]="rates.recovery.style"
-               [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-sm-6">
-        <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
-        <div class="progress" style="height: 20px;">
-          <div class="progress-bar mortality" role="progressbar"
-               [ngStyle]="rates.mortality.style"
-               [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-  <section class="chart-section">
-    <div *ngIf="!isMobile">
-      <div class="row justify-content-md-center">
-        <div class="col-md-4" >
-          <div class="btn-group btn-block">
-            <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
-            <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
-            <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row justify-content-md-center">
-        <div class="col-md-8">
-          <div class="btn-group btn-block">
-            <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
-              Lineal
-            </button>
-            <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
-              Logaritimica
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="!isMobile" class="row">
-      <div class="col-md-8">
-        <div class="map-container">
-          <app-mapa-colombia></app-mapa-colombia>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="col-md-12">
-          <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
-        </div>
-        <div class="col-md-12">
-          <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="isMobile">
-      <div class="row justify-content-md-center">
-        <div class="col-md-4" >
-          <div class="btn-group btn-block">
-            <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
-            <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
-            <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row justify-content-md-center">
-        <div class="col-md-8">
-          <div class="btn-group btn-block">
-            <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
-              Lineal
-            </button>
-            <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
-              Logaritimica
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div *ngIf="isMobile">
       <div class="row">
+        <div class="col-7 col-sm-7">
+          <div>
+            <app-mapa-colombia></app-mapa-colombia>
+          </div>
+        </div>
+        <div class="col-5 col-sm-5 col-md-5">
+          <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
         <div class="col-6 col-sm-6">
-          <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+          <p class="m-0">Tasa de Recuperación:</p> <strong>{{rates.recovery.value.toFixed(2)}}%</strong>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar" role="progressbar"
+                 [ngStyle]="rates.recovery.style"
+                 [attr.aria-valuenow]="rates.recovery.value" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
         </div>
         <div class="col-6 col-sm-6">
-          <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+          <p class="m-0">Tasa de Mortalidad:</p> <strong>{{rates.mortality.value}}%</strong>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar mortality" role="progressbar"
+                 [ngStyle]="rates.mortality.style"
+                 [attr.aria-valuenow]="rates.mortality.value" aria-valuemin="0" aria-valuemax="100">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <app-info-boxes *ngIf="!isMobile" [currentCountry]="currentCountry"></app-info-boxes>
-  </section>
-
-  <hr>
-
-  <app-table-places [placesList]="placesList" [showCities]="false"></app-table-places>
 
 
 
-  <div class="row">
-    <div class="col-md-6">
-      <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
-    </div>
-    <div class="col-md-6">
-      <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" ></app-chart>
-    </div>
-  </div>
-  <section class="chart-section">
-    <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
-  </section>
 
-  <section class="chart-section">
-    <app-chart *ngIf="attentionChart" [chartData]="attentionChart"></app-chart>
 
-    <div class="list-wrapper attention">
-      <p class="text-center view-more" (click)="toggle('attention')">
-        <span><i class="fas fa-table"></i>  {{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
-        <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">
-      </p>
-      <div class="list-container animated"
-          *ngIf="showTable.attention"
-          [class.slideOutUp]="!toggleTable.attention"
-          [class.slideInDown]="toggleTable.attention">
-        <p class="list-item header">
-          <span class="label">Edad</span>
-          <span class="label">Casa <i class="fas fa-house-user"></i></span>
-          <span class="label">Hospital <i class="far fa-hospital"></i></span>
-          <span class="label">Fallecido <i class="fas fa-times"></i></span>
-        </p>
-        <ul class="list default-list">
-          <li class="list-item" *ngFor="let label of countryData.labels; let i = index">
-            <span class="label">{{label}}</span>
-            <span class="name">{{countryData.sortedAttentionData.Casa[i]}}</span>
-            <span class="name">{{countryData.sortedAttentionData.Hospital[i]}}</span>
-            <span class="name">{{countryData.sortedAttentionData.Fallecido[i]}}</span>
-          </li>
-        </ul>
+    <section class="chart-section">
+      <div *ngIf="!isMobile">
+        <div class="row justify-content-md-center">
+          <div class="col-md-4" >
+            <div class="btn-group btn-block">
+              <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
+              <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
+              <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="col-md-8">
+            <div class="btn-group btn-block">
+              <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
+                Lineal
+              </button>
+              <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
+                Logaritimica
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row row justify-content-md-center">
-      <div class="col-12 col-sm-6 ">
-        <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/countries">Más Países 🌎</button>
+      <div *ngIf="!isMobile" class="row">
+        <div class="col-md-8">
+          <div class="map-container">
+            <app-mapa-colombia></app-mapa-colombia>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-12">
+            <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+          </div>
+          <div class="col-md-12">
+            <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div *ngIf="isMobile">
+        <div class="row justify-content-md-center">
+          <div class="col-md-4" >
+            <div class="btn-group btn-block">
+              <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
+              <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
+              <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-md-center">
+          <div class="col-md-8">
+            <div class="btn-group btn-block">
+              <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
+                Lineal
+              </button>
+              <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
+                Logaritimica
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isMobile">
+        <div class="row">
+          <div class="col-6 col-sm-6">
+            <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
+          </div>
+          <div class="col-6 col-sm-6">
+            <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
+          </div>
+        </div>
+      </div>
+      <app-info-boxes *ngIf="!isMobile" [currentCountry]="currentCountry"></app-info-boxes>
+    </section>
+
     <hr>
 
-  </section>
+    <app-table-places [placesList]="placesList" [showCities]="false"></app-table-places>
 
-</article>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <app-chart *ngIf="departmentsChart" [chartData]="departmentsChart"></app-chart>
+      </div>
+      <div class="col-md-6">
+        <app-chart class="dep-chart" *ngIf="citiesChart" [chartData]="citiesChart" ></app-chart>
+      </div>
+    </div>
+    <section class="chart-section">
+      <app-chart *ngIf="ageChart" [chartData]="ageChart"></app-chart>
+    </section>
+
+    <section class="chart-section">
+      <app-chart *ngIf="attentionChart" [chartData]="attentionChart"></app-chart>
+
+      <div class="list-wrapper attention">
+        <p class="text-center view-more" (click)="toggle('attention')">
+          <span><i class="fas fa-table"></i>  {{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
+          <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">
+        </p>
+        <div class="list-container animated"
+            *ngIf="showTable.attention"
+            [class.slideOutUp]="!toggleTable.attention"
+            [class.slideInDown]="toggleTable.attention">
+          <p class="list-item header">
+            <span class="label">Edad</span>
+            <span class="label">Casa <i class="fas fa-house-user"></i></span>
+            <span class="label">Hospital <i class="far fa-hospital"></i></span>
+            <span class="label">Fallecido <i class="fas fa-times"></i></span>
+          </p>
+          <ul class="list default-list">
+            <li class="list-item" *ngFor="let label of countryData.labels; let i = index">
+              <span class="label">{{label}}</span>
+              <span class="name">{{countryData.sortedAttentionData.Casa[i]}}</span>
+              <span class="name">{{countryData.sortedAttentionData.Hospital[i]}}</span>
+              <span class="name">{{countryData.sortedAttentionData.Fallecido[i]}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row row justify-content-md-center">
+        <div class="col-12 col-sm-6 ">
+          <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/countries">Más Países 🌎</button>
+        </div>
+      </div>
+      <hr>
+
+    </section>
+
+  </article>
 
