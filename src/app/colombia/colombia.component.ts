@@ -52,7 +52,7 @@ export class ColombiaComponent implements OnInit {
   weekSelected = 1;
   typeChart: string;
   constructor(private covidApiService: CovidApiService,
-              private sharedService: SharedService,
+              public sharedService: SharedService,
               private colombiaService: ColombiaService,
               private formatChartDataService: FormatChartDataService,
              ) { }

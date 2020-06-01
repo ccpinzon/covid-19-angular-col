@@ -1,4 +1,4 @@
-<section class="dark-theme">
+
 
   <nav class="navbar navbar-dark bg-dark" >
   <span class="toggle-responsive-menu d-lg-none animated"
@@ -40,10 +40,21 @@
     <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <a class="link" routerLink="/informacion"><i class="fas fa-info"></i> Información</a>
     </li>
+    <li>
+      <div class="navbar-list-option custom-control custom-switch">
+        <input type="checkbox"
+               class="custom-control-input"
+               id="customSwitch1" [checked]="this.sharedService.darkModeEnable"
+               (click)="this.sharedService.switchDarkMode()" >
+<!--        <i class="far fa-lightbulb"></i>-->
+        <label class="custom-control-label" for="customSwitch1">
+          <i [ngClass]="this.sharedService.darkModeEnable ? 'far fa-moon' : 'far fa-lightbulb' "></i>
+        </label>
+      </div>
+    </li>
     <!--    <li class="navbar-list-option" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">-->
     <!--      <a class="link" routerLink="/novedades">Novedades</a>-->
     <!--    </li>-->
   </ul>
 </nav>
 
-</section>

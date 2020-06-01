@@ -3,6 +3,7 @@ import {NavigationEnd, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {CovidApiService} from '../../../services/covid-api.service';
 import {NgNavigatorShareService} from 'ng-navigator-share';
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent implements OnInit {
   private ngNavigatorShareService: NgNavigatorShareService;
   constructor(private router: Router,
               private covidApiService: CovidApiService,
+              public sharedService: SharedService,
               ngNavigatorShareService: NgNavigatorShareService) {
     this.ngNavigatorShareService = ngNavigatorShareService;
   }

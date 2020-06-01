@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {SharedService} from "./services/shared.service";
 
 
 @Component({
@@ -13,9 +14,6 @@ export class AppComponent implements OnInit {
   slideOut = true;
   isMobile = false;
 
-  constructor(private router: Router ) {
-  }
-
   ngOnInit(): void {
     this.isMobile = window.innerWidth < 991;
     this.router.events.subscribe(event => {
@@ -25,5 +23,10 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  constructor(private router: Router , private sharedService :SharedService) {
+  }
+
+
 
 }

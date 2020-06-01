@@ -50,9 +50,22 @@
         <div class="row justify-content-md-center">
           <div class="col-md-4" >
             <div class="btn-group btn-block">
-              <button type="button" (click)="selectWeek(1)"  [ngClass]="weekSelected === 1 ? 'active': ''" class="btn btn-sm btn-outline-dark">1 Semana </button>
-              <button type="button" (click)="selectWeek(2)"  [ngClass]="weekSelected === 2 ? 'active': ''" class="btn btn-sm btn-outline-dark">2 Semanas</button>
-              <button type="button" (click)="selectWeek(3)"  [ngClass]="weekSelected === 3 ? 'active': ''" class="btn btn-sm btn-outline-dark">3 Semanas</button>
+              <button type="button" (click)="selectWeek(1)"
+                      [ngClass]="[weekSelected === 1 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
+                      class="btn btn-sm ">
+                1 Semana
+              </button>
+              <button type="button" (click)="selectWeek(2)"
+                      [ngClass]="[weekSelected === 2 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]"
+                      class="btn btn-sm ">
+                2 Semanas
+              </button>
+              <button type="button"
+                      (click)="selectWeek(3)"
+                      [ngClass]="[weekSelected === 3 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
+                      class="btn btn-sm ">
+                3 Semanas
+              </button>
             </div>
           </div>
         </div>

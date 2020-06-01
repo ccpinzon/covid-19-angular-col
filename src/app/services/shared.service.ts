@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
-import {CovidApiService} from './covid-api.service';
+import {ElementRef, Inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {CountryModel} from "../models/country.model";
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-  constructor() { }
+  darkModeEnable = true;
+  private render: Renderer2;
+
+  constructor(@Inject(DOCUMENT) document, rendererFactory: RendererFactory2) {
+    this.render = rendererFactory.createRenderer(null,null);
+  }
 
   getDataInt(value) {
     return parseInt(value || 0, 10);
@@ -45,6 +50,24 @@ export class SharedService {
       degraded.reverse();
     }
     return degraded;
+  }
+
+  switchDarkMode() {
+    this.darkModeEnable = !this.darkModeEnable;
+    console.log('dark mode -> ', this.darkModeEnable);
+    if (this.darkModeEnable){
+      // this.r.addClass(document.body, 'myclass');
+      this.render.addClass(document.body, 'dark-theme');
+    }else {
+      this.render.removeClass(document.body, 'dark-theme');
+    }
+    /*if (this.darkModeEnable) {
+      this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#343a40';
+      this.elementRef.nativeElement.ownerDocument.body.style.color = '#fff';
+    }else {
+      this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#fff';
+      this.elementRef.nativeElement.ownerDocument.body.style.color = '#343a40';
+    }*/
   }
 
   countryToFlag(country: CountryModel) {
