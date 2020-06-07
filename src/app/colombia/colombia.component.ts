@@ -235,7 +235,7 @@ export class ColombiaComponent implements OnInit {
           style: getStyle(mortality)
         }
       };
-      console.log(this.rates);
+      // console.log(this.rates);
     }
 
   }

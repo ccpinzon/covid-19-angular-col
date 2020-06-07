@@ -62,7 +62,7 @@ export class SharedService {
 
   switchDarkMode() {
     this.darkModeEnable = !this.darkModeEnable;
-    console.log('dark mode -> ', this.darkModeEnable);
+    // console.log('dark mode -> ', this.darkModeEnable);
     if (this.darkModeEnable){
       // this.r.addClass(document.body, 'myclass');
       this.render.addClass(document.body, 'dark-theme');
