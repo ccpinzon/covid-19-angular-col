@@ -18,7 +18,7 @@ export class TablePlacesComponent implements OnInit {
   @Input() placesList: PlacesModel [] = [];
   @Input() showCities: boolean;
   isMobile: boolean;
-  constructor(public dialog: MatDialog, private sharedService: SharedService) { }
+  constructor(public dialog: MatDialog, public sharedService: SharedService) { }
 
   ngOnInit() {
     this.isMobile = window.innerWidth < 991;
