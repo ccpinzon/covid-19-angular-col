@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
               private colombiaService: ColombiaService,
               private formatChartData: FormatChartDataService,
               private ipGeolocationService: IpGeolocationService,
-              private shareService: SharedService,
+              public sharedService: SharedService,
               private router: Router) {
   }
   actualCountry: CountryModel;
@@ -50,20 +50,6 @@ export class HomeComponent implements OnInit {
   weekSelected = 3;
   typeChart: string;
 
-/*  closeModal() {
-    document.addEventListener('click', (event: any) => {
-      if (this.isMobile && this.modalOpened) {
-        const modalClass = 'chart-modal';
-        if (event.target.classList.contains('close') ||
-          (!event.target.classList.contains(modalClass) &&
-            !event.target.closest('.' + modalClass))) {
-          // console.log('closing modal!');
-          this.modalOpened = false;
-        }
-      }
-    });
-    this.modalOpened = false;
-  }*/
   chartDataDeaths: any;
 
   getLatinAmericaList() {
@@ -72,7 +58,7 @@ export class HomeComponent implements OnInit {
       this.latinCountries = res;
       this.latinCountries.forEach(countryTemp => {
         try {
-          countryTemp.flag = this.shareService.countryToFlag(countryTemp);
+          countryTemp.flag = this.sharedService.countryToFlag(countryTemp);
         } catch (e) {
           console.log(`ERROR COUNTRY FLAG ${countryTemp.name}` );
         }
@@ -97,7 +83,7 @@ export class HomeComponent implements OnInit {
       this.allCountries = res;
       this.allCountries.forEach(countryTemp => {
         try {
-          countryTemp.flag = this.shareService.countryToFlag(countryTemp);
+          countryTemp.flag = this.sharedService.countryToFlag(countryTemp);
         } catch (e) {
           console.log(`ERROR COUNTRY FLAG ${countryTemp.name}`);
         }

@@ -1,6 +1,6 @@
 
 
-  <nav class="navbar navbar-dark bg-dark" >
+<nav class="navbar navbar-dark bg-dark" >
   <span class="toggle-responsive-menu d-lg-none animated"
         [class.close]="!slideOut"
         (click)="toggleResponsiveMenu()">
@@ -19,8 +19,19 @@
     </div>
   </div>
   <ng-template #shareBtn>
-    <div (click)="share()" class="share-button">
-      <img src="assets/icons/share-icon.svg" alt="Share Button">
+    <div class="share-button">
+      <div class="navbar-list-option custom-control custom-switch">
+        <input type="checkbox"
+               class="custom-control-input"
+               id="customSwitch1" [checked]="this.sharedService.darkModeEnable"
+               (click)="this.switchDarkMode()" >
+        <label class="custom-control-label" for="customSwitch1">
+          <i [ngClass]="this.sharedService.darkModeEnable ? 'far fa-moon' : 'far fa-lightbulb' "></i>
+        </label>
+      </div>
+        <div class="share-icon">
+          <img (click)="share()" src="assets/icons/share-icon.svg" alt="Share Button">
+        </div>
     </div>
   </ng-template>
   <ul class="navbar-list"

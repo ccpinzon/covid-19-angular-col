@@ -1,4 +1,4 @@
-<section class="dark-theme">
+<section [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme' : '' ">
   <div class="row justify-content-md-end">
     <div *ngIf="!isMobile" class="col-md-1">
       <button  mat-button (click)="onNoClick()"><i class="fas fa-times"></i></button>

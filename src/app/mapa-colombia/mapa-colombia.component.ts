@@ -52,6 +52,7 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit, OnChanges {
             type: 'Feature',
             properties: {
               messageHtml:
+                  '<div class="text-dark">\n' +
                   '    <div class="col-md-12">\n' +
                   '        <h6 align="center"> ' + colombianCity.city + '</h6>\n' +
                   '    </div>\n' +
@@ -63,7 +64,8 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit, OnChanges {
                   '    </div>\n' +
                   '    <div class="col-md-12 alert-success">\n' +
                   '        <span><i class="fas fa-heartbeat"></i> <span class="d-sm-inline"> Recuperados: </span> ' + colombianCity.recovered + ' </span>\n' +
-                  '    </div>\n',
+                  '    </div>\n' +
+                  '</div>',
               // message: colombianCity.cases + '\n casos.',
               // iconSize: [20, 20]
               cases: colombianCity.cases,

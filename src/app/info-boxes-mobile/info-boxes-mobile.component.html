@@ -27,7 +27,7 @@
       </p>
     </div>
     <div class="alert-critic box-info" role="alert">
-      <p>
+      <p  [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme-boxes' : '' ">
         <span><i class="fas fa-procedures"></i> <span class="d-sm-inline"> Críticos UCI: </span>{{currentCountry.critic}}</span>
       </p>
     </div>

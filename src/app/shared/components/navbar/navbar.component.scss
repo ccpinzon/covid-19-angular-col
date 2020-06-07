@@ -1,5 +1,8 @@
 
-
+.share-icon {
+  padding-left: 0.5rem;
+  padding-top: 0.4rem;
+}
 .navbar {
   position: fixed;
   width: 100%;
@@ -96,7 +99,8 @@
   }
 
   .navbar-brand {
-    margin-left: 1rem;
+    // margin-left: 1rem;
+    font-size: 1rem;
   }
 
   .navbar-list {

@@ -31,9 +31,9 @@
         </div>
       </ng-template>
     </mgl-markers-for-clusters>
-    <mgl-popup *ngIf="pointSelected" [lngLat]="[popUpLat, popUpLng]" [closeOnClick]="false">
+    <mgl-popup *ngIf="pointSelected" [lngLat]="[popUpLat, popUpLng]"  class="bg-dark text-white" [closeOnClick]="false">
 
-      <div>
+      <div  >
         <span [innerHTML]="pointSelected.messageHtml"></span>
       </div>
     </mgl-popup>

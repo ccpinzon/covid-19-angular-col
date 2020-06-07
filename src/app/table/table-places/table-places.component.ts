@@ -30,14 +30,14 @@ export class TablePlacesComponent implements OnInit {
     if (this.isMobile) {
       configD = {
         width: '99%',
-        height: '75%',
+        height: 'auto',
+        autofocus: true,
         data: {dept} // {dept: 'bogota'}
       };
     } else {
       configD = {
         width: '1000px',
         height: '600px',
-        'background-color': 'red',
         data: {dept} // {dept: 'bogota'}
       };
     }
