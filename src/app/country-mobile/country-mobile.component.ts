@@ -3,6 +3,7 @@ import {CountryModel} from '../models/country.model';
 import { ActivatedRoute } from '@angular/router';
 import {CovidApiService} from '../services/covid-api.service';
 import {FormatChartDataService} from '../services/format-chart-data.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-country-mobile',
@@ -17,7 +18,8 @@ export class CountryMobileComponent implements OnInit {
   chartDataDeaths: any;
   constructor(private router: ActivatedRoute,
               private covidApiService: CovidApiService,
-              private formatChartData: FormatChartDataService
+              private formatChartData: FormatChartDataService,
+              public sharedService: SharedService
   ) { }
 
   ngOnInit() {
