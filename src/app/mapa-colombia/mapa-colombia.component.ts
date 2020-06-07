@@ -1,8 +1,9 @@
-import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core';
 import {DepartmentModel} from '../models/department.model';
 import {CovidApiService} from '../services/covid-api.service';
 import {PlacesModel} from '../models/places.model';
 import {CirclePaint, SymbolLayout, SymbolPaint} from 'mapbox-gl';
+import {SharedService} from "../services/shared.service";
 
 
 @Component({
@@ -10,7 +11,7 @@ import {CirclePaint, SymbolLayout, SymbolPaint} from 'mapbox-gl';
   templateUrl: './mapa-colombia.component.html',
   styleUrls: ['./mapa-colombia.component.scss']
 })
-export class MapaColombiaComponent implements OnInit, AfterViewInit {
+export class MapaColombiaComponent implements OnInit, AfterViewInit, OnChanges {
 
   mainTittle = 'Ubicación de covid-19 en Colombia';
   // departmentData: DepartmentModel[] = [];
@@ -26,9 +27,10 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
   popUpLat: number;
   isMobile: boolean;
   locationCenter: [number, number] = [-74.50, 4];
+  mapStyle ='mapbox://styles/mapbox/dark-v10';
   zoomMap = 2;
 
-  constructor(private covidApiService: CovidApiService) {
+  constructor(private covidApiService: CovidApiService, private sharedService: SharedService) {
   }
 
 
@@ -81,6 +83,14 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.isMobile = window.innerWidth < 991;
+    this.sharedService.componentMethodCalled$.subscribe(() => {
+      console.log("dark? -> ", this.sharedService.darkModeEnable);
+      if (this.sharedService.darkModeEnable){
+        this.mapStyle = 'mapbox://styles/mapbox/dark-v10';
+      }else {
+        this.mapStyle = 'mapbox://styles/mapbox/light-v10';
+      }
+    })
   }
 
 
@@ -117,5 +127,10 @@ export class MapaColombiaComponent implements OnInit, AfterViewInit {
     if (this.pointSelected) {
       this.pointSelected = undefined;
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+
   }
 }

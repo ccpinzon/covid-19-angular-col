@@ -171,7 +171,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
 
-    console.log(JSON.stringify(this.chart.options.scales.xAxes[0].ticks));
+    // console.log(JSON.stringify(this.chart.options.scales.xAxes[0].ticks));
   }
 
   updateData(data) {

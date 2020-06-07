@@ -38,7 +38,8 @@ cdk-virtual-scroll-viewport {
   }
 
   &:hover {
-    background-color: #d3d3d3;
+    background-color: #f8f9fa;
+    color: #343a40;
   }
 }
 
@@ -53,7 +54,7 @@ cdk-virtual-scroll-viewport {
 }
 
 .search {
-  border: 1px solid #454d55;
+  border: 1px solid #d0d0d0;
   border-radius: 0.2rem;
   align-items: center;
   font-size: 1rem;

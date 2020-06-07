@@ -9,18 +9,23 @@
 
   <div class="row">
     <div class="tabs-btn d-lg-none">
-      <h5 class="tab-btn text-center" [class.active]="selectedTab.latam" (click)="selectTab('latam')"><i class="fas fa-globe-americas"></i> America Latina</h5>
-      <h5 class="tab-btn text-center" [class.active]="selectedTab.global" (click)="selectTab('global')"> <i class="fas fa-globe-europe"></i> Global</h5>
+      <h5 class="tab-btn text-center" [class.active]="selectedTab.latam" (click)="selectTab('latam')">
+        <i class="fas fa-globe-americas"></i> America Latina</h5>
+      <h5 class="tab-btn text-center" [class.active]="selectedTab.global" (click)="selectTab('global')">
+        <i class="fas fa-globe-europe"></i> Global</h5>
     </div>
     <div class="tables-wrapper">
-      <div class="table-container shadow-sm p-3 mb-5 bg-white rounded animated flipInY" *ngIf="selectedTab.latam">
+      <div class="table-container shadow-sm p-3 mb-5  rounded animated flipInY" *ngIf="selectedTab.latam">
         <h5 class="text-center d-none d-lg-block"> <i class="fas fa-globe-americas"></i>  América Latina</h5>
-        <app-table [countries]="latinCountries" [percentage]="percentages?.la" (country)="onCountrySelected($event)"></app-table>
+        <app-table [countries]="latinCountries" [percentage]="percentages?.la" (country)="onCountrySelected($event)">
+        </app-table>
       </div>
 
-      <div class="table-container shadow-sm p-3 mb-5 bg-white rounded animated flipInY" *ngIf="!isMobile || (isMobile && selectedTab.global)">
+      <div class="table-container shadow-sm p-3 mb-5  rounded animated flipInY"
+           *ngIf="!isMobile || (isMobile && selectedTab.global)">
         <h5 class="text-center d-none d-lg-block"><i class="fas fa-globe-europe"></i> Global</h5>
-        <app-table [countries]="allCountries" [percentage]="percentages?.global" (country)="onCountrySelected($event)"></app-table>
+        <app-table [countries]="allCountries" [percentage]="percentages?.global" (country)="onCountrySelected($event)">
+        </app-table>
       </div>
     </div>
   </div>
