@@ -1,6 +1,6 @@
 
 <div *ngIf="currentCountry && currentCountry.population > 0">
-  <h5 style="text-align: center">
+  <h5 style="text-align: center" [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme-boxes' : ''">
     <i class="fas fa-users"></i> Población: {{populationFormated}}
   </h5>
 </div>
@@ -36,7 +36,7 @@
   </div>
   <div class="box-info-item">
     <div class="alert alert-critic text-center" role="alert">
-      <h6>
+      <h6 [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme-boxes' : '' ">
         <span><i class="fas fa-procedures"></i> <span class="d-sm-inline"> Críticos UCI: </span>{{currentCountry.critic}}</span>
       </h6>
     </div>

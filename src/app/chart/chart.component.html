@@ -1,21 +1,14 @@
-<section [ngClass]="chartData.name === 'departments' ? 'chart-container-bar' : 'chart-container' "  [class.history]="true" [class.max-height]="maxHeight">
-
+<section
+  [ngClass]="chartData.name === 'departments' ? 'chart-container-bar' : 'chart-container' "
+  [class.history]="true" [class.max-height]="maxHeight">
+<!--  this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]-->
   <div class="row justify-content-md-center">
     <div class="col-md-8">
      <h5 class="country-title" *ngIf="chartData && !chartData.flag">{{chartData.flag}} {{chartData.title}}</h5>
     </div>
   </div>
   <div *ngIf="chartData.flag" class="row justify-content-sm-center">
-<!--    <div class="col-sm-8">-->
-<!--      <div class="btn-group btn-block">-->
-<!--        <button type="button" (click)="enableTypeChart(typeChart)" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'lineal' ? 'active':'' ">-->
-<!--          Lineal-->
-<!--        </button>-->
-<!--        <button type="button" (click)="enableTypeChart(typeChart)" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'log' ? 'active': '' ">-->
-<!--          Logaritimica-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
+
   </div>
   <canvas [id]="'canvas-chart-' + chartData.name" [width]="'100%'" height="400" class="chart-canvas"></canvas>
 

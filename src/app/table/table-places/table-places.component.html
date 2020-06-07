@@ -2,7 +2,10 @@
   <h5 *ngIf="!showCities" class="title text-center">Detalle Casos</h5>
 
   <div  class="scroll-table-in-y">
-    <table class="table table-hover tableFixHead" [ngClass]="isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place'" style="height: 10%">
+    <table class="table table-hover tableFixHead"
+           [ngClass]="[isMobile ? 'table-sm text-table-place-mobile' : 'text-table-place',
+           this.sharedService.darkModeEnable ? 'table-dark' : ''
+           ]" style="height: 10%">
       <thead class="thead-dark list-header" [ngClass]="isMobile ? 'list-header-mobile' : 'list-header' ">
       <tr>
         <th *ngIf="!showCities">
@@ -46,7 +49,9 @@
       </tr>
       </thead>
       <tbody *ngIf="!showCities">
-        <tr (click)="openModal(placesData.dept)"  *ngFor="let placesData of placesList">
+        <tr (click)="openModal(placesData.dept)"
+            [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme' : '' "
+            *ngFor="let placesData of placesList">
           <th scope="row">{{placesData.dept}}</th>
           <td>{{placesData.cases}}</td>
           <td>{{placesData.deaths}}</td>
@@ -65,7 +70,8 @@
         </tr>
       </tbody>
       <tbody *ngIf="showCities" >
-      <tr  *ngFor="let placesData of placesList">
+      <tr  *ngFor="let placesData of placesList"
+           [ngClass]="this.sharedService.darkModeEnable ? 'dark-theme' : '' ">
         <th scope="row">{{placesData.city}}</th>
         <td>{{placesData.cases}}</td>
         <td>{{placesData.deaths}}</td>

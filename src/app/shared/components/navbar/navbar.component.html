@@ -45,7 +45,7 @@
         <input type="checkbox"
                class="custom-control-input"
                id="customSwitch1" [checked]="this.sharedService.darkModeEnable"
-               (click)="this.sharedService.switchDarkMode()" >
+               (click)="this.switchDarkMode()" >
 <!--        <i class="far fa-lightbulb"></i>-->
         <label class="custom-control-label" for="customSwitch1">
           <i [ngClass]="this.sharedService.darkModeEnable ? 'far fa-moon' : 'far fa-lightbulb' "></i>

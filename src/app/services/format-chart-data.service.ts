@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 export class FormatChartDataService {
 
   static getDateLabels(data) {
+    // console.log(data);
     const pipe = new DatePipe('en-US');
     return data.map(item => pipe.transform(item.date, 'dd/MM/yy'));
   }
@@ -67,7 +68,7 @@ export class FormatChartDataService {
         data: {
           datasets: [
             {
-              label: 'Casos totales',
+              label: 'Casos totaless',
               data: history.cases,
               // Changes this dataset to become a line
               borderColor: 'rgba(255, 165, 0, 1)',

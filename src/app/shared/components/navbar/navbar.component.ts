@@ -67,4 +67,8 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  switchDarkMode() {
+    this.sharedService.switchDarkMode();
+    this.sharedService.callComponentMethod();
+  }
 }

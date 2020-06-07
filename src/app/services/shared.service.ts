@@ -1,6 +1,7 @@
 import {ElementRef, Inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {CountryModel} from "../models/country.model";
 import {DOCUMENT} from "@angular/common";
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,13 @@ import {DOCUMENT} from "@angular/common";
 export class SharedService {
 
   darkModeEnable = true;
+
+  // observable
+  private componentMethodCallSource = new Subject<any>();
+
+  componentMethodCalled$ = this.componentMethodCallSource.asObservable();
+
+
   private render: Renderer2;
 
   constructor(@Inject(DOCUMENT) document, rendererFactory: RendererFactory2) {
@@ -58,8 +66,10 @@ export class SharedService {
     if (this.darkModeEnable){
       // this.r.addClass(document.body, 'myclass');
       this.render.addClass(document.body, 'dark-theme');
+      // this.render.addClass(document['mat-dialog-container'], 'dark-theme');
     }else {
-      this.render.removeClass(document.body, 'dark-theme');
+      this.render.removeClass(document['body'], 'dark-theme');
+      // this.render.removeClass(document['mat-dialog-container'], 'dark-theme');
     }
     /*if (this.darkModeEnable) {
       this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#343a40';
@@ -80,6 +90,10 @@ export class SharedService {
       return country.countryCode.toUpperCase().replace(/./g, char => String.
       fromCodePoint(char.charCodeAt(0) + 127397));
     }
+  }
+
+  callComponentMethod() {
+    this.componentMethodCallSource.next();
   }
 
 }

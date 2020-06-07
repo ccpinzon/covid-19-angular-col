@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PlacesModel} from '../../models/places.model';
 import {PlaceModalComponent} from '../../modal/place-modal/place-modal.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {SharedService} from "../../services/shared.service";
 
 interface DialogData {
   email: string;
@@ -17,7 +18,7 @@ export class TablePlacesComponent implements OnInit {
   @Input() placesList: PlacesModel [] = [];
   @Input() showCities: boolean;
   isMobile: boolean;
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.isMobile = window.innerWidth < 991;
@@ -25,7 +26,7 @@ export class TablePlacesComponent implements OnInit {
 
   openModal(dept: string) {
     let configD = {};
-    console.log(this.isMobile);
+    // console.log(this.isMobile);
     if (this.isMobile) {
       configD = {
         width: '99%',
@@ -36,6 +37,7 @@ export class TablePlacesComponent implements OnInit {
       configD = {
         width: '1000px',
         height: '600px',
+        'background-color': 'red',
         data: {dept} // {dept: 'bogota'}
       };
     }

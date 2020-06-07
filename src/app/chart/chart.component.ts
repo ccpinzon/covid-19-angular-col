@@ -8,6 +8,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import Chart from 'chart.js';
+import {SharedService} from "../services/shared.service";
 
 @Component({
   selector: 'app-chart',
@@ -30,12 +31,12 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
         datasets: Array<any>
       }
     },
-    options: {}
+    // options: {}
   };
   chart;
   fullWidth = false;
   typeChartLogEnable: boolean;
-  constructor() {
+  constructor(private sharedService: SharedService) {
     // this.enableTypeChart('lineal');
   }
 
@@ -108,13 +109,12 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  renderChart() {
+  async renderChart() {
     // console.log('rawData:', this.chartData);
     const {name, chartData} = this.chartData;
     this.fullWidth = chartData.type === 'line';
     // console.log('fullWidth', this.fullWidth, chartData.type);
-    const {options} = this.chartData;
-    // console.log(options);
+    // const {options} = this.chartData;
     const ctx: any = document.getElementById(`canvas-chart-${name}`);
     ctx.getContext('2d');
     // options = {
@@ -123,23 +123,55 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
     // };
 
 
+
     let chartOptions = {};
     if (chartData && this.typeChart === 'logarithmic' && this.chartData.flag) {
-      chartOptions = this.getOptions('logarithmic' , chartData);
+      chartOptions = this.getOptions('logarithmic', chartData);
     } else {
       // console.log(chartData.type)
-      chartOptions = this.getOptions(chartData.type , chartData);
+      chartOptions = this.getOptions(chartData.type, chartData);
     }
+
+    /*    // darktheme
+
+        if (chartOptions){
+          const darkoptions = {
+            legend: {
+              labels: {
+                // This more specific font property overrides the global property
+                fontColor: 'black'
+              }
+            }
+          }
+          chartOptions = {...chartOptions, ...darkoptions }
+        }*/
 
     const data = {
       ...chartData,
       options: chartOptions
     };
+
+
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart(ctx, data);
+
     // console.log('rendering>', this.chart);
+
+    this.chart.options.defaultFontColor = '#fffff';
+    if (this.sharedService.darkModeEnable) {
+      this.chart.options.legend.labels.fontColor = 'white';
+      this.chart.options.scales.xAxes[0].ticks.fontColor = 'white';
+      this.chart.options.scales.yAxes[0].ticks.fontColor = 'white';
+    }else {
+      this.chart.options.legend.labels.fontColor = 'black';
+      this.chart.options.scales.xAxes[0].ticks.fontColor = 'black';
+      this.chart.options.scales.yAxes[0].ticks.fontColor = 'black';
+    }
+
+
+    console.log(JSON.stringify(this.chart.options.scales.xAxes[0].ticks));
   }
 
   updateData(data) {
@@ -154,6 +186,10 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     // console.log(this.chartData);
+    this.sharedService.componentMethodCalled$.subscribe(() => {
+      // console.log("llamado desde el nav, dark? => ", this.sharedService.darkModeEnable);
+      this.renderAll().then();
+    })
     const renderMobile = () => {
       try {
         if (document.querySelectorAll('.chart-canvas')[0].classList) {
@@ -176,7 +212,7 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('updatedChartData:', JSON.stringify(changes));changes
+    // console.log('updatedChartData:', JSON.stringify(changes));
     if (changes && changes.typeChart && !changes.firstChange) {
       this.enableTypeChart(this.typeChart);
     }
@@ -192,5 +228,14 @@ export class ChartComponent implements OnInit, OnChanges, AfterViewInit {
       this.renderChart();
     }
     // this.typeChartLogEnable = typeChart === 'logarithmic' ;
+  }
+
+  private async renderAll() {
+    try {
+      await this.renderChart();
+    }catch (e) {
+      console.error(e);
+    }
+
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit, Inject, Input} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {CovidApiService} from '../../services/covid-api.service';
 import {PlacesModel} from '../../models/places.model';
+import {SharedService} from "../../services/shared.service";
 
 interface DialogData {
   email: string;
@@ -20,7 +21,10 @@ export class PlaceModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PlaceModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private covidApiService: CovidApiService) { }
+              private covidApiService: CovidApiService,
+              private sharedService: SharedService) {
+
+  }
 
   ngOnInit() {
     this.isMobile = window.innerWidth < 991;

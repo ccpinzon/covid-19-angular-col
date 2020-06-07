@@ -11,7 +11,7 @@ import { SharedService } from '../services/shared.service';
 export class InfoBoxesComponent implements OnInit, OnChanges {
   @Input() currentCountry: CountryModel;
 
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, public sharedService: SharedService) { }
   newCases = 0;
   newDeaths = 0;
   casesPerMillionPeople = 0;

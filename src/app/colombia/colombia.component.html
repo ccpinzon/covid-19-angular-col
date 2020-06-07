@@ -51,18 +51,21 @@
           <div class="col-md-4" >
             <div class="btn-group btn-block">
               <button type="button" (click)="selectWeek(1)"
-                      [ngClass]="[weekSelected === 1 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
+                      [ngClass]="[weekSelected === 1 ? 'active': '',
+                       this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
                       class="btn btn-sm ">
                 1 Semana
               </button>
               <button type="button" (click)="selectWeek(2)"
-                      [ngClass]="[weekSelected === 2 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]"
+                      [ngClass]="[weekSelected === 2 ? 'active': '',
+                       this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]"
                       class="btn btn-sm ">
                 2 Semanas
               </button>
               <button type="button"
                       (click)="selectWeek(3)"
-                      [ngClass]="[weekSelected === 3 ? 'active': '', this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
+                      [ngClass]="[weekSelected === 3 ? 'active': '',
+                       this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark']"
                       class="btn btn-sm ">
                 3 Semanas
               </button>
@@ -73,10 +76,16 @@
         <div class="row justify-content-md-center">
           <div class="col-md-8">
             <div class="btn-group btn-block">
-              <button type="button" (click)="enableTypeChart('lineal')" class="btn btn-sm btn-outline-dark"  [ngClass]="this.typeChart !== 'logarithmic' ? 'active':'' ">
+              <button type="button" (click)="enableTypeChart('lineal')"
+                      class="btn btn-sm"
+                      [ngClass]="[ this.typeChart !== 'logarithmic' ? 'active':'',
+                        this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]">
                 Lineal
               </button>
-              <button type="button" (click)="enableTypeChart('logarithmic')" class="btn btn-sm btn-outline-dark" [ngClass]="this.typeChart === 'logarithmic' ? 'active': '' ">
+              <button type="button" (click)="enableTypeChart('logarithmic')"
+                      class="btn btn-sm"
+                      [ngClass]="[this.typeChart === 'logarithmic' ? 'active': '',
+                       this.sharedService.darkModeEnable ? 'btn-outline-light' : 'btn-outline-dark' ]">
                 Logaritimica
               </button>
             </div>
@@ -161,7 +170,9 @@
       <div class="list-wrapper attention">
         <p class="text-center view-more" (click)="toggle('attention')">
           <span><i class="fas fa-table"></i>  {{!toggleTable.attention ? 'Ver' : 'Ocultar'}} Tabla</span>
-          <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">
+<!--          <img [src]="'assets/icons/chevron-' + (!toggleTable.attention ? 'down' : 'up') + '.svg'" alt="Arrow">-->
+          <i *ngIf="!toggleTable.attention" class="fas fa-chevron-down"></i>
+          <i *ngIf="toggleTable.attention" class="fas fa-chevron-up"></i>
         </p>
         <div class="list-container animated"
             *ngIf="showTable.attention"

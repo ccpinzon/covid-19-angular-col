@@ -1,16 +1,19 @@
-<div class="row justify-content-md-end">
-  <div *ngIf="!isMobile" class="col-md-1">
-    <button  mat-button (click)="onNoClick()"><i class="fas fa-times"></i></button>
+<section class="dark-theme">
+  <div class="row justify-content-md-end">
+    <div *ngIf="!isMobile" class="col-md-1">
+      <button  mat-button (click)="onNoClick()"><i class="fas fa-times"></i></button>
+    </div>
   </div>
-</div>
 
-<h5 class="title text-center"> {{data.dept}}</h5>
+  <h5 class="title text-center"> {{data.dept}}</h5>
 
-<app-table-places [placesList]="placeModelList" [showCities]="true"></app-table-places>
-<div *ngIf="isMobile" class="row justify-content-center">
-  <div class="col-12 col-sm-6">
-    <button mat-button type="button" (click)="onNoClick()" class="btn btn-dark btn-md btn-block top-margin-more-button" >
-      Volver
-    </button>
+  <app-table-places [placesList]="placeModelList" [showCities]="true"></app-table-places>
+  <div *ngIf="isMobile" class="row justify-content-center">
+    <div class="col-12 col-sm-6">
+      <button mat-button type="button" (click)="onNoClick()" class="btn btn-dark btn-md btn-block top-margin-more-button" >
+        Volver
+      </button>
+    </div>
   </div>
-</div>
+</section>
+
