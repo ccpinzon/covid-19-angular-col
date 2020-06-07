@@ -64,7 +64,7 @@
       </div>
 
     <div class="col-12 col-sm-6 ">
-      <button type="button" class="btn btn-dark btn-lg btn-block top-margin-more-button" routerLink="/countries">Más Países 🌎</button>
+      <button type="button" [ngClass]="this.sharedService.darkModeEnable ? 'btn-secondary' : 'btn-dark'"  class="btn btn-lg btn-block top-margin-more-button" routerLink="/countries">Más Países 🌎</button>
     </div>
 </div>
 
