@@ -15,6 +15,7 @@
           </div>
         </div>
         <div class="col-5 col-sm-5 col-md-5">
+          <mat-spinner *ngIf="!this.colombiaChart"></mat-spinner>
           <app-info-boxes-mobile [currentCountry]="currentCountry" ></app-info-boxes-mobile>
         </div>
       </div>
@@ -40,8 +41,6 @@
         </div>
       </div>
     </div>
-
-
 
 
 
@@ -100,7 +99,9 @@
           </div>
         </div>
         <div class="col-md-4">
+
           <div class="col-md-12">
+            <mat-spinner *ngIf="!this.colombiaChart"></mat-spinner>
             <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
           </div>
           <div class="col-md-12">
@@ -160,13 +161,16 @@
       <div *ngIf="isMobile">
         <div class="row">
           <div class="col-6 col-sm-6">
+            <mat-spinner *ngIf="!this.colombiaChartDeaths"></mat-spinner>
             <app-chart [typeChart]="typeChart" [chartData]="colombiaChart" *ngIf="colombiaChart"></app-chart>
           </div>
           <div class="col-6 col-sm-6">
+            <mat-spinner *ngIf="!this.colombiaChartDeaths"></mat-spinner>
             <app-chart [typeChart]="typeChart"   [chartData]="colombiaChartDeaths" *ngIf="colombiaChartDeaths"></app-chart>
           </div>
         </div>
       </div>
+      <mat-spinner *ngIf="!this.currentCountry"></mat-spinner>
       <app-info-boxes *ngIf="!isMobile" [currentCountry]="currentCountry"></app-info-boxes>
     </section>
 
