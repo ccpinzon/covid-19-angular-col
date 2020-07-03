@@ -7,6 +7,7 @@ import {ColombiaService} from '../services/colombia.service';
 import {CityCasesModel} from '../models/city-cases.model';
 import {PlacesModel} from '../models/places.model';
 import {PlaceModalComponent} from '../modal/place-modal/place-modal.component';
+import {AutocompletePlaceModel} from "../models/autocomplete-place-model";
 // import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 //
 // interface DialogData {
@@ -47,6 +48,10 @@ export class ColombiaComponent implements OnInit {
     mortality: {value: 0, style: {}},
     recovery:  {value: 0, style: {}}
   };
+
+  modelPlaceOrigin: string;
+  hasPlacesOrigin: boolean;
+  autocompleteList: AutocompletePlaceModel[] = [];
 
 
   weekSelected = 1;
@@ -251,4 +256,13 @@ export class ColombiaComponent implements OnInit {
 
       // this.typeChart = 'lineal';
     }
+
+  getCitiesOrigin(value: string) {
+    console.log(value);
+  }
+
+
+  setCoordinatesToOrigin(placeAux: AutocompletePlaceModel) {
+    console.log(placeAux.name);
+  }
 }

@@ -96,6 +96,21 @@
       <div *ngIf="!isMobile" class="row">
         <div class="col-md-8">
           <div class="map-container">
+            <input type="text"
+                   #inputElementSearchCityOrigin
+                   class="form-control"
+                   placeholder="Search City"
+                   [(ngModel)]="modelPlaceOrigin"
+                   (keyup)="getCitiesOrigin(inputElementSearchCityOrigin.value)">
+
+            <div class="list-group" *ngIf="hasPlacesOrigin">
+              <button type="button"
+                      class="list-group-item list-group-item-action"
+                      *ngFor="let placeAux of autocompleteList"
+                      (click)="setCoordinatesToOrigin(placeAux)">
+                {{placeAux.name}}
+              </button>
+            </div>
             <app-mapa-colombia></app-mapa-colombia>
           </div>
         </div>
