@@ -245,7 +245,7 @@ export class ColombiaComponent implements OnInit {
       this.initComponents();
       await this.getCountryByName('colombia');
       this.getCities();
-      this.getColombia();
+      // this.getColombia();
       this.getDepartments();
       this.getPlacesListData();
 
