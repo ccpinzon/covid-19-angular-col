@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   accessToken: 'pk.eyJ1IjoiZGd1dGkwOSIsImEiOiJjazF2ZXM3dDEwM2hkM2RvNDJ3ZjI4dTczIn0._cnc3MhGTEkYI9ty2Vl_Tg',
-  urlApi: 'https://c19col.xyz/'
+  urlApi: 'http://165.22.182.3:3000/'
   // urlApi: 'https://us-central1-covid-19-col.cloudfunctions.net/api/'
 };
 
